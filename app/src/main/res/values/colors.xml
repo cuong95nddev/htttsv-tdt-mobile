@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#C7C7C7</color>
+    <color name="colorPrimaryLight">#C7C7C7</color>
+    <color name="colorAccent">#197FFB</color>
+    <color name="colorAccentDark">#197FFB</color>
+    <color name="colorPrimaryText">#000000</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorText">#000000</color>
+
+    <color name="materialRipple">#C7C7C7</color>
+
+    <color name="colorBackground">#F4F5F7</color>
+
+    <!--Day picker-->
+    <color name="mdtp_accent_color">#303F9F</color>
+    <color name="mdtp_accent_color_dark">#303F9F</color>
+
+    <!-- tab -->
+    <color name="tab_title_color">#000000</color>
+    <color name="tab_indicator_color">@color/colorAccent</color>
+
+    <!--Thông b-->
+    <color name="tab_text_color">#FFFFFF</color>
+    <color name="title_color">#464646</color>
+    <color name="new_title_color">#ffffff</color>
+    <color name="date_color">#C8C8C8</color>
+    <color name="new_date_color">#ffffff</color>
+
+    <!--Điểm số dánh giá-->
+
+    <color name="fab_menu_color_normal">@color/colorPrimary</color>
+    <color name="fab_menu_color_pressed">@color/colorPrimaryDark</color>
+    <color name="fab_menu_plus_icon">#ffffff</color>
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+</resources>

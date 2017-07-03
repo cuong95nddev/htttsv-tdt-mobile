@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.tdt.appstudent2">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".actitities.dangnhap.DangnhapActivity" />
+        <activity android:name=".actitities.trangchu.TrangchuActivity" />
+        <activity android:name=".actitities.thongbao.ThongbaoActivity" />
+        <activity android:name=".actitities.thongbao.ThongbaoWebviewActivity" />
+        <activity android:name=".actitities.hocphi.HocphiActivity" />
+        <activity android:name=".actitities.diem.DiemActivity" />
+        <activity android:name=".actitities.tkb.TkbActivity" />
+        <activity android:name=".actitities.email.EmailActivity" />
+        <activity android:name=".actitities.email.EmailViewActivity" />
+        <activity android:name=".actitities.hdpt.HdptActivity" />
+        <activity android:name=".actitities.email.EmailWebActivity" />
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/FinestWebViewTheme.Light" />
+        <activity android:name=".actitities.lichthi.LichThiActivity"></activity>
+    </application>
+
+</manifest>

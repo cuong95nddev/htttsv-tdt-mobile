@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <edu.tdt.appstudent2.views.widget.MaterialSquareLoading
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/material_square_loading_view"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:innerColor="@color/white"
+            app:outerColor="@color/colorAccent"
+            app:rotationOuterDuration="9850"
+            app:rotationInnerDuration="6423"
+            app:innerRadius="8dp"
+            app:outerRadius="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</FrameLayout>

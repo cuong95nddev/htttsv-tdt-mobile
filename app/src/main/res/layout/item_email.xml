@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mrl_rippleColor="@color/materialRipple"
+        android:id="@+id/layout">
+        <LinearLayout
+            android:padding="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_marginRight="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dot_default"/>
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:padding="8dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/personal_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:maxLines="1"
+                            android:text="Luu kim chung"/>
+                        <TextView
+                            android:id="@+id/from_text"
+                            android:paddingBottom="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:maxLines="1"
+                            android:text="cpphung@it.tdt.edu.vn"/>
+                        <TextView
+                            android:id="@+id/subject_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="Mời SV lên nhận thư khen loại giỏi HK1/2015-2016"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/date_text"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:textSize="10dp"
+                        android:text="Th7 13, 17:02"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+    <include layout="@layout/line_space"/>
+</LinearLayout>

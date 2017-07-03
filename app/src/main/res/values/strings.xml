@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">University</string>
+
+    <!-- Dang nhap -->
+    <string name="mess_error_user">Không được để trống</string>
+    <string name="mess_error_password">Không được để trống</string>
+    <string name="mess_error_login">Đăng nhập thất bại\nVui lòng kiểm tra lại tài khoản và mật khẩu.</string>
+
+    <string name="dangnhap_title">Đăng nhập</string>
+    <string name="dangnhap_edt_user">Tài khoản</string>
+    <string name="dangnhap_edt_pass">Mật khẩu</string>
+
+
+    <!--Thông báo-->
+    <string name="mess_thongbao_error_network">Không thể tải thêm thông báo\nVui lòng kết nối mạng và thử lại</string>
+    <string name="mess_thongbao_error_pagetotal">Thông báo đã hết</string>
+    <string name="mess_thongbao_webview_error_network">Không thể tải thông báo\nVui lòng kết nối mạng và thử lại</string>
+    <string name="mess_thongbao_webview_cache">Thông báo đang hiển thị ở chế độ ngoại mạng\nKéo xuống để cập nhập mới</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <!--Học phí-->
+    <string name="mess_hocphi_khongco">Không có dữ liệu học phí</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--TKB-->
+    <string name="mess_tkb_hocky_macdinh_set">Đã thiết lập học kỳ mặc định</string>
+    <string name="mess_tkb_ngay_error_macdinh">Vui lòng thiết lập học kỳ mặc định trong thời khóa biểu.</string>
+
+    <!--Trang chu-->
+    <string name="mess_logout_tile">Đăng xuất</string>
+    <string name="mess_logout_info">Nếu bạn đăng xuất TẤT CẢ dữ liệu của bạn sẽ bị mất.\nBạn vẫn muốn thực hiện ?</string>
+    <string name="bottom_sheet_title_hocky">Danh sách học kỳ</string>
+</resources>

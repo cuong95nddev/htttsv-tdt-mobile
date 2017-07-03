@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="ratioHeight" format="float" />
+    <attr name="ratioWidth" format="float" />
+    <declare-styleable name="ImageViewFit">
+        <attr name="ratioHeight"/>
+        <attr name="ratioWidth" />
+    </declare-styleable>
+    <declare-styleable name="FrameLayoutRatio">
+        <attr name="ratioHeight"/>
+        <attr name="ratioWidth"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundedLetterView">
+        <attr name="rlv_titleText" format="string" />
+        <attr name="rlv_titleSize" format="dimension" />
+        <attr name="rlv_titleColor" format="color" />
+        <attr name="rlv_backgroundColorValue" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialSquareLoading">
+        <attr name="innerColor" format="color" />
+        <attr name="outerColor" format="color" />
+        <attr name="rotationInnerDuration" format="integer" />
+        <attr name="rotationOuterDuration" format="integer" />
+        <attr name="outerRadius" format="dimension" />
+        <attr name="innerRadius" format="dimension" />
+    </declare-styleable>
+</resources>
