@@ -288,7 +288,7 @@ public class TkbActivity extends AppCompatActivity{
         TkbNgayFragment tkbNgayFragment = new TkbNgayFragment();
         tkbNgayFragment.setArguments(bundle);
         fragmentArrayList.add(tkbNgayFragment);
-        fragmentAdapter.addTitle("Hôm nay");
+        fragmentAdapter.addTitle("Ngày");
 
         bundle = new Bundle();
         bundle.putString(Tag.idHocKy, idHocKy);
