@@ -10,6 +10,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:id="@+id/tvDay"
         android:textSize="16dp"
         android:textStyle="bold"
