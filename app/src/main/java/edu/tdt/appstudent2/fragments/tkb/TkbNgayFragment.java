@@ -178,11 +178,12 @@ public class TkbNgayFragment extends Fragment implements View.OnClickListener ,
         }
 
         String[] ngayBatDau = tkbItem.getDateStart().split("[/]");
+
         calendarStart = Calendar.getInstance();
         calendarStart.clear();
-        calendarStart.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ngayBatDau[0]));
-        calendarStart.set(Calendar.MONTH, Integer.parseInt(ngayBatDau[1]) - 1);
-        calendarStart.set(Calendar.YEAR, Integer.parseInt(ngayBatDau[2]));
+        calendarStart.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ngayBatDau[0].trim()));
+        calendarStart.set(Calendar.MONTH, Integer.parseInt(ngayBatDau[1].trim()) - 1);
+        calendarStart.set(Calendar.YEAR, Integer.parseInt(ngayBatDau[2].trim()));
 
         getTkb();
     }
