@@ -4,7 +4,7 @@ package edu.tdt.appstudent2.api;
  * Created by Bichan on 7/14/2016.
  */
 public class Api {
-    public static final String host = "http://apistudent.azurewebsites.net/v2.php";
+    public static final String host = "http://api.itex.cf/v2.php";
     //Link api lay avatar
     public static String apiAvatar(String user, String pass){
         return host
