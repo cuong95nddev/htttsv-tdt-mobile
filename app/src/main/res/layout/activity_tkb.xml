@@ -12,7 +12,8 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -72,20 +73,20 @@
                 app:pstsIndicatorColor="@color/tab_indicator_color"/>
         </android.support.design.widget.AppBarLayout>
         <com.kennyc.view.MultiStateView
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/multiStateView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:msv_errorView="@layout/state_error"
-            app:msv_emptyView="@layout/state_empty"
-            app:msv_loadingView="@layout/state_loading"
-            app:msv_viewState="content">
-            <android.support.v4.view.ViewPager
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:id="@+id/viewpaper"
+                android:id="@+id/multiStateView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v4.view.ViewPager>
-        </com.kennyc.view.MultiStateView>
+                android:layout_height="match_parent"
+                app:msv_errorView="@layout/state_error"
+                app:msv_emptyView="@layout/state_empty"
+                app:msv_loadingView="@layout/state_loading"
+                app:msv_viewState="content">
+                <android.support.v4.view.ViewPager
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/viewpaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </android.support.v4.view.ViewPager>
+            </com.kennyc.view.MultiStateView>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

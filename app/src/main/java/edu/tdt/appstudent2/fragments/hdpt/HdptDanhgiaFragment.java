@@ -1,5 +1,6 @@
 package edu.tdt.appstudent2.fragments.hdpt;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import edu.tdt.appstudent2.R;
+import edu.tdt.appstudent2.actitities.OnChildSwipeRefreshListener;
 import edu.tdt.appstudent2.adapters.hdpt.HdptDanhgiaAdapter;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.diem.Diem;
@@ -31,7 +33,6 @@ public class HdptDanhgiaFragment extends Fragment {
     private HdptDanhgiaAdapter adapter;
     private StaggeredGridLayoutManager manager;
     private ArrayList<Object> list;
-    private SwipeRefreshLayout swipeContainer;
 
     private String idHocKy;
 
@@ -41,6 +42,9 @@ public class HdptDanhgiaFragment extends Fragment {
     private HdptItem hdptItem;
 
     private Diem diem;
+
+    private SwipeRefreshLayout swipeContainer;
+    private OnChildSwipeRefreshListener onChildSwipeRefreshListener;
 
     private void khoiTao(){
         list = new ArrayList<Object>();
@@ -64,7 +68,27 @@ public class HdptDanhgiaFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         swipeContainer = (SwipeRefreshLayout) inflatedView.findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(R.color.colorAccent);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(onChildSwipeRefreshListener != null){
+                    onChildSwipeRefreshListener.onChildSwipeRefreshListener();
+                }
+                swipeContainer.setRefreshing(false);
+            }
+        });
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnChildSwipeRefreshListener){
+            onChildSwipeRefreshListener = (OnChildSwipeRefreshListener)context;
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -47,11 +47,11 @@ public class TkbNgayRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         monhocViewHolder.nhom.setText(tkbMonhocShowItem.getNhom());
         monhocViewHolder.to.setText(tkbMonhocShowItem.getTo());
         monhocViewHolder.phong.setText(tkbMonhocShowItem.getPhong());
-        if(position + 1 == lists.size()){
+        /*if(position + 1 == lists.size()){
             monhocViewHolder.line.setVisibility(View.GONE);
         }else {
-            monhocViewHolder.line.setVisibility(View.VISIBLE);
-        }
+            monhocViewHolder.line.setVisibility(View.GONE);
+        }*/
 
         int color = generator.getColor(tkbMonhocShowItem.getPos());
         GradientDrawable backgroundGradient = (GradientDrawable)monhocViewHolder.pos.getBackground();

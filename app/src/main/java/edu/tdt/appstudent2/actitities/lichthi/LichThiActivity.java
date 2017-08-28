@@ -33,6 +33,7 @@ import java.util.Comparator;
 import de.mrapp.android.bottomsheet.BottomSheet;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
+import edu.tdt.appstudent2.actitities.OnChildSwipeRefreshListener;
 import edu.tdt.appstudent2.adapters.thongbao.FragmentAdapter;
 import edu.tdt.appstudent2.api.Api;
 import edu.tdt.appstudent2.fragments.lichthi.LichThiFragment;
@@ -45,7 +46,7 @@ import edu.tdt.appstudent2.utils.Tag;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class LichThiActivity extends AppCompatActivity {
+public class LichThiActivity extends AppCompatActivity implements OnChildSwipeRefreshListener {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private PagerSlidingTabStrip tabs;
@@ -184,6 +185,11 @@ public class LichThiActivity extends AppCompatActivity {
                 new GetLichThi().execute("");
             }
         });
+    }
+
+    @Override
+    public void onChildSwipeRefreshListener() {
+        getLichThi();
     }
 
     public class GetLichThi extends AsyncTask<String , Integer, String> {

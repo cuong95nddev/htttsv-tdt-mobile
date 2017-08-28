@@ -1,7 +1,9 @@
 package edu.tdt.appstudent2.fragments.tkb;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import edu.tdt.appstudent2.R;
+import edu.tdt.appstudent2.actitities.OnChildSwipeRefreshListener;
 import edu.tdt.appstudent2.adapters.tkb.TkbNgayRecyclerViewAdapter;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.tkb.TkbItem;
@@ -58,6 +61,9 @@ public class TkbNgayFragment extends Fragment implements View.OnClickListener ,
 
     private MultiStateView mMultiStateView;
 
+    private SwipeRefreshLayout swipeContainer;
+    private OnChildSwipeRefreshListener onChildSwipeRefreshListener;
+
     private void khoiTao(){
         Bundle bundle = this.getArguments();
         if(bundle != null) {
@@ -89,12 +95,32 @@ public class TkbNgayFragment extends Fragment implements View.OnClickListener ,
         tvDaySelected = (TextView) inflatedView.findViewById(R.id.tvDaySelected);
         tvDaySelected.setOnClickListener(this);
 
+        swipeContainer = (SwipeRefreshLayout) inflatedView.findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(R.color.colorAccent);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(onChildSwipeRefreshListener != null){
+                    onChildSwipeRefreshListener.onChildSwipeRefreshListener();
+                }
+                swipeContainer.setRefreshing(false);
+            }
+        });
 
     }
     public TkbNgayFragment() {
         // Required empty public constructor
     }
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnChildSwipeRefreshListener){
+            onChildSwipeRefreshListener = (OnChildSwipeRefreshListener)context;
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,7 +156,15 @@ public class TkbNgayFragment extends Fragment implements View.OnClickListener ,
             case R.id.tvDateSelected:
                 chonNgay();
                 break;
+            case R.id.tvDaySelected:
+                toNow();
+                break;
         }
+    }
+
+    private void toNow() {
+        calendarToDay = Calendar.getInstance();
+        getTkb();
     }
 
     private void chonNgay(){

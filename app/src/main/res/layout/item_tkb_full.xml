@@ -51,6 +51,7 @@
                 android:text="5"
                 android:textStyle="bold" />
             <TextView
+                android:visibility="gone"
                 android:id="@+id/line_text"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
@@ -79,8 +80,7 @@
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="4dp"
-                        android:padding="8dp">
+                        android:paddingBottom="4dp">
                         <TextView
                             android:padding="8dp"
                             android:id="@+id/tenMH_text"
@@ -101,6 +101,7 @@
                         app:ael_expanded="false">
                         <LinearLayout
                             android:layout_marginLeft="8dp"
+                            android:layout_marginBottom="8dp"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">

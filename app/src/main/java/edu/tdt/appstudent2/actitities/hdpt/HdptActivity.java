@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import de.mrapp.android.bottomsheet.BottomSheet;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
+import edu.tdt.appstudent2.actitities.OnChildSwipeRefreshListener;
 import edu.tdt.appstudent2.adapters.thongbao.FragmentAdapter;
 import edu.tdt.appstudent2.api.Api;
 import edu.tdt.appstudent2.fragments.hdpt.HdptDanhgiaFragment;
@@ -45,7 +46,7 @@ import edu.tdt.appstudent2.models.hdpt.HdptTagDanhgiaItem;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class HdptActivity extends AppCompatActivity{
+public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefreshListener {
 
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -189,6 +190,11 @@ public class HdptActivity extends AppCompatActivity{
         });
     }
 
+    @Override
+    public void onChildSwipeRefreshListener() {
+        getHdpt();
+    }
+
     public class getHdpt extends AsyncTask<Void , Integer, String> {
 
         @Override
@@ -297,14 +303,14 @@ public class HdptActivity extends AppCompatActivity{
         bundle.putString(HdptHoatdongFragment.EXTRA_IDHOCKY, idHocKy);
         hdptHoatdongFragment.setArguments(bundle);
         fragmentArrayList.add(hdptHoatdongFragment);
-        fragmentAdapter.addTitle("Hoạt động phong trào");
+        fragmentAdapter.addTitle("Hoạt động");
 
         HdptDanhgiaFragment hdptDanhgiaFragment = new HdptDanhgiaFragment();
         bundle = new Bundle();
         bundle.putString(HdptDanhgiaFragment.EXTRA_IDHOCKY, idHocKy);
         hdptDanhgiaFragment.setArguments(bundle);
         fragmentArrayList.add(hdptDanhgiaFragment);
-        fragmentAdapter.addTitle("Kết quả đánh giá rèn luyện");
+        fragmentAdapter.addTitle("Đánh giá");
 
         fragmentAdapter.notifyDataSetChanged();
 

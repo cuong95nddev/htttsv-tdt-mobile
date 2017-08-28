@@ -1,7 +1,9 @@
 package edu.tdt.appstudent2.fragments.lichthi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.tdt.appstudent2.R;
+import edu.tdt.appstudent2.actitities.OnChildSwipeRefreshListener;
 import edu.tdt.appstudent2.adapters.lichthi.LichThiRecyclerViewAdapter;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.lichthi.LichThiDateShowItem;
@@ -45,6 +48,9 @@ public class LichThiFragment extends Fragment {
 
     private Calendar calendar;
 
+    private SwipeRefreshLayout swipeContainer;
+    private OnChildSwipeRefreshListener onChildSwipeRefreshListener;
+
     public LichThiFragment() {
 
     }
@@ -57,8 +63,28 @@ public class LichThiFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
+        swipeContainer = (SwipeRefreshLayout) inflatedView.findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(R.color.colorAccent);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if(onChildSwipeRefreshListener != null){
+                    onChildSwipeRefreshListener.onChildSwipeRefreshListener();
+                }
+                swipeContainer.setRefreshing(false);
+            }
+        });
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnChildSwipeRefreshListener){
+            onChildSwipeRefreshListener = (OnChildSwipeRefreshListener)context;
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

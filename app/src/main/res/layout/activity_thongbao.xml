@@ -12,7 +12,8 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -34,22 +35,15 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/selector_light_theme"
                     android:src="@drawable/ic_navigate_before_black_24dp"/>
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="THÔNG BÁO"
-                    android:textStyle="bold"
-                    android:textSize="18dp"/>
+                <com.astuetz.PagerSlidingTabStrip
+                    android:id="@+id/tabs"
+                    app:pstsTabTextColor="@color/default_tab_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="0dp"
+                    app:pstsIndicatorColor="@color/tab_indicator_color"/>
             </android.support.v7.widget.Toolbar>
-            <com.astuetz.PagerSlidingTabStrip
-                android:id="@+id/tabs"
-                app:pstsTabTextColor="@color/default_tab_text"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:elevation="0dp"
-                app:pstsIndicatorColor="@color/tab_indicator_color"/>
         </android.support.design.widget.AppBarLayout>
         <com.kennyc.view.MultiStateView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"

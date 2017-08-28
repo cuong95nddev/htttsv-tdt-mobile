@@ -461,6 +461,7 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     private void getEmailWeb(){
+        swipeContainer.setRefreshing(true);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -496,6 +497,7 @@ public class EmailActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            swipeContainer.setRefreshing(false);
             if(s != null){
                 new FinestWebView.Builder(EmailActivity.this).show(s);
             }else{

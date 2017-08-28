@@ -5,8 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="edu.tdt.appstudent2.fragments.tkb.TkbTonghopFragment">
-
-    <FrameLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
@@ -14,4 +18,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

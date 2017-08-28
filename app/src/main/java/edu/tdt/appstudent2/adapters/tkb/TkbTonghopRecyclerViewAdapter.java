@@ -75,13 +75,13 @@ public class TkbTonghopRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
                 monhocViewHolder.phong.setText(tkbMonhocShowItem.getPhong());
                 monhocViewHolder.tuan.setText(tkbMonhocShowItem.getTuan());
 
-                if(position + 1 < lists.size()){
+                /*if(position + 1 < lists.size()){
                     if(lists.get(position + 1) instanceof TkbThuShowItem){
                         monhocViewHolder.line.setVisibility(View.GONE);
                     }else {
-                        monhocViewHolder.line.setVisibility(View.VISIBLE);
+                        monhocViewHolder.line.setVisibility(View.GONE);
                     }
-                }
+                }*/
 
                 monhocViewHolder.layout.setOnClickListener(new View.OnClickListener() {
                     @Override
