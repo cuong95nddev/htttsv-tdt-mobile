@@ -1,8 +1,6 @@
 package edu.tdt.appstudent2.actitities.email;
 
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -52,6 +50,7 @@ import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.email.EmailItem;
 import edu.tdt.appstudent2.models.email.EmailPageSave;
 import edu.tdt.appstudent2.utils.Tag;
+import edu.tdt.appstudent2.utils.Util;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
@@ -115,7 +114,7 @@ public class EmailActivity extends AppCompatActivity {
         endless.setLoadMoreListener(new Endless.LoadMoreListener() {
             @Override
             public void onLoadMore(int page) {
-                if(isNetworkAvailable()) {
+                if(Util.isNetworkAvailable(EmailActivity.this)) {
                     isRefresh = false;
                     readListMail();
                 }else{
@@ -266,7 +265,7 @@ public class EmailActivity extends AppCompatActivity {
 
 
     private void thaoTacEmail(final int key, final int pos){
-        if(isNetworkAvailable()) {
+        if(Util.isNetworkAvailable(this)) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -528,11 +527,5 @@ public class EmailActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         realm.close();
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE );
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

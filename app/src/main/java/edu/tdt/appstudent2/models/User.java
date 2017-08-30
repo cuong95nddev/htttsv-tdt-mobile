@@ -18,6 +18,8 @@ public class User extends RealmObject {
 
     private Config config;
 
+    private boolean lock;
+
     public int getId() {
         return id;
     }
@@ -72,5 +74,13 @@ public class User extends RealmObject {
 
     public void setConfig(Config config) {
         this.config = config;
+    }
+
+    public boolean isLock() {
+        return lock;
+    }
+
+    public void setLock(boolean lock) {
+        this.lock = lock;
     }
 }

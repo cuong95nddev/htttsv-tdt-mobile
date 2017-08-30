@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkAccount(){
         user = realm.where(User.class).findFirst();
+
         if(user != null){
             Intent trangChu = new Intent(MainActivity.this, TrangchuActivity.class);
             startActivity(trangChu);

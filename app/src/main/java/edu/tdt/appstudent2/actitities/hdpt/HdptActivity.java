@@ -1,10 +1,11 @@
 package edu.tdt.appstudent2.actitities.hdpt;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -28,7 +29,6 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.mrapp.android.bottomsheet.BottomSheet;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
 import edu.tdt.appstudent2.actitities.OnChildSwipeRefreshListener;
@@ -67,8 +67,8 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
     private AppCompatImageButton btnBack;
     private MaterialRippleLayout btnChonHocKy;
 
-    private BottomSheet.Builder builder;
-    private BottomSheet bottomSheet;
+    AlertDialog.Builder dialogHocKy;
+
     private TextView tvTiteHocKy;
 
     private String idHocKyMacDinh = "";
@@ -103,7 +103,7 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
         mMultiStateView.getView(MultiStateView.VIEW_STATE_ERROR).findViewById(R.id.retry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reload();
+                getHdpt();
             }
         });
 
@@ -119,7 +119,7 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
         btnChonHocKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomSheet.show();
+                dialogHocKy.show();
             }
         });
 
@@ -380,26 +380,16 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
 
                 }
             }
-            showHdptHocky();
+            showDialogHocKy();
         }
     }
 
-    private void showHdptHocky(){
-        builder = new BottomSheet.Builder(this);
-        builder.setTitle(R.string.bottom_sheet_title_hocky);
-        int id = 0;
-        for(HdptHockyItem e: hdptHockyItems){
-            builder.addItem(id, e.getTenHocKy(), ContextCompat.getDrawable(this, R.drawable.ic_radio_button_unchecked_black_24dp));
-            id++;
-        }
-        bottomSheet = builder.create();
-        bottomSheet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                chonHocKy(position);
-            }
-        });
+    private void showDialogHocKy(){
+        initDialogHocKy();
+        dialogHocKy.show();
+    }
 
+    private void showHdptHocky(){
         int pos = -1;
         //Chuyển đến thời khóa biểu mặc định
         if(user.getConfig() != null){
@@ -420,6 +410,33 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
         if(pos == -1){
             chonHocKy(hdptHockyItems.size() - 1);
         }
+
+        initDialogHocKy();
+    }
+
+    private void initDialogHocKy(){
+        ArrayAdapter<String> tenHocKys = new ArrayAdapter<String>(this
+                , R.layout.my_select_dialog_item);
+
+        for(HdptHockyItem e: hdptHockyItems){
+            tenHocKys.add(e.getTenHocKy());
+        }
+
+        dialogHocKy = new AlertDialog.Builder(this)
+                .setTitle(R.string.bottom_sheet_title_hocky)
+                .setAdapter(tenHocKys, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        chonHocKy(i);
+                    }
+                });
+
+        dialogHocKy.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void chonHocKy(int postition){
@@ -443,7 +460,7 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
 
         MenuItem settingsItem = menu.findItem(R.id.action_set_default);
 
-        if(settingsItem != null){
+        if(settingsItem != null && idHocKyMacDinh != null){
             if(idHocKyMacDinh.equals(idHocKy)){
                 settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_star_black_24dp));
             }else{

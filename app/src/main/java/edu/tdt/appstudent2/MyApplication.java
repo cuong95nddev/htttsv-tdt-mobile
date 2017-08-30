@@ -16,6 +16,7 @@ public class MyApplication extends Application {
         // Configure Realm for the application
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         //Realm.deleteRealm(realmConfiguration); // Clean slate
+        realmConfiguration.shouldDeleteRealmIfMigrationNeeded();
         Realm.setDefaultConfiguration(realmConfiguration); // Make this Realm the default
     }
 

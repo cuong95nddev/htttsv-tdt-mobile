@@ -36,7 +36,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor"
             android:theme="@style/FinestWebViewTheme.Light" />
-        <activity android:name=".actitities.lichthi.LichThiActivity"></activity>
+        <activity android:name=".actitities.lichthi.LichThiActivity" />
+        <activity android:name=".actitities.chat.ChatActivity"></activity>
     </application>
 
 </manifest>

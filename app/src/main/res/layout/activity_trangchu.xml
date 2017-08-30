@@ -21,8 +21,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:theme="@style/ThemeOverlay.AppCompat.Light"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -40,7 +39,8 @@
                         android:layout_gravity="center"
                         android:paddingLeft="8dp"
                         android:orientation="vertical"
-                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/name_text"
@@ -58,20 +58,83 @@
                             android:text="51403238"
                             android:textColor="#000000"/>
                     </LinearLayout>
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/btnMess"
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/selector_light_theme"
+                        android:src="@drawable/ic_message_black_24dp"/>
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             app:behavior_overlapTop="65dp"
-            android:id="@+id/root_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpaper"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v4.view.ViewPager>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/layoutUpdate"
+                    android:visibility="gone"
+                    android:focusableInTouchMode="true"
+                    android:padding="8dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tvTitleUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text=""/>
+                    <WebView
+                        android:id="@+id/logUpdate"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <Button
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/btnDownloadUpdate"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:layout_gravity="right"
+                        android:background="@drawable/button_custom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cập nhập" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutNews"
+                    android:visibility="gone"
+                    android:focusableInTouchMode="true"
+                    android:padding="8dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/tvTitleNews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text=""/>
+                    <WebView
+                        android:id="@+id/logNews"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </FrameLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

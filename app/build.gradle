@@ -50,6 +50,8 @@ dependencies {
     compile 'com.github.michael-rapp:android-bottom-sheet:1.4.3'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'com.google.firebase:firebase-database:10.0.1'
+    compile 'com.android.support.constraint:constraint-layout:+'
+    compile 'com.blankj:utilcode:1.8.4'
     testCompile 'junit:junit:4.12'
 }
 

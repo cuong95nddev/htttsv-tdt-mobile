@@ -1,8 +1,14 @@
 package edu.tdt.appstudent2.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.Calendar;
 
 import edu.tdt.appstudent2.models.TietHoc;
+
+import static android.content.Context.CONNECTIVITY_SERVICE;
 
 /**
  * Created by Bichan on 7/15/2016.
@@ -13,7 +19,11 @@ public class Util {
     public static final int XEPLOAI_TB = 2;
     public static final int XEPLOAI_YEU = 3;
 
-
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService( CONNECTIVITY_SERVICE );
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     public static String showCalendar(Calendar c) {
         int year = c.get(Calendar.YEAR);

@@ -50,6 +50,7 @@ public class TrangchuMenuFragment extends Fragment{
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(false);
     }
     public TrangchuMenuFragment() {
 
