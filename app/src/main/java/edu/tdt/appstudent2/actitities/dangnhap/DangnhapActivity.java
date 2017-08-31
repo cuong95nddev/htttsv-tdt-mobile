@@ -22,6 +22,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
+import edu.tdt.appstudent2.BuildConfig;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
 import edu.tdt.appstudent2.actitities.trangchu.TrangchuActivity;
@@ -35,6 +36,7 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
     private Button btnDangNhap;
     private EditText tvUsername;
     private EditText tvPassword;
+    private TextView tvVersion;
     private TextInputLayout inputLayoutName, inputLayoutPassword;
     private MaterialSquareLoading waitProgress;
     private ImageButton ibtnHideShowPass;
@@ -55,6 +57,9 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
         btnDangNhap.setOnClickListener(this);
         tvUsername = (EditText) findViewById(R.id.tvUsername);
         tvPassword = (EditText) findViewById(R.id.tvPassword);
+
+        tvVersion = (TextView) findViewById(R.id.tvVersion);
+        tvVersion.setText(BuildConfig.VERSION_NAME);
 
         inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);

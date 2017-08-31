@@ -1,6 +1,7 @@
 package edu.tdt.appstudent2.actitities.tkb;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
 import edu.tdt.appstudent2.actitities.OnChildSwipeRefreshListener;
+import edu.tdt.appstudent2.actitities.dangnhap.DangnhapActivity;
 import edu.tdt.appstudent2.adapters.thongbao.FragmentAdapter;
 import edu.tdt.appstudent2.api.Api;
 import edu.tdt.appstudent2.fragments.tkb.TkbNgayFragment;
@@ -71,16 +73,27 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
 
     AlertDialog.Builder dialogHocKy;
 
-    private void khoiTao(){
+    private void checkUser(){
         realm = Realm.getDefaultInstance();
         user = realm.where(User.class).findFirst();
+
+        if(user == null){
+            Intent dangNhap = new Intent(this, DangnhapActivity.class);
+            startActivity(dangNhap);
+            finish();
+        }else{
+            anhXa();
+            checkOffline();
+        }
+
+    }
+
+
+    private void khoiTao(){
         userText = user.getUserName();
         passText = user.getPassWord();
-
-
         fragmentArrayList = new ArrayList<Fragment>();
         fragmentAdapter = new FragmentAdapter(getApplicationContext(), getSupportFragmentManager(), fragmentArrayList);
-
         tkbHockyItems = new ArrayList<TkbHockyItem>();
     }
     private void anhXa(){
@@ -125,8 +138,7 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tkb);
-        anhXa();
-        checkOffline();
+        checkUser();
     }
 
 

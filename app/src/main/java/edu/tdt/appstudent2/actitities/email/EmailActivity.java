@@ -1,6 +1,8 @@
 package edu.tdt.appstudent2.actitities.email;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,9 +16,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.ybq.endless.Endless;
-import com.thefinestartist.finestwebview.FinestWebView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -498,7 +500,14 @@ public class EmailActivity extends AppCompatActivity {
             super.onPostExecute(s);
             swipeContainer.setRefreshing(false);
             if(s != null){
-                new FinestWebView.Builder(EmailActivity.this).show(s);
+                try {
+                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s));
+                    startActivity(myIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(EmailActivity.this, "No application can handle this request."
+                            + " Please install a webbrowser",  Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
             }else{
 
             }

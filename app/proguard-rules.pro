@@ -167,6 +167,6 @@
 # This rule will properly ProGuard all the model classes in
 # the package com.yourcompany.models. Modify to fit the structure
 # of your app.
--keepclassmembers class com.yourcompany.models.** {
+-keepclassmembers class edu.tdt.appstudent2.models.firebase.** {
   *;
 }

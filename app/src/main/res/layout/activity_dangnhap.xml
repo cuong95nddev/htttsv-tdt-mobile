@@ -116,7 +116,7 @@
         <include layout="@layout/line_space"/>
         <TextView
             android:layout_margin="8dp"
-            android:id="@+id/textView"
+            android:id="@+id/tvVersion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Phiên bản 2.0"
