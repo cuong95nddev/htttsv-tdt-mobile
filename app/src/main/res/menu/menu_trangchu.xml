@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:icon="@drawable/ic_settings_black_24dp"
         app:showAsAction="ifRoom"
         android:title="Đăng xuất"/>
 </menu>

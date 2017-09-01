@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.EncryptUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +36,7 @@ import edu.tdt.appstudent2.fragments.trangchu.TrangchuMenuFragment;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.firebase.News;
 import edu.tdt.appstudent2.models.firebase.UpdateApp;
+import edu.tdt.appstudent2.models.firebase.UserOnline;
 import edu.tdt.appstudent2.utils.StringUtil;
 import edu.tdt.appstudent2.views.widget.CircleImageView;
 import io.realm.Realm;
@@ -63,6 +63,9 @@ public class TrangchuActivity extends AppCompatActivity{
     private TextView tvTileNews;
     private WebView logNews;
 
+    private LinearLayout layoutOnline;
+    private TextView tvOnlineNum;
+
     private UpdateApp updateApp;
     private News news;
 
@@ -84,6 +87,9 @@ public class TrangchuActivity extends AppCompatActivity{
         layoutNews = (LinearLayout) findViewById(R.id.layoutNews);
         tvTileNews = (TextView) findViewById(R.id.tvTitleNews);
         logNews = (WebView) findViewById(R.id.logNews);
+
+        layoutOnline = (LinearLayout) findViewById(R.id.layoutOnline);
+        tvOnlineNum = (TextView) findViewById(R.id.tvOnlineNum);
 
         openChat = (AppCompatImageButton) findViewById(R.id.btnMess);
 
@@ -111,8 +117,30 @@ public class TrangchuActivity extends AppCompatActivity{
         anhXa();
         addPaper();
 
-        userReference = mDatabase.child("User");
-        userReference.child(EncryptUtils.encryptMD5ToString(user.getUserName())).setValue(System.currentTimeMillis());
+        userReference = mDatabase.child("UserOnline");
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int onlineNum = 0;
+                UserOnline userOnline = null;
+                long timeNow = System.currentTimeMillis();
+                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    userOnline = postSnapshot.getValue(UserOnline.class);
+
+                    if((timeNow - userOnline.time) <= 3 * 60 * 1000)
+                        onlineNum++;
+
+                }
+                tvOnlineNum.setText("Có " + onlineNum + " bạn đang Online");
+                layoutOnline.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         updateReference = mDatabase.child("Update");
         updateReference.addValueEventListener(new ValueEventListener() {
@@ -164,6 +192,16 @@ public class TrangchuActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        UserOnline userOnline = new UserOnline();
+        userOnline.mssv = userText;
+        userOnline.time = System.currentTimeMillis();
+        userReference.child(userOnline.mssv).setValue(userOnline);
     }
 
     private void news(){
