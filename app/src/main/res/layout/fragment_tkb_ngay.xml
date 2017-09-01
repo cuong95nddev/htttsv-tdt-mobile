@@ -37,7 +37,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/selector_light_theme"
                         android:padding="8dp"
                         android:src="@drawable/ic_navigate_before_black_24dp"
                         android:tintMode="src_in" />
@@ -92,7 +92,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
-                                android:background="@null"
+                                android:background="@drawable/selector_light_theme"
                                 android:clickable="false"
                                 android:src="@drawable/ic_arrow_drop_down_black_24dp" />
                         </LinearLayout>
@@ -110,7 +110,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
-                        android:background="@android:color/transparent"
+                        android:background="@drawable/selector_light_theme"
                         android:padding="8dp"
                         android:src="@drawable/ic_navigate_next_black_24dp"
                         android:tintMode="src_in" />
