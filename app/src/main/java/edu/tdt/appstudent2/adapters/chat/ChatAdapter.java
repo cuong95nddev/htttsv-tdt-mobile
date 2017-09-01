@@ -61,10 +61,11 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
         if(preChat != null && preChat.mssv.equals(chat.mssv)){
             hideName = true;
-
-            if((chat.time - preChat.time) < 10 * 60 * 1000)
-                hideTime = true;
         }
+
+        if(preChat != null && (chat.time - preChat.time) < 10 * 60 * 1000)
+            hideTime = true;
+
         switch (holder.getItemViewType()){
             case TYPE_IN:
                 ChatInViewHolder chatInViewHolder = (ChatInViewHolder) holder;
