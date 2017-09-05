@@ -28,6 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.tdt.appstudent2.BuildConfig;
 import edu.tdt.appstudent2.MainActivity;
 import edu.tdt.appstudent2.R;
@@ -53,6 +56,12 @@ public class TrangchuActivity extends AppCompatActivity{
     private DatabaseReference updateReference;
     private DatabaseReference newsReference;
     private DatabaseReference userReference;
+    private static final String KEY_EVENT_UPDATE = "KEY_EVENT_UPDATE";
+    private static final String KEY_EVENT_NEWS = "KEY_EVENT_NEWS";
+    private static final String KEY_EVENT_USER = "KEY_EVENT_USER";
+
+    private HashMap<String, ValueEventListener> eventListenerHashMap;
+    private HashMap<String, DatabaseReference> referenceHashMap;
 
     private LinearLayout layoutUpdate;
     private TextView tvTileUpdate;
@@ -69,7 +78,8 @@ public class TrangchuActivity extends AppCompatActivity{
     private UpdateApp updateApp;
     private News news;
 
-    private AppCompatImageButton openChat;
+    private AppCompatImageButton btnOpenChat;
+    private AppCompatImageButton btnSetting;
 
     private void khoiTao(){
         realm = Realm.getDefaultInstance();
@@ -91,9 +101,12 @@ public class TrangchuActivity extends AppCompatActivity{
         layoutOnline = (LinearLayout) findViewById(R.id.layoutOnline);
         tvOnlineNum = (TextView) findViewById(R.id.tvOnlineNum);
 
-        openChat = (AppCompatImageButton) findViewById(R.id.btnMess);
+        btnOpenChat = (AppCompatImageButton) findViewById(R.id.btnMess);
+        btnSetting = (AppCompatImageButton) findViewById(R.id.btnSetting);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        eventListenerHashMap = new HashMap<>();
+        referenceHashMap = new HashMap<>();
     }
     private void anhXa(){
         khoiTao();
@@ -118,7 +131,8 @@ public class TrangchuActivity extends AppCompatActivity{
         addPaper();
 
         userReference = mDatabase.child("UserOnline");
-        userReference.addValueEventListener(new ValueEventListener() {
+        referenceHashMap.put(KEY_EVENT_USER, userReference);
+        eventListenerHashMap.put(KEY_EVENT_USER, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int onlineNum = 0;
@@ -140,10 +154,12 @@ public class TrangchuActivity extends AppCompatActivity{
 
             }
         });
+        userReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_USER));
 
 
         updateReference = mDatabase.child("Update");
-        updateReference.addValueEventListener(new ValueEventListener() {
+        referenceHashMap.put(KEY_EVENT_UPDATE, updateReference);
+        eventListenerHashMap.put(KEY_EVENT_UPDATE, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 updateApp = dataSnapshot.getValue(UpdateApp.class);
@@ -155,6 +171,7 @@ public class TrangchuActivity extends AppCompatActivity{
 
             }
         });
+        updateReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_UPDATE));
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,7 +188,8 @@ public class TrangchuActivity extends AppCompatActivity{
         });
 
         newsReference = mDatabase.child("News");
-        newsReference.addValueEventListener(new ValueEventListener() {
+        referenceHashMap.put(KEY_EVENT_NEWS, newsReference);
+        eventListenerHashMap.put(KEY_EVENT_NEWS, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 news = dataSnapshot.getValue(News.class);
@@ -183,13 +201,21 @@ public class TrangchuActivity extends AppCompatActivity{
 
             }
         });
+        newsReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_NEWS));
 
 
-        openChat.setOnClickListener(new View.OnClickListener() {
+        btnOpenChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TrangchuActivity.this, ChatActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
             }
         });
     }
@@ -197,7 +223,6 @@ public class TrangchuActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-
         UserOnline userOnline = new UserOnline();
         userOnline.mssv = userText;
         userOnline.time = System.currentTimeMillis();
@@ -282,9 +307,6 @@ public class TrangchuActivity extends AppCompatActivity{
             case android.R.id.home:
                 onBackPressed();
                 break;
-            case R.id.action_logout:
-                logOut();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -292,5 +314,10 @@ public class TrangchuActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         realm.close();
+        for(Map.Entry<String, ValueEventListener> entry : eventListenerHashMap.entrySet()){
+            referenceHashMap.get(entry.getKey()).removeEventListener(entry.getValue());
+        }
+        referenceHashMap.clear();
+        eventListenerHashMap.clear();
     }
 }

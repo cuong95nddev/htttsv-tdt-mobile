@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.adapters.chat.ChatAdapter;
 import edu.tdt.appstudent2.models.User;
+import edu.tdt.appstudent2.models.firebase.Admin;
 import edu.tdt.appstudent2.models.firebase.Chat;
 import edu.tdt.appstudent2.models.firebase.ChatIn;
 import edu.tdt.appstudent2.models.firebase.ChatOut;
@@ -34,8 +35,16 @@ public class ChatActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private DatabaseReference chatReference;
+    private DatabaseReference adminReference;
+    private ValueEventListener valueChatEventListener;
+    private ValueEventListener valueAdminEventListener;
+
 
     private String username;
+
+    private boolean firstLoad = true;
+    private boolean isAdmin = false;
+    private Admin admin = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +72,12 @@ public class ChatActivity extends AppCompatActivity {
                     Chat chat = new ChatOut();
                     chat.body = text;
                     chat.time = System.currentTimeMillis();
-                    chat.mssv = user.getUserName();
+                    chat.mssv = isAdmin?admin.nickname:user.getUserName();
                     chatReference.push().setValue(chat, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             edtChat.setText("");
+                            mMessageRecycler.scrollToPosition((int)mMessageAdapter.chats.size() - 1);
                         }
                     });
                 }
@@ -77,8 +87,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         chatReference = mDatabase.child("Chat");
-
-        chatReference.addValueEventListener(new ValueEventListener() {
+        valueChatEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mMessageAdapter.chats.clear();
@@ -94,14 +103,41 @@ public class ChatActivity extends AppCompatActivity {
                     mMessageAdapter.chats.add(chat);
                 }
                 mMessageAdapter.notifyDataSetChanged();
-                mMessageRecycler.scrollToPosition((int)dataSnapshot.getChildrenCount() - 1);
+                if(firstLoad){
+                    mMessageRecycler.scrollToPosition((int)mMessageAdapter.chats.size() - 1);
+                    firstLoad = !firstLoad;
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        chatReference.addValueEventListener(valueChatEventListener);
+
+        adminReference = mDatabase.child("Admin");
+        valueAdminEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                isAdmin = false;
+                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    admin = postSnapshot.getValue(Admin.class);
+                    if(admin.mssv.equals(username)){
+                        isAdmin = true;
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        adminReference.addValueEventListener(valueAdminEventListener);
 
     }
 
@@ -110,5 +146,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         realm.close();
+        chatReference.removeEventListener(valueChatEventListener);
+        adminReference.removeEventListener(valueAdminEventListener);
     }
 }

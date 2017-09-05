@@ -9,7 +9,10 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/placeSnackBar">
+        android:id="@+id/placeSnackBar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -33,10 +36,10 @@
                         android:layout_height="35dp"
                         app:civ_border_width="0.5dp"
                         android:layout_gravity="center"
+                        android:visibility="gone"
                         app:civ_border_color="#000000" />
                     <LinearLayout
                         android:layout_gravity="center"
-                        android:paddingLeft="8dp"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
@@ -57,6 +60,7 @@
                             android:text="51403238"
                             android:textColor="#000000"/>
                     </LinearLayout>
+
                     <android.support.v7.widget.AppCompatImageButton
                         android:id="@+id/btnMess"
                         android:layout_width="48dp"
@@ -64,7 +68,15 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_light_theme"
-                        android:src="@drawable/ic_message_black_24dp"/>
+                        android:src="@drawable/ic_message_black_24dp" />
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/btnSetting"
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/selector_light_theme"
+                        android:src="@drawable/ic_settings_black_24dp" />
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

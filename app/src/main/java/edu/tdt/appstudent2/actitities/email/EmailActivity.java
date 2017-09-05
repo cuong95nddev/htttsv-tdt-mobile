@@ -357,6 +357,7 @@ public class EmailActivity extends AppCompatActivity {
                             numLoad = MAX_NUM_LOAD;
                         }
                         loadTo = loadFrom - numLoad;
+                        loadTo = loadTo >= 0?loadTo:0;
                         emailPageSave.setIdLoadedBottom(loadTo);
                     }
                     EmailItem emailItem = null;
