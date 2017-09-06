@@ -68,7 +68,7 @@ public class ThongbaoFragment extends Fragment {
         recyclerView = (RecyclerView) inflatedView.findViewById(R.id.recyclerview);
         adapter = new ThongbaoRecyclerViewAdapter(inflatedView.getContext());
         manager = new TopSnappedStickyLayoutManager(inflatedView.getContext(), adapter);
-        manager.elevateHeaders(2);
+        manager.elevateHeaders(1);
 
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);

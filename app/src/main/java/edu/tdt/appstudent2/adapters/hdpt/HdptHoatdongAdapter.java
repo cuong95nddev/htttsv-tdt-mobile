@@ -18,7 +18,7 @@ import edu.tdt.appstudent2.views.widget.RoundedLetterView;
  */
 public class HdptHoatdongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<HdptHoatdongItem> lists;
-    ColorGenerator generator = ColorGenerator.MATERIAL;
+    ColorGenerator generator = ColorGenerator.TKB;
     public HdptHoatdongAdapter(List<HdptHoatdongItem> lists){
         this.lists = lists;
     }

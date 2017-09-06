@@ -16,6 +16,5 @@
         android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/circle"
         android:text="Thu 2"/>
 </LinearLayout>

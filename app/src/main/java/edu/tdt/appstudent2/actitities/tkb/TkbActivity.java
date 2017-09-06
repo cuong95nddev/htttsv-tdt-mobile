@@ -465,9 +465,9 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
 
         if(settingsItem != null && idHocKyMacDinh != null){
             if(idHocKyMacDinh.equals(idHocKy)){
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_star_black_24dp));
+                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
             }else{
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_star_border_black_24dp));
+                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
             }
         }
 

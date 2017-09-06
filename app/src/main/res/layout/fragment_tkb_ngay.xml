@@ -76,7 +76,6 @@
                             android:paddingLeft="12dp"
                             android:paddingRight="12dp"
                             android:paddingTop="8dp">
-
                             <TextView
                                 android:id="@+id/tvDateSelected"
                                 android:layout_width="wrap_content"
@@ -85,16 +84,6 @@
                                 android:text="Chọn Ngày"
                                 android:textSize="18dp"
                                 android:textStyle="bold" />
-
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentLeft="true"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:background="@drawable/selector_light_theme"
-                                android:clickable="false"
-                                android:src="@drawable/ic_arrow_drop_down_black_24dp" />
                         </LinearLayout>
                     </com.balysv.materialripple.MaterialRippleLayout>
                 </LinearLayout>

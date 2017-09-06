@@ -234,7 +234,7 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
                                 hdptObject = hdptArray.getJSONObject(i);
                                 hdptHoatdongItem = new HdptHoatdongItem();
                                 hdptHoatdongItem.setsTT(hdptObject.getString("STT"));
-                                hdptHoatdongItem.setTenSuKien(hdptObject.getString("TenSuKien"));
+                                hdptHoatdongItem.setTenSuKien(hdptObject.getString("TenSuKien").trim());
                                 hdptHoatdongItem.setThoiGian(hdptObject.getString("ThoiGian").replace("\n", ""));
                                 hdptHoatdongItem.setDiemRL(hdptObject.getString("DiemRL"));
                                 hdptItem.getHdptHoatdongItems().add(hdptHoatdongItem);
@@ -255,7 +255,7 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
                                         dataObject = dataArray.getJSONObject(j);
                                         hdptDanhgiaItem = new HdptDanhgiaItem();
                                         hdptDanhgiaItem.setsTT(dataObject.getString("STT"));
-                                        hdptDanhgiaItem.setNoiDung(dataObject.getString("NoiDung"));
+                                        hdptDanhgiaItem.setNoiDung(dataObject.getString("NoiDung").trim());
                                         hdptDanhgiaItem.setKetQua(dataObject.getString("KetQua"));
                                         hdptDanhgiaItem.setDiem(dataObject.getString("Diem"));
                                         hdptTagDanhgiaItem.getHdptDanhgiaItems().add(hdptDanhgiaItem);
@@ -462,9 +462,9 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
 
         if(settingsItem != null && idHocKyMacDinh != null){
             if(idHocKyMacDinh.equals(idHocKy)){
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_star_black_24dp));
+                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
             }else{
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_star_border_black_24dp));
+                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
             }
         }
 

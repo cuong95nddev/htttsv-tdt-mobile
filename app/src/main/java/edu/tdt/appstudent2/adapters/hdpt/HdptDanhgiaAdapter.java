@@ -23,7 +23,7 @@ public class HdptDanhgiaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int VIEW_DANHGIA = 1;
     private static final int VIEW_DIEM = 2;
     private List<Object> lists;
-    ColorGenerator generator = ColorGenerator.MATERIAL;
+    ColorGenerator generator = ColorGenerator.TKB;
     public HdptDanhgiaAdapter(List<Object> lists){
         this.lists = lists;
     }

@@ -62,7 +62,7 @@ public class TkbTonghopFragment extends Fragment {
         recyclerView = (RecyclerView) inflatedView.findViewById(R.id.recyclerview);
         adapter = new TkbTonghopRecyclerViewAdapter(list);
         manager = new TopSnappedStickyLayoutManager(inflatedView.getContext(), adapter);
-        manager.elevateHeaders(2);
+        manager.elevateHeaders(1);
 
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);

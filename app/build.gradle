@@ -32,6 +32,7 @@ dependencies {
     compile "com.android.support:cardview-v7:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:support-v4:${supportLibVersion}"
+    compile 'com.android.support.constraint:constraint-layout:+'
     compile files('libs/activation.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/mail.jar')
@@ -48,7 +49,6 @@ dependencies {
     compile 'com.google.code.ksoap2-android:ksoap2-android:3.6.2'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'com.google.firebase:firebase-database:10.0.1'
-    compile 'com.android.support.constraint:constraint-layout:+'
     compile 'com.blankj:utilcode:1.8.4'
     testCompile 'junit:junit:4.12'
 }

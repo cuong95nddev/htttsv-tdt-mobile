@@ -59,7 +59,7 @@ public class LichThiFragment extends Fragment {
         recyclerView = (RecyclerView) inflatedView.findViewById(R.id.recyclerview);
         adapter = new LichThiRecyclerViewAdapter(list);
         manager = new TopSnappedStickyLayoutManager(inflatedView.getContext(), adapter);
-        manager.elevateHeaders(2);
+        manager.elevateHeaders(1);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
