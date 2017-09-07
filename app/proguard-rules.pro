@@ -117,6 +117,7 @@
 -keep interface org.joda.time.** { *; }
 
 -dontwarn io.realm.**
+-keepnames public class * extends io.realm.RealmObject
 
 -dontshrink
 -keep class javax.** {*;}

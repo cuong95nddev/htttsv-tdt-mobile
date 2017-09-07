@@ -37,6 +37,9 @@ import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.firebase.News;
 import edu.tdt.appstudent2.models.firebase.UpdateApp;
 import edu.tdt.appstudent2.models.firebase.UserOnline;
+import edu.tdt.appstudent2.service.CheckEmailService;
+import edu.tdt.appstudent2.service.CheckNewsService;
+import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.utils.StringUtil;
 import edu.tdt.appstudent2.views.widget.CircleImageView;
 import io.realm.Realm;
@@ -277,6 +280,8 @@ public class TrangchuActivity extends AppCompatActivity{
                 .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        ServiceUtils.stopService(TrangchuActivity.this, CheckEmailService.class);
+                        ServiceUtils.stopService(TrangchuActivity.this, CheckNewsService.class);
                         realm.beginTransaction();
                         realm.deleteAll();
                         realm.commitTransaction();
