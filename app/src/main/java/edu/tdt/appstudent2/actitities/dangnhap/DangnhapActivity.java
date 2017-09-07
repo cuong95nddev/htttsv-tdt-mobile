@@ -27,6 +27,7 @@ import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
 import edu.tdt.appstudent2.actitities.trangchu.TrangchuActivity;
 import edu.tdt.appstudent2.api.Api;
+import edu.tdt.appstudent2.models.ServiceConfig;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.views.widget.MaterialSquareLoading;
 import io.realm.Realm;
@@ -189,6 +190,24 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
         protected void onPostExecute(Boolean s) {
             super.onPostExecute(s);
             if(s){
+
+                // set data config for user
+                ServiceConfig tbServiceConfig = new ServiceConfig();
+                tbServiceConfig.setId(1);
+                tbServiceConfig.setOpen(false);
+                tbServiceConfig.setSound(false);
+                tbServiceConfig.setVibrate(false);
+                tbServiceConfig.setTimeReplay(0);
+                user.setTbServiceConfig(tbServiceConfig);
+
+                ServiceConfig emailServiceConfig = new ServiceConfig();
+                emailServiceConfig.setId(1);
+                emailServiceConfig.setOpen(false);
+                emailServiceConfig.setSound(false);
+                emailServiceConfig.setVibrate(false);
+                emailServiceConfig.setTimeReplay(0);
+                user.setEmailServiceConfig(emailServiceConfig);
+
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(user);
                 realm.commitTransaction();

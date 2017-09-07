@@ -7,9 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -48,6 +45,7 @@ public class HocphiActivity extends AppCompatActivity{
 
     private MultiStateView mMultiStateView;
     AppCompatImageButton btnBack;
+    AppCompatImageButton btnReload;
 
     private Realm realm;
     private User user;
@@ -74,7 +72,6 @@ public class HocphiActivity extends AppCompatActivity{
 
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
-        tabs.setVisibility(View.GONE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -92,6 +89,13 @@ public class HocphiActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        btnReload = (AppCompatImageButton) findViewById(R.id.btnReload);
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload();
             }
         });
 
@@ -192,13 +196,11 @@ public class HocphiActivity extends AppCompatActivity{
         realm.delete(HocphiItem.class);
         realm.commitTransaction();
 
-        tabs.setVisibility(View.GONE);
         getHocKy();
     }
 
 
     private void addDonVi(){
-        tabs.setVisibility(View.VISIBLE);
         HocphiFragment hocphiFragment = null;
         Bundle bundle = null;
         for(HockyItem e: hocKyArrayList){
@@ -213,23 +215,6 @@ public class HocphiActivity extends AppCompatActivity{
         fragmentAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_hocphi, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.action_reload:
-                reload();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

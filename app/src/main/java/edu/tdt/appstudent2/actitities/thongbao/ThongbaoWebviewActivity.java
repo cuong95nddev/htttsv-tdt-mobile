@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -40,6 +37,7 @@ public class ThongbaoWebviewActivity extends AppCompatActivity {
 
     private MultiStateView mMultiStateView;
     AppCompatImageButton btnBack;
+    AppCompatImageButton btnReload;
 
     private void khoiTao(){
         Bundle bundle = getIntent().getExtras();
@@ -73,7 +71,7 @@ public class ThongbaoWebviewActivity extends AppCompatActivity {
         mMultiStateView.getView(MultiStateView.VIEW_STATE_ERROR).findViewById(R.id.retry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadAgain();
+                reload();
             }
         });
 
@@ -82,6 +80,13 @@ public class ThongbaoWebviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        btnReload = (AppCompatImageButton) findViewById(R.id.btnReload);
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload();
             }
         });
 
@@ -143,15 +148,12 @@ public class ThongbaoWebviewActivity extends AppCompatActivity {
             if(s != null){
                 if(thongbaoCache == null) {
                     // save data
-                    realm.executeTransaction(new Realm.Transaction() {
-                        @Override
-                        public void execute(Realm realm) {
-                            thongbaoCache = realm.createObject(ThongbaoCache.class);
-                            thongbaoCache.setId(idThongBao);
-                            thongbaoCache.setData(s);
-                            realm.copyToRealmOrUpdate(thongbaoCache);
-                        }
-                    });
+                    realm.beginTransaction();
+                    thongbaoCache = new ThongbaoCache();
+                    thongbaoCache.setId(idThongBao);
+                    thongbaoCache.setData(s);
+                    realm.copyToRealmOrUpdate(thongbaoCache);
+                    realm.commitTransaction();
 
                     // load data to webview
                     webView.loadData(s, "text/html; charset=utf-8",null);
@@ -163,31 +165,13 @@ public class ThongbaoWebviewActivity extends AppCompatActivity {
         }
     }
 
-    private void loadAgain(){
+    private void reload(){
         if(isNetworkAvailable()){
             webView.getSettings().setCacheMode( WebSettings.LOAD_NO_CACHE);
             getThongBao();
         }else {
             // error network
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_thongbao_webview, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.action_reload:
-                loadAgain();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -29,9 +29,9 @@
                         <TextView
                             android:textColor="#000000"
                             android:id="@+id/ten_text"
-                            style="@style/hocphi_chitiet_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="16dp"
                             android:text="Môn anh văn"/>
                     </LinearLayout>
                     <LinearLayout
@@ -44,12 +44,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="100000"
-                            style="@style/hocphi_muc_money"/>
-                        <TextView
-                            android:padding="4dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="đ"/>
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:textColor="#4FA968"/>
                     </LinearLayout>
                 </LinearLayout>
         </LinearLayout>

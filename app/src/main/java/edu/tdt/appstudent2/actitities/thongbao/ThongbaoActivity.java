@@ -3,13 +3,11 @@ package edu.tdt.appstudent2.actitities.thongbao;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -28,11 +26,14 @@ import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
 import edu.tdt.appstudent2.adapters.thongbao.FragmentAdapter;
 import edu.tdt.appstudent2.api.Api;
+import edu.tdt.appstudent2.fragments.dialog.EditServiceDialogFragment;
 import edu.tdt.appstudent2.fragments.thongbao.ThongbaoFragment;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.thongbao.DonviItem;
 import edu.tdt.appstudent2.models.thongbao.ThongbaoCache;
 import edu.tdt.appstudent2.models.thongbao.ThongbaoItem;
+import edu.tdt.appstudent2.service.CheckNewsService;
+import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.utils.Tag;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -51,6 +52,11 @@ public class ThongbaoActivity extends AppCompatActivity {
 
     private MultiStateView mMultiStateView;
     AppCompatImageButton btnBack;
+    AppCompatImageButton btnReload;
+    AppCompatImageButton btnNoti;
+
+    private boolean enableNoti = false;
+
     private void khoiTao(){
         realm = Realm.getDefaultInstance();
 
@@ -70,7 +76,6 @@ public class ThongbaoActivity extends AppCompatActivity {
 
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
-        tabs.setVisibility(View.GONE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -90,7 +95,71 @@ public class ThongbaoActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        btnReload = (AppCompatImageButton) findViewById(R.id.btnReload);
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload();
+            }
+        });
+        btnNoti = (AppCompatImageButton) findViewById(R.id.btnNoti);
+        btnNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(enableNoti)
+                    openOrCloseService();
+            }
+        });
+
+        btnNoti.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(enableNoti){
+                    FragmentManager fm = getSupportFragmentManager();
+                    EditServiceDialogFragment alertDialog = EditServiceDialogFragment.newInstance(EditServiceDialogFragment.TYPE_EMAIL);
+                    alertDialog.show(fm, "fragment_alert");
+
+                    alertDialog.setOnDismissEvent(new EditServiceDialogFragment.OnDismissEvent() {
+                        @Override
+                        public void onDismiss() {
+                            setIconNoti();
+                        }
+                    });
+
+                }
+                return true;
+            }
+        });
     }
+
+    private void openOrCloseService(){
+        realm.beginTransaction();
+        if(user.getTbServiceConfig().isOpen()){
+            user.getTbServiceConfig().setOpen(false);
+            ServiceUtils.stopService(this
+                    , CheckNewsService.class);
+        }else{
+            user.getTbServiceConfig().setOpen(true);
+            ServiceUtils.startService(this
+                    , CheckNewsService.class
+                    , ServiceUtils.TIME_REPLAY[(int)user.getTbServiceConfig().getTimeReplay()]);
+        }
+        realm.commitTransaction();
+        setIconNoti();
+    }
+
+    private void setIconNoti(){
+        btnNoti.setImageResource(user.getEmailServiceConfig().isOpen()?
+                R.drawable.ic_notifications_active_black_24dp:R.drawable.ic_notifications_off_black_24dp);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +172,8 @@ public class ThongbaoActivity extends AppCompatActivity {
 
     private void checkHaveOffline(){
         if(realm.where(DonviItem.class).count() > 0){
+            enableNoti = true;
+            setIconNoti();
             RealmResults<DonviItem> realmResults = realm.where(DonviItem.class).findAll();
             donViArrayList.addAll(realmResults);
             addDonVi();
@@ -163,6 +234,7 @@ public class ThongbaoActivity extends AppCompatActivity {
             if(s != null){
                 addDonVi();
                 updateDonVi();
+                enableNoti = true;
             }else{
                 mMultiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
             }
@@ -193,14 +265,11 @@ public class ThongbaoActivity extends AppCompatActivity {
         realm.delete(ThongbaoItem.class);
         realm.delete(DonviItem.class);
         realm.commitTransaction();
-
-        tabs.setVisibility(View.GONE);
         getDonVi();
     }
 
 
     private void addDonVi(){
-        tabs.setVisibility(View.VISIBLE);
         ThongbaoFragment thongbaoFragment = null;
         Bundle bundle = null;
 
@@ -223,23 +292,6 @@ public class ThongbaoActivity extends AppCompatActivity {
         fragmentAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_thongbao, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.action_reload:
-                reload();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

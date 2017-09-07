@@ -26,21 +26,36 @@
                 app:contentInsetStart="0dp"
                 android:theme="@style/Theme.AppCompat.Light"
                 app:popupTheme="@style/Theme.AppCompat.Light">
-                <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="48dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector_light_theme"
-                    android:src="@drawable/ic_navigate_before_black_24dp"/>
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="NỘI DUNG"
-                    android:textStyle="bold"
-                    android:textSize="18dp"/>
+                    android:orientation="horizontal">
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/btnBack"
+                        android:layout_width="52dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/selector_light_theme"
+                        android:src="@drawable/ic_navigate_before_black_24dp"/>
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:text="NỘI DUNG"
+                        android:textStyle="bold"
+                        android:textSize="18dp"/>
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/btnReload"
+                        android:layout_width="52dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/selector_light_theme"
+                        android:src="@drawable/ic_autorenew_black_24dp"/>
+                </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
         <com.kennyc.view.MultiStateView

@@ -7,24 +7,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="edu.tdt.appstudent2.actitities.chat.ChatActivity">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/reyclerview_message_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <RelativeLayout
         android:layout_weight="1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-    </android.support.v7.widget.RecyclerView>
-
-    <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@drawable/layout_top_shadow"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/layout_chatbox"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        android:layout_height="0dp">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/reyclerview_message_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+        </android.support.v7.widget.RecyclerView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/layout_top_shadow"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layout_chatbox"
@@ -39,7 +39,7 @@
 
         <EditText
             android:id="@+id/edittext_chatbox"
-            android:hint="Nhập nội dung tin nhắn"
+            android:hint="Tin nhắn..."
             android:background="@android:color/transparent"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"

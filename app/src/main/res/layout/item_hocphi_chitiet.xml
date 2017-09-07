@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
@@ -19,57 +19,41 @@
             <LinearLayout
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <edu.tdt.appstudent2.views.widget.RoundedLetterView
-                    android:layout_marginRight="8dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/name_rlv"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    app:rlv_backgroundColorValue="#ae4c4c"
-                    app:rlv_titleColor="@android:color/white"
-                    app:rlv_titleSize="20dp"
-                    app:rlv_titleText="A" />
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_weight="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:textColor="#000000"
                         android:id="@+id/ten_text"
-                        android:maxLines="1"
-                        style="@style/hocphi_chitiet_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
                         android:text="Môn anh văn"/>
-                    <TextView
-                        android:id="@+id/id_lable"
-                        style="@style/hocphi_chitiet_title_sub"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="italic"
-                        android:text="0512251"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:paddingLeft="10dp"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/money_text"
-                        android:layout_weight="5"
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="100000"
-                        style="@style/hocphi_chitiet_money"/>
-                    <TextView
-                        android:padding="4dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="đ"/>
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/id_lable"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:textStyle="italic"
+                            android:text="0512251"/>
+                        <TextView
+                            android:id="@+id/money_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="16dp"
+                            android:text="100000"
+                            android:textColor="#F05C56"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </com.balysv.materialripple.MaterialRippleLayout>

@@ -4,17 +4,22 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:padding="8dp">
-    <TextView
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:layout_weight="1"
-        android:id="@+id/thu_text"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thu 2"/>
+        android:orientation="horizontal">
+        <TextView
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_weight="1"
+            android:id="@+id/thu_text"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Thu 2"/>
+    </LinearLayout>
 </LinearLayout>

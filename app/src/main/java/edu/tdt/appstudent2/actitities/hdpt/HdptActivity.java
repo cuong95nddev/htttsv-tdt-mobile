@@ -9,9 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -64,7 +61,11 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
 
 
     private MultiStateView mMultiStateView;
+
     private AppCompatImageButton btnBack;
+    private AppCompatImageButton btnReload;
+    private AppCompatImageButton btnDefault;
+
     private MaterialRippleLayout btnChonHocKy;
 
     AlertDialog.Builder dialogHocKy;
@@ -114,6 +115,20 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
                 onBackPressed();
             }
         });
+        btnReload = (AppCompatImageButton) findViewById(R.id.btnReload);
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reload();
+            }
+        });
+        btnDefault = (AppCompatImageButton) findViewById(R.id.btnDefault);
+        btnDefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setIdHocKyMacDinh();
+            }
+        });
 
         btnChonHocKy = (MaterialRippleLayout) findViewById(R.id.btnChonHocKy);
         btnChonHocKy.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +137,6 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
                 dialogHocKy.show();
             }
         });
-
         tvTiteHocKy = (TextView)findViewById(R.id.tvHocKy);
     }
 
@@ -155,7 +169,17 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
         user.getConfig().setHdptIdHocKyMacDinh(idHocKy);
         realm.commitTransaction();
         idHocKyMacDinh = idHocKy;
-        invalidateOptionsMenu();
+        setIconDefault();
+    }
+
+    private void setIconDefault(){
+        if(idHocKyMacDinh != null){
+            if(idHocKyMacDinh.equals(idHocKy)){
+                btnDefault.setImageResource(R.drawable.ic_favorite_black_24dp);
+            }else{
+                btnDefault.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            }
+        }
     }
 
     private void checkOffline(){
@@ -410,7 +434,6 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
         if(pos == -1){
             chonHocKy(hdptHockyItems.size() - 1);
         }
-
         initDialogHocKy();
     }
 
@@ -443,46 +466,8 @@ public class HdptActivity extends AppCompatActivity implements OnChildSwipeRefre
         mMultiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
         tvTiteHocKy.setText(hdptHockyItems.get(postition).getTenHocKy());
         idHocKy = hdptHockyItems.get(postition).getId();
-        invalidateOptionsMenu();
+        setIconDefault();
         checkHdptOffline();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_hdpt, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        MenuItem settingsItem = menu.findItem(R.id.action_set_default);
-
-        if(settingsItem != null && idHocKyMacDinh != null){
-            if(idHocKyMacDinh.equals(idHocKy)){
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
-            }else{
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
-            }
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.action_reload:
-                reload();
-                break;
-            case R.id.action_set_default:
-                setIdHocKyMacDinh();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

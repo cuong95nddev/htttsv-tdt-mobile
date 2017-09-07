@@ -13,12 +13,12 @@ public class User extends RealmObject {
     private String passWord;
     private String name;
     private String linkAvatar;
-
     private String linkHostMail;
-
     private Config config;
-
     private boolean lock;
+
+    private ServiceConfig tbServiceConfig;
+    private ServiceConfig emailServiceConfig;
 
     public int getId() {
         return id;
@@ -83,4 +83,22 @@ public class User extends RealmObject {
     public void setLock(boolean lock) {
         this.lock = lock;
     }
+
+    public ServiceConfig getTbServiceConfig() {
+        return tbServiceConfig;
+    }
+
+    public void setTbServiceConfig(ServiceConfig tbServiceConfig) {
+        this.tbServiceConfig = tbServiceConfig;
+    }
+
+    public ServiceConfig getEmailServiceConfig() {
+        return emailServiceConfig;
+    }
+
+    public void setEmailServiceConfig(ServiceConfig emailServiceConfig) {
+        this.emailServiceConfig = emailServiceConfig;
+    }
 }
+
+

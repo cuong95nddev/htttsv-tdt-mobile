@@ -55,7 +55,8 @@ public class TkbNgayRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
         int color = generator.getColor(tkbMonhocShowItem.getPos());
         GradientDrawable backgroundGradient = (GradientDrawable)monhocViewHolder.pos.getBackground();
-        backgroundGradient.setStroke(5, color);
+        //backgroundGradient.setStroke(5, color);
+        backgroundGradient.setColor(color);
 
         color = generator.getColor(tkbMonhocShowItem.getTenMH());
         backgroundGradient = (GradientDrawable)monhocViewHolder.layout.getBackground();
@@ -68,7 +69,7 @@ public class TkbNgayRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class MonhocViewHolder extends RecyclerView.ViewHolder{
-        public TextView pos, timeStart, timeFinish, tenMH, maMH, nhom, to, phong, line;
+        public TextView pos, timeStart, timeFinish, tenMH, maMH, nhom, to, phong;
         public MaterialRippleLayout layout;
         public MonhocViewHolder(View itemView) {
             super(itemView);
@@ -80,7 +81,6 @@ public class TkbNgayRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             nhom = (TextView) itemView.findViewById(R.id.nhom_text);
             to = (TextView) itemView.findViewById(R.id.to_text);
             phong = (TextView) itemView.findViewById(R.id.phong_text);
-            line =(TextView) itemView.findViewById(R.id.line_text);
             layout = (MaterialRippleLayout) itemView.findViewById(R.id.layout);
         }
     }

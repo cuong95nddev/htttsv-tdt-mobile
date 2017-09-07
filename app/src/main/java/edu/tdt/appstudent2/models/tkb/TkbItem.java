@@ -11,6 +11,7 @@ public class TkbItem extends RealmObject{
     @PrimaryKey
     private String idHocKy;
     private String dateStart;
+    private int nTuan;
     private RealmList<TkbMonhocItem> tkbMonhocItems;
 
     public String getIdHocKy() {
@@ -37,5 +38,13 @@ public class TkbItem extends RealmObject{
 
     public void setTkbMonhocItems(RealmList<TkbMonhocItem> tkbMonhocItems) {
         this.tkbMonhocItems = tkbMonhocItems;
+    }
+
+    public int getnTuan() {
+        return nTuan;
+    }
+
+    public void setnTuan(int nTuan) {
+        this.nTuan = nTuan;
     }
 }

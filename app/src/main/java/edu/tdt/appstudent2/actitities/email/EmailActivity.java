@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -48,9 +46,12 @@ import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.Token;
 import edu.tdt.appstudent2.adapters.email.EmailRecyclerViewAdapter;
 import edu.tdt.appstudent2.api.Api;
+import edu.tdt.appstudent2.fragments.dialog.EditServiceDialogFragment;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.email.EmailItem;
 import edu.tdt.appstudent2.models.email.EmailPageSave;
+import edu.tdt.appstudent2.service.CheckEmailService;
+import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.utils.Tag;
 import edu.tdt.appstudent2.utils.Util;
 import io.realm.Realm;
@@ -85,6 +86,10 @@ public class EmailActivity extends AppCompatActivity {
     private Session emailSession;
 
     AppCompatImageButton btnBack;
+    AppCompatImageButton btnWeb;
+    AppCompatImageButton btnNoti;
+
+    private boolean enableNoti = false;
 
     private void khoiTao(){
         realm = Realm.getDefaultInstance();
@@ -139,7 +144,71 @@ public class EmailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        btnWeb = (AppCompatImageButton) findViewById(R.id.btnWeb);
+        btnWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getEmailWeb();
+            }
+        });
+        btnNoti = (AppCompatImageButton) findViewById(R.id.btnNoti);
+        btnNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(enableNoti)
+                    openOrCloseService();
+            }
+        });
+
+        btnNoti.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(enableNoti){
+                    FragmentManager fm = getSupportFragmentManager();
+                    EditServiceDialogFragment alertDialog = EditServiceDialogFragment.newInstance(EditServiceDialogFragment.TYPE_EMAIL);
+                    alertDialog.show(fm, "fragment_alert");
+
+                    alertDialog.setOnDismissEvent(new EditServiceDialogFragment.OnDismissEvent() {
+                        @Override
+                        public void onDismiss() {
+                            setIconNoti();
+                        }
+                    });
+
+                }
+                return true;
+            }
+        });
     }
+
+    private void openOrCloseService(){
+        realm.beginTransaction();
+        if(user.getEmailServiceConfig().isOpen()){
+            user.getEmailServiceConfig().setOpen(false);
+            ServiceUtils.stopService(this
+                    , CheckEmailService.class);
+        }else{
+            user.getEmailServiceConfig().setOpen(true);
+            ServiceUtils.startService(this
+                    , CheckEmailService.class
+                    , ServiceUtils.TIME_REPLAY[(int)user.getEmailServiceConfig().getTimeReplay()]);
+        }
+        realm.commitTransaction();
+        setIconNoti();
+    }
+
+    private void setIconNoti(){
+        btnNoti.setImageResource(user.getEmailServiceConfig().isOpen()?
+                R.drawable.ic_notifications_active_black_24dp:R.drawable.ic_notifications_off_black_24dp);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -246,8 +315,10 @@ public class EmailActivity extends AppCompatActivity {
             emailPageSave.setIdLoadedTop(emailPageSaveGet.getIdLoadedTop());
             emailPageSave.setIdLoadedBottom(emailPageSaveGet.getIdLoadedBottom());
             showOffline();
+            setIconNoti();
             isRefresh = true;
             readListMail();
+            enableNoti = true;
         }
     }
 
@@ -425,6 +496,7 @@ public class EmailActivity extends AppCompatActivity {
                     }
                 }
                 realm.commitTransaction();
+                enableNoti = true;
             }
             endless.loadMoreComplete();
             swipeContainer.setRefreshing(false);
@@ -515,24 +587,6 @@ public class EmailActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_email, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.action_open_web:
-                getEmailWeb();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -11,9 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -72,7 +69,6 @@ public class TrangchuActivity extends AppCompatActivity{
     private TextView tvTileNews;
     private WebView logNews;
 
-    private LinearLayout layoutOnline;
     private TextView tvOnlineNum;
 
     private UpdateApp updateApp;
@@ -98,7 +94,6 @@ public class TrangchuActivity extends AppCompatActivity{
         tvTileNews = (TextView) findViewById(R.id.tvTitleNews);
         logNews = (WebView) findViewById(R.id.logNews);
 
-        layoutOnline = (LinearLayout) findViewById(R.id.layoutOnline);
         tvOnlineNum = (TextView) findViewById(R.id.tvOnlineNum);
 
         btnOpenChat = (AppCompatImageButton) findViewById(R.id.btnMess);
@@ -131,6 +126,7 @@ public class TrangchuActivity extends AppCompatActivity{
         addPaper();
 
         userReference = mDatabase.child("UserOnline");
+        userReference.keepSynced(false);
         referenceHashMap.put(KEY_EVENT_USER, userReference);
         eventListenerHashMap.put(KEY_EVENT_USER, new ValueEventListener() {
             @Override
@@ -145,8 +141,7 @@ public class TrangchuActivity extends AppCompatActivity{
                         onlineNum++;
 
                 }
-                tvOnlineNum.setText("Có " + onlineNum + " bạn đang Online");
-                layoutOnline.setVisibility(View.VISIBLE);
+                tvOnlineNum.setText(""+onlineNum);
             }
 
             @Override
@@ -293,23 +288,6 @@ public class TrangchuActivity extends AppCompatActivity{
                 .show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_trangchu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

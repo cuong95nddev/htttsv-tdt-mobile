@@ -10,9 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -38,6 +35,7 @@ import edu.tdt.appstudent2.adapters.thongbao.FragmentAdapter;
 import edu.tdt.appstudent2.api.Api;
 import edu.tdt.appstudent2.fragments.tkb.TkbNgayFragment;
 import edu.tdt.appstudent2.fragments.tkb.TkbTonghopFragment;
+import edu.tdt.appstudent2.fragments.tkb.TkbTuanFragment;
 import edu.tdt.appstudent2.models.Config;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.tkb.TkbHockyItem;
@@ -65,6 +63,9 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
 
     private MultiStateView mMultiStateView;
     private AppCompatImageButton btnBack;
+    private AppCompatImageButton btnReload;
+    private AppCompatImageButton btnDefault;
+
     private MaterialRippleLayout btnChonHocKy;
 
     private TextView tvTiteHocKy;
@@ -123,6 +124,20 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
                 onBackPressed();
             }
         });
+        btnReload = (AppCompatImageButton) findViewById(R.id.btnReload);
+        btnReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reload();
+            }
+        });
+        btnDefault = (AppCompatImageButton) findViewById(R.id.btnDefault);
+        btnDefault.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setIdHocKyMacDinh();
+            }
+        });
 
         btnChonHocKy = (MaterialRippleLayout) findViewById(R.id.btnChonHocKy);
         btnChonHocKy.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +181,17 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
         user.getConfig().setIdHocKyMacDinh(idHocKy);
         idHocKyMacDinh = idHocKy;
         realm.commitTransaction();
-        invalidateOptionsMenu();
+        setIconDefault();
+    }
+
+    private void setIconDefault(){
+        if(idHocKyMacDinh != null){
+            if(idHocKyMacDinh.equals(idHocKy)){
+                btnDefault.setImageResource(R.drawable.ic_favorite_black_24dp);
+            }else{
+                btnDefault.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            }
+        }
     }
 
     private void checkOffline(){
@@ -262,6 +287,9 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
                                     tkbLichItem.setThu(lichObject.getString("thu"));
                                     tkbLichItem.setTiet(lichObject.getString("tiet"));
                                     tkbLichItem.setTuan(lichObject.getString("tuan"));
+                                    if(tkbItem.getnTuan() == 0){
+                                        tkbItem.setnTuan(tkbLichItem.getTuan().length());
+                                    }
                                     tkbMonhocItem.getTkbLichItems().add(tkbLichItem);
                                 }
                                 tkbItem.getTkbMonhocItems().add(tkbMonhocItem);
@@ -306,14 +334,21 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
         TkbNgayFragment tkbNgayFragment = new TkbNgayFragment();
         tkbNgayFragment.setArguments(bundle);
         fragmentArrayList.add(tkbNgayFragment);
-        fragmentAdapter.addTitle("Ngày");
+        fragmentAdapter.addTitle("NGÀY");
+
+        bundle = new Bundle();
+        bundle.putString(Tag.idHocKy, idHocKy);
+        TkbTuanFragment tkbTuanFragment = new TkbTuanFragment();
+        tkbTuanFragment.setArguments(bundle);
+        fragmentArrayList.add(tkbTuanFragment);
+        fragmentAdapter.addTitle("TUẦN");
 
         bundle = new Bundle();
         bundle.putString(Tag.idHocKy, idHocKy);
         TkbTonghopFragment tkbTonghopFragment = new TkbTonghopFragment();
         tkbTonghopFragment.setArguments(bundle);
         fragmentArrayList.add(tkbTonghopFragment);
-        fragmentAdapter.addTitle("Tổng quát");
+        fragmentAdapter.addTitle("TỔNG QUÁT");
         fragmentAdapter.notifyDataSetChanged();
     }
 
@@ -446,46 +481,8 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
         mMultiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
         tvTiteHocKy.setText(tkbHockyItems.get(postition).getTenHocKy());
         idHocKy = tkbHockyItems.get(postition).getId();
-        invalidateOptionsMenu();
+        setIconDefault();
         checkTkbOffline();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_tkb, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        MenuItem settingsItem = menu.findItem(R.id.action_set_default);
-
-        if(settingsItem != null && idHocKyMacDinh != null){
-            if(idHocKyMacDinh.equals(idHocKy)){
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_black_24dp));
-            }else{
-                settingsItem.setIcon(getResources().getDrawable(R.drawable.ic_favorite_border_black_24dp));
-            }
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.action_reload:
-                reload();
-                break;
-            case R.id.action_set_default:
-                setIdHocKyMacDinh();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

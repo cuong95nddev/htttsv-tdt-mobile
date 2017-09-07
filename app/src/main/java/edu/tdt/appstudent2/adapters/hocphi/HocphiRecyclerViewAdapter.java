@@ -13,7 +13,6 @@ import edu.tdt.appstudent2.models.hocphi.HocphiHeaderItem;
 import edu.tdt.appstudent2.models.hocphi.HocphiMucItem;
 import edu.tdt.appstudent2.models.hocphi.HocphiThanhtoanItem;
 import edu.tdt.appstudent2.models.hocphi.HocphiTitleItem;
-import edu.tdt.appstudent2.utils.ColorGenerator;
 import edu.tdt.appstudent2.viewholder.hocphi.HocphiChitietViewHolder;
 import edu.tdt.appstudent2.viewholder.hocphi.HocphiHeaderViewHolder;
 import edu.tdt.appstudent2.viewholder.hocphi.HocphiMucViewHolder;
@@ -29,7 +28,6 @@ public class HocphiRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     private static final int VIEW_CHITIET = 2;
     private static final int VIEW_THANHTOAN = 3;
     private static final int VIEW_HEADER = 4;
-    ColorGenerator generator = ColorGenerator.MATERIAL;
     private List<Object> items;
     public HocphiRecyclerViewAdapter(List<Object> items) {
         this.items = items;
@@ -85,21 +83,18 @@ public class HocphiRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 hocphiChitietViewHolder.id.setText(hocphiChitiet.getMaMonHoc());
                 hocphiChitietViewHolder.money.setText(hocphiChitiet.getSoTien());
                 hocphiChitietViewHolder.title.setText(hocphiChitiet.getTenMonHoc());
-                int color = generator.getColor(hocphiChitiet.getTenMonHoc());
-                hocphiChitietViewHolder.nameRLV.setBackgroundColor(color);
-                hocphiChitietViewHolder.nameRLV.setTitleText(String.valueOf(hocphiChitiet.getTenMonHoc().charAt(0)));
                 break;
             case VIEW_THANHTOAN:
                 HocphiThanhtoanViewHolder hocphiThanhtoanViewHolder = (HocphiThanhtoanViewHolder) holder;
                 HocphiThanhtoanItem hocphiThanhtoanItem = (HocphiThanhtoanItem)items.get(position);
                 hocphiThanhtoanViewHolder.title.setText(hocphiThanhtoanItem.getNgayThanhToan());
                 hocphiThanhtoanViewHolder.id.setText(hocphiThanhtoanItem.getHinhThucThanhToan());
-                hocphiThanhtoanViewHolder.money.setText(hocphiThanhtoanItem.getSoTienThanhToan() + "đ");
+                hocphiThanhtoanViewHolder.money.setText(hocphiThanhtoanItem.getSoTienThanhToan());
                 break;
             case VIEW_HEADER:
                 HocphiHeaderViewHolder hocphiHeaderViewHolder = (HocphiHeaderViewHolder) holder;
                 HocphiHeaderItem hocphiHeaderItem = (HocphiHeaderItem) items.get(position);
-                hocphiHeaderViewHolder.title.setText(hocphiHeaderItem.getTitle() + "đ");
+                hocphiHeaderViewHolder.title.setText(hocphiHeaderItem.getTitle());
                 hocphiHeaderViewHolder.date.setText(hocphiHeaderItem.getDate());
                 break;
         }

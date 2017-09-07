@@ -26,11 +26,13 @@
         <activity android:name=".actitities.thongbao.ThongbaoWebviewActivity" />
         <activity android:name=".actitities.hocphi.HocphiActivity" />
         <activity android:name=".actitities.diem.DiemActivity" />
-        <activity android:name=".actitities.tkb.TkbActivity"
+        <activity
+            android:name=".actitities.tkb.TkbActivity"
             android:icon="@mipmap/ic_calendar"
             android:label="@string/app_name_calendar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,7 +41,14 @@
         <activity android:name=".actitities.hdpt.HdptActivity" />
         <activity android:name=".actitities.email.EmailWebActivity" />
         <activity android:name=".actitities.lichthi.LichThiActivity" />
-        <activity android:name=".actitities.chat.ChatActivity"></activity>
+        <activity android:name=".actitities.chat.ChatActivity" />
+
+        <service
+            android:name=".service.CheckEmailService"
+            android:exported="false" />
+        <service
+            android:name=".service.CheckNewsService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
