@@ -16,6 +16,7 @@ public class User extends RealmObject {
     private String linkHostMail;
     private Config config;
     private boolean lock;
+    private boolean showAvatar;
 
     private ServiceConfig tbServiceConfig;
     private ServiceConfig emailServiceConfig;
@@ -98,6 +99,14 @@ public class User extends RealmObject {
 
     public void setEmailServiceConfig(ServiceConfig emailServiceConfig) {
         this.emailServiceConfig = emailServiceConfig;
+    }
+
+    public boolean isShowAvatar() {
+        return showAvatar;
+    }
+
+    public void setShowAvatar(boolean showAvatar) {
+        this.showAvatar = showAvatar;
     }
 }
 

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".MyApplication"
@@ -13,21 +14,29 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".actitities.dangnhap.DangnhapActivity" />
-        <activity android:name=".actitities.trangchu.TrangchuActivity" />
-        <activity android:name=".actitities.thongbao.ThongbaoActivity" />
-        <activity android:name=".actitities.thongbao.ThongbaoWebviewActivity" />
-        <activity android:name=".actitities.hocphi.HocphiActivity" />
-        <activity android:name=".actitities.diem.DiemActivity" />
+        <activity android:name=".actitities.dangnhap.DangnhapActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.trangchu.TrangchuActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.thongbao.ThongbaoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.thongbao.ThongbaoWebviewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.hocphi.HocphiActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.diem.DiemActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actitities.tkb.TkbActivity"
+            android:screenOrientation="portrait"
             android:icon="@mipmap/ic_calendar"
             android:label="@string/app_name_calendar">
             <intent-filter>
@@ -36,19 +45,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".actitities.email.EmailActivity" />
-        <activity android:name=".actitities.email.EmailViewActivity" />
-        <activity android:name=".actitities.hdpt.HdptActivity" />
-        <activity android:name=".actitities.email.EmailWebActivity" />
-        <activity android:name=".actitities.lichthi.LichThiActivity" />
-        <activity android:name=".actitities.chat.ChatActivity" />
+        <activity android:name=".actitities.email.EmailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.email.EmailViewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.hdpt.HdptActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.email.EmailWebActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.lichthi.LichThiActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".actitities.chat.ChatActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".service.CheckEmailService"
             android:exported="false" />
         <service
             android:name=".service.CheckNewsService"
-            android:exported="false"></service>
+            android:exported="false" />
+        <receiver android:name=".service.Receiver.RestartAlarmsReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

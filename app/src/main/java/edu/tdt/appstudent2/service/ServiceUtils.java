@@ -10,8 +10,8 @@ import android.content.Intent;
  */
 
 public class ServiceUtils {
-    //public static final long[] TIME_REPLAY = {1800000, 3600000, 21600000, 43200000};
-    public static final long[] TIME_REPLAY = {60000, 3600000, 21600000, 43200000};
+    public static final long[] TIME_REPLAY = {1800000, 3600000, 21600000, 43200000};
+    //public static final long[] TIME_REPLAY = {60000, 3600000, 21600000, 43200000};
     public static void startService(Context context, Class service, long timeReplay){
         Intent intent = new Intent(context, service);
         PendingIntent pintent = PendingIntent.getService(context, 0, intent, 0);

@@ -123,7 +123,8 @@ public class ThongbaoActivity extends AppCompatActivity {
             public boolean onLongClick(View view) {
                 if(enableNoti){
                     FragmentManager fm = getSupportFragmentManager();
-                    EditServiceDialogFragment alertDialog = EditServiceDialogFragment.newInstance(EditServiceDialogFragment.TYPE_EMAIL);
+                    EditServiceDialogFragment alertDialog = EditServiceDialogFragment
+                            .newInstance(EditServiceDialogFragment.TYPE_TB);
                     alertDialog.show(fm, "fragment_alert");
 
                     alertDialog.setOnDismissEvent(new EditServiceDialogFragment.OnDismissEvent() {
@@ -156,7 +157,7 @@ public class ThongbaoActivity extends AppCompatActivity {
     }
 
     private void setIconNoti(){
-        btnNoti.setImageResource(user.getEmailServiceConfig().isOpen()?
+        btnNoti.setImageResource(user.getTbServiceConfig().isOpen()?
                 R.drawable.ic_notifications_active_black_24dp:R.drawable.ic_notifications_off_black_24dp);
     }
 

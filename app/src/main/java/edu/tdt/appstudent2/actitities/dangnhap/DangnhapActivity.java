@@ -29,6 +29,9 @@ import edu.tdt.appstudent2.actitities.trangchu.TrangchuActivity;
 import edu.tdt.appstudent2.api.Api;
 import edu.tdt.appstudent2.models.ServiceConfig;
 import edu.tdt.appstudent2.models.User;
+import edu.tdt.appstudent2.service.CheckEmailService;
+import edu.tdt.appstudent2.service.CheckNewsService;
+import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.views.widget.MaterialSquareLoading;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -78,7 +81,6 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
         waitProgress.hide();
         ibtnHideShowPass = (ImageButton) findViewById(R.id.hide_show_pass);
         ibtnHideShowPass.setOnClickListener(this);
-
         hideShowPass();
     }
     @Override
@@ -87,6 +89,8 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dangnhap);
         anhXa();
+        ServiceUtils.stopService(this, CheckEmailService.class);
+        ServiceUtils.stopService(this, CheckNewsService.class);
     }
 
     @Override
@@ -207,6 +211,7 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
                 emailServiceConfig.setVibrate(false);
                 emailServiceConfig.setTimeReplay(0);
                 user.setEmailServiceConfig(emailServiceConfig);
+                user.setShowAvatar(false);
 
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(user);

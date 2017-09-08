@@ -8,41 +8,70 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.models.firebase.Chat;
-import edu.tdt.appstudent2.models.firebase.ChatIn;
-import edu.tdt.appstudent2.models.firebase.ChatOut;
+import edu.tdt.appstudent2.models.firebase.ChatDateShow;
+import edu.tdt.appstudent2.models.firebase.ChatShow;
 import edu.tdt.appstudent2.utils.StringUtil;
+import edu.tdt.appstudent2.views.widget.CircleImageView;
 
 /**
  * Created by bichan on 8/29/17.
  */
 
 public class ChatAdapter extends RecyclerView.Adapter {
+    private Context mContext;
+
     private static final int TYPE_IN = 1;
+    private static final int TYPE_IN_ADMIN = 4;
     private static final int TYPE_OUT = 2;
-    public ArrayList<Object> chats;
-    public Context mContext;
+    private static final int TYPE_DATE = 3;
+
+    private ArrayList<Object> lists;
 
     public ChatAdapter(Context mContext){
+        lists = new ArrayList<>();
         this.mContext = mContext;
-        chats = new ArrayList<Object>();
+    }
+
+    public void clear(){
+        lists.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addItem(ChatShow chatShow){
+        lists.add(chatShow);
+        ChatDateShow chatDateShow = new ChatDateShow();
+        chatDateShow.time = chatShow.time;
+        lists.add(chatDateShow);
+        notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        switch (viewType) {
+        View view = null;
+        switch (viewType){
+            case TYPE_DATE:
+                view = inflater.inflate(R.layout.item_chat_date, parent, false);
+                viewHolder = new ChatDateViewHolder(view);
+                break;
             case TYPE_IN:
-                View v1 = inflater.inflate(R.layout.item_chat_in, parent, false);
-                viewHolder = new ChatInViewHolder(v1);
+                view = inflater.inflate(R.layout.item_chat_in, parent, false);
+                viewHolder = new ChatViewHolder(view);
+                break;
+            case TYPE_IN_ADMIN:
+                view = inflater.inflate(R.layout.item_chat_in_admin, parent, false);
+                viewHolder = new ChatViewHolder(view);
                 break;
             case TYPE_OUT:
-                View v2 = inflater.inflate(R.layout.item_chat_out, parent, false);
-                viewHolder = new ChatOutViewHolder(v2);
+                view = inflater.inflate(R.layout.item_chat_out, parent, false);
+                viewHolder = new ChatViewHolder(view);
                 break;
         }
         return viewHolder;
@@ -50,70 +79,89 @@ public class ChatAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Chat preChat = position - 1 >= 0 ? (Chat) chats.get(position - 1): null;
-        Chat chat = (Chat) chats.get(position);
+        int type = holder.getItemViewType();
+
+        Chat preChat = position - (type == TYPE_DATE?3:2) >= 0 ? (ChatShow) lists.get(position - (type == TYPE_DATE?3:2)): null;
+        Chat chat = (ChatShow) lists.get(position - (type == TYPE_DATE?1:0));
         boolean hideName = false;
         boolean hideTime = false;
         boolean showTimeFull = false;
 
-        if(!DateUtils.isToday(chat.time))
+        if(!DateUtils.isToday(chat.time)){
             showTimeFull = true;
+        }
 
-        if(preChat != null && preChat.mssv.equals(chat.mssv)){
+        if(preChat != null && preChat.chatUser.mssv.equals(chat.chatUser.mssv)){
             hideName = true;
         }
 
         if(preChat != null && (chat.time - preChat.time) < 10 * 60 * 1000)
             hideTime = true;
 
-        switch (holder.getItemViewType()){
-            case TYPE_IN:
-                ChatInViewHolder chatInViewHolder = (ChatInViewHolder) holder;
-                chatInViewHolder.tvMSSV.setText(chat.mssv);
-                chatInViewHolder.tvBody.setText(chat.body);
-                chatInViewHolder.tvTime.setText(StringUtil.getDate(chat.time, showTimeFull?"dd/MM - HH:mm":"HH:mm"));
-                chatInViewHolder.tvMSSV.setVisibility(hideName?View.GONE:View.VISIBLE);
-                chatInViewHolder.tvTime.setVisibility(hideTime?View.GONE:View.VISIBLE);
-                break;
-            case TYPE_OUT:
-                ChatOutViewHolder chatOutViewHolder = (ChatOutViewHolder) holder;
-                chatOutViewHolder.tvBody.setText(chat.body);
-                chatOutViewHolder.tvTime.setText(StringUtil.getDate(chat.time, showTimeFull?"dd/MM - HH:mm":"HH:mm"));
-                chatOutViewHolder.tvTime.setVisibility(hideTime?View.GONE:View.VISIBLE);
-                break;
+        if(type == TYPE_DATE){
+            ChatDateShow chatDateShow = (ChatDateShow) lists.get(position);
+            ChatDateViewHolder chatDateViewHolder = (ChatDateViewHolder) holder;
+            chatDateViewHolder.tvDate.setVisibility(hideTime?View.GONE:View.VISIBLE);
+            chatDateViewHolder.tvDate.setText(StringUtil.getDate(chatDateShow.time, showTimeFull?"dd/MM - HH:mm":"HH:mm"));
+        }
+
+        if(type == TYPE_IN || type == TYPE_OUT){
+            ChatShow chatShow = (ChatShow) lists.get(position);
+            ChatViewHolder chatViewHolder = (ChatViewHolder) holder;
+            chatViewHolder.tvName.setText(chatShow.chatUser.name);
+            chatViewHolder.tvBody.setText(chatShow.body);
+            if(type == TYPE_IN){
+                chatViewHolder.tvName.setVisibility(hideName?View.GONE:View.VISIBLE);
+                chatViewHolder.imgAvatar.setVisibility(hideName?View.INVISIBLE:View.VISIBLE);
+                if(!chatShow.chatUser.showAvatar){
+                    Picasso.with(mContext).load(R.drawable.user_empty).into(chatViewHolder.imgAvatar);
+                }else{
+                    Picasso.with(mContext).load(chatShow.chatUser.avatar).into(chatViewHolder.imgAvatar);
+                }
+                chatViewHolder.dotOnline.setVisibility(chatShow.online?View.VISIBLE:View.GONE);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return chats.size();
+        return lists.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(chats.get(position) instanceof ChatIn)
-            return TYPE_IN;
-        if (chats.get(position) instanceof ChatOut)
+        Object o = lists.get(position);
+        if(o instanceof ChatDateShow)
+            return TYPE_DATE;
+        if(o instanceof ChatShow){
+            if(((ChatShow) o).type == 1){
+                if(((ChatShow) o).chatUser.isAdmin)
+                    return TYPE_IN_ADMIN;
+                return TYPE_IN;
+            }
             return TYPE_OUT;
+        }
         return 0;
     }
 
-    public class ChatInViewHolder extends RecyclerView.ViewHolder{
-        public TextView tvMSSV, tvBody, tvTime;
-        public ChatInViewHolder(View itemView) {
+    private class ChatViewHolder extends RecyclerView.ViewHolder{
+        public CircleImageView imgAvatar;
+        public TextView tvName, tvBody;
+        public View dotOnline;
+        public ChatViewHolder(View itemView) {
             super(itemView);
-            tvMSSV = (TextView) itemView.findViewById(R.id.text_message_name);
-            tvBody = (TextView) itemView.findViewById(R.id.text_message_body);
-            tvTime = (TextView) itemView.findViewById(R.id.text_message_time);
+            imgAvatar = (CircleImageView) itemView.findViewById(R.id.imgAvatar);
+            tvName = (TextView) itemView.findViewById(R.id.tvName);
+            tvBody = (TextView) itemView.findViewById(R.id.tvBody);
+            dotOnline = (View) itemView.findViewById(R.id.dotOnline);
         }
     }
 
-    public class ChatOutViewHolder extends RecyclerView.ViewHolder{
-        public TextView tvBody, tvTime;
-        public ChatOutViewHolder(View itemView) {
+    private class ChatDateViewHolder extends RecyclerView.ViewHolder{
+        public TextView tvDate;
+        public ChatDateViewHolder(View itemView) {
             super(itemView);
-            tvBody = (TextView) itemView.findViewById(R.id.text_message_body);
-            tvTime = (TextView) itemView.findViewById(R.id.text_message_time);
+            tvDate = (TextView) itemView.findViewById(R.id.tvDate);
         }
     }
 }

@@ -7,31 +7,91 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="edu.tdt.appstudent2.actitities.chat.ChatActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:padding="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            android:theme="@style/Theme.AppCompat.Light"
+            app:popupTheme="@style/Theme.AppCompat.Light">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="52dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/selector_light_theme"
+                    android:src="@drawable/ic_navigate_before_black_24dp"/>
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="động chat :))"
+                    android:textStyle="bold"
+                    android:textSize="18dp"/>
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btnNoti"
+                    android:clickable="false"
+                    android:layout_width="52dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/selector_light_theme"
+                    android:src="@drawable/ic_face_black_24dp"/>
+                <Switch
+                    android:id="@+id/swAvatar"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvUserOnline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+    </android.support.v7.widget.RecyclerView>
     <RelativeLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/reyclerview_message_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-        </android.support.v7.widget.RecyclerView>
         <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="2dp"
+            android:background="@drawable/layout_bottom_shadow"
+            android:layout_alignParentTop="true"/>
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/reyclerview_message_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
             android:background="@drawable/layout_top_shadow"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/layout_chatbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:minHeight="48dp"
         android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,25 +99,27 @@
 
         <EditText
             android:id="@+id/edittext_chatbox"
-            android:hint="Tin nhắn..."
-            android:background="@android:color/transparent"
+            android:hint="Aa"
+            android:background="@drawable/cricle_input_chat"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:maxLines="6"/>
-
-        <Button
-            android:id="@+id/button_chatbox_send"
-            android:text="Gửi"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
             android:textSize="14dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:layout_width="64dp"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:layout_gravity="bottom" />
+            android:maxLines="6"/>
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/button_chatbox_send"
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorAccent"
+            android:tint="@color/colorAccent"
+            android:background="@drawable/selector_light_theme"
+            android:src="@drawable/ic_send_chat"/>
     </LinearLayout>
 </LinearLayout>

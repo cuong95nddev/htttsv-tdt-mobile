@@ -5,7 +5,7 @@ package edu.tdt.appstudent2.models.firebase;
  */
 
 public class Chat {
-    public String mssv;
     public long time;
     public String body;
+    public ChatUser chatUser;
 }

@@ -3,8 +3,9 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#C7C7C7</color>
     <color name="colorPrimaryLight">#C7C7C7</color>
-    <color name="colorAccent">#197FFB</color>
-    <color name="colorAccentDark">#197FFB</color>
+    <color name="colorAccent">#F0606F</color>
+    <color name="colorAccentTran">#6ff0606f</color>
+    <color name="colorAccentDark">#F0606F</color>
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorIcons">#FFFFFF</color>
@@ -16,8 +17,8 @@
     <color name="colorBackground">#F4F5F7</color>
 
     <!--Day picker-->
-    <color name="mdtp_accent_color">#303F9F</color>
-    <color name="mdtp_accent_color_dark">#303F9F</color>
+    <color name="mdtp_accent_color">#F0606F</color>
+    <color name="mdtp_accent_color_dark">#F0606F</color>
 
     <!-- tab -->
     <color name="tab_title_color">#000000</color>
