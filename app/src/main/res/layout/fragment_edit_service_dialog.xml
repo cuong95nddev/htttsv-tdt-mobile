@@ -4,70 +4,80 @@
     android:layout_height="match_parent"
     tools:context="edu.tdt.appstudent2.fragments.dialog.EditServiceDialogFragment">
 
-  <LinearLayout
-      android:layout_width="300dp"
-      android:padding="16dp"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textStyle="bold"
-          android:textSize="16dp"
-          android:text="Thời gian đồng bộ hóa"/>
-      <RadioGroup
-          android:id="@+id/rdgTime"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-          <RadioButton
-              android:id="@+id/rbTime0"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="30 phút" />
-          <RadioButton
-              android:id="@+id/rbTime1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="1 tiếng" />
-          <RadioButton
-              android:id="@+id/rbTime2"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="6 tiếng" />
-          <RadioButton
-              android:id="@+id/rbTime3"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="12 tiếng" />
-      </RadioGroup>
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textStyle="bold"
-          android:textSize="16dp"
-          android:text="Thông báo"/>
-      <CheckBox
-          android:id="@+id/chbSound"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Âm thanh"/>
-      <CheckBox
-          android:id="@+id/chbVibrate"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Rung"/>
-      <Button
-          android:layout_gravity="center"
-          android:id="@+id/btnSave"
-          android:layout_marginTop="8dp"
-          android:textColor="#ffffff"
-          android:textStyle="bold"
-          android:padding="15dp"
-          android:background="@drawable/button_custom"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Lưu"/>
-  </LinearLayout>
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:text="Thời gian đồng bộ hóa" />
+
+        <RadioGroup
+            android:id="@+id/rdgTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rbTime0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30 phút" />
+
+            <RadioButton
+                android:id="@+id/rbTime1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 tiếng" />
+
+            <RadioButton
+                android:id="@+id/rbTime2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6 tiếng" />
+
+            <RadioButton
+                android:id="@+id/rbTime3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 tiếng" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:text="Thông báo" />
+
+        <CheckBox
+            android:id="@+id/chbSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Âm thanh" />
+
+        <CheckBox
+            android:id="@+id/chbVibrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rung" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:padding="15dp"
+            android:background="@drawable/button_custom"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:text="Lưu" />
+    </LinearLayout>
 
 
 </FrameLayout>

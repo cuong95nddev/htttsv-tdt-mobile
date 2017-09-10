@@ -1,62 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:background="@color/white">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <com.balysv.materialripple.MaterialRippleLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mrl_rippleColor="@color/materialRipple"
-            android:padding="8dp">
+            android:padding="8dp"
+            app:mrl_rippleColor="@color/materialRipple">
+
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                     <TextView
-                        android:textColor="#000000"
                         android:id="@+id/ten_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16dp"
                         android:textStyle="bold"
-                        android:text="Môn anh văn"/>
+                        android:textColor="#000000"
+                        android:text="Môn anh văn" />
+
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/id_lable"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:textStyle="italic"
-                            android:text="0512251"/>
+                            android:text="0512251" />
+
                         <TextView
                             android:id="@+id/money_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="16dp"
-                            android:text="100000"
-                            android:textColor="#F05C56"/>
+                            android:textColor="#F05C56"
+                            android:text="100000" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </com.balysv.materialripple.MaterialRippleLayout>
-        <include layout="@layout/line_space"/>
+
+        <include layout="@layout/line_space" />
     </LinearLayout>
 </LinearLayout>

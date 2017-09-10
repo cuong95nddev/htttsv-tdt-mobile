@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="4dp"
     android:paddingBottom="4dp">
+
     <RelativeLayout
         android:layout_width="32dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="8dp">
+
         <edu.tdt.appstudent2.views.widget.CircleImageView
             android:id="@+id/imgAvatar"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/user_empty"
-            app:civ_border_color="#000000" />
+            app:civ_border_color="#000000"
+            android:src="@drawable/user_empty" />
+
         <View
             android:id="@+id/dotOnline"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:background="@drawable/dot_online"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"/>
+            android:background="@drawable/dot_online" />
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvName"
-            android:text="John Doe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
             android:textSize="12sp"
             android:textColor="@color/colorDivider"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp" />
+            android:text="John Doe" />
+
         <TextView
             android:id="@+id/tvBody"
-            android:text="hi man, how are you?"
-            android:background="@drawable/chat_in_bg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="64dp"
+            android:layout_marginTop="4dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="64dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/chat_in_bg"
             android:textSize="18dp"
-            android:layout_marginLeft="8dp" />
+            android:text="hi man, how are you?" />
     </LinearLayout>
 </LinearLayout>

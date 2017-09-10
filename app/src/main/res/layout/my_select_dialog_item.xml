@@ -2,10 +2,10 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:textColor="?android:attr/textColorAlertDialogListItem"
-    android:gravity="center_vertical"
-    android:paddingStart="24dip"
-    android:paddingEnd="24dip"
-    android:ellipsize="marquee" />
+    android:ellipsize="marquee"
+    android:textColor="?android:attr/textColorAlertDialogListItem" />

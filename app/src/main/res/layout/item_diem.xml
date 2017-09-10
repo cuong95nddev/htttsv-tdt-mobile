@@ -1,104 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:background="@color/white">
+
     <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/thongbao_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mrl_rippleOverlay="true"
-        app:mrl_rippleColor="@color/materialRipple"
-        android:id="@+id/thongbao_layout">
+        app:mrl_rippleColor="@color/materialRipple">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp">
+                android:padding="8dp"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/monhoc_text"
-                    android:layout_weight="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:textSize="17dp"
                     android:textStyle="bold"
-                    android:text="Lưu Kim Chung"/>
+                    android:text="Lưu Kim Chung" />
             </LinearLayout>
-            <include layout="@layout/line_space"/>
+
+            <include layout="@layout/line_space" />
+
             <LinearLayout
-                android:padding="8dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/diem1_text"
-                    android:padding="4dp"
-                    android:gravity="center"
-                    android:layout_weight="2.5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:padding="4dp"
+                    android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="24dp"
-                    android:text="1"/>
-                <include layout="@layout/line_horizontal"/>
+                    android:text="1" />
+
+                <include layout="@layout/line_horizontal" />
+
                 <TextView
                     android:id="@+id/diem2_text"
-                    android:padding="4dp"
-                    android:gravity="center"
-                    android:layout_weight="2.5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:padding="4dp"
+                    android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="24dp"
-                    android:text="1"/>
-                <include layout="@layout/line_horizontal"/>
+                    android:text="1" />
+
+                <include layout="@layout/line_horizontal" />
+
                 <TextView
                     android:id="@+id/diemthi1_text"
-                    android:padding="4dp"
-                    android:gravity="center"
-                    android:layout_weight="2.5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:padding="4dp"
+                    android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="24dp"
-                    android:text="1"/>
-                <include layout="@layout/line_horizontal"/>
+                    android:text="1" />
+
+                <include layout="@layout/line_horizontal" />
+
                 <TextView
                     android:id="@+id/diemthi2_text"
-                    android:padding="4dp"
-                    android:gravity="center"
-                    android:layout_weight="2.5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:padding="4dp"
+                    android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="24dp"
-                    android:text="1"/>
-                <include layout="@layout/line_horizontal"/>
+                    android:text="1" />
+
+                <include layout="@layout/line_horizontal" />
+
                 <TextView
                     android:id="@+id/dtb_text"
-                    android:padding="4dp"
-                    android:gravity="center"
-                    android:layout_weight="2.5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:padding="4dp"
+                    android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="24dp"
-                    android:text="1"/>
+                    android:text="1" />
             </LinearLayout>
+
             <TextView
-                android:paddingLeft="8dp"
                 android:id="@+id/ghichu_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
                 android:textStyle="italic|bold"
                 android:textSize="15dp"
-                android:text=""/>
+                android:text="" />
         </LinearLayout>
     </com.balysv.materialripple.MaterialRippleLayout>
 </LinearLayout>

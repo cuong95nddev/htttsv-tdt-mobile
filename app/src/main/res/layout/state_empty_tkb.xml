@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:orientation="vertical"
     android:gravity="center_horizontal">
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/state_empty_tkb"/>
+        android:src="@drawable/state_empty_tkb" />
 
     <TextView
-        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Yeah!"
         android:textColor="@color/colorAccent"
-        android:layout_marginBottom="8dp"/>
+        android:text="Yeah!" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hôm nay không có môn học nào"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="Hôm nay không có môn học nào" />
 
 </LinearLayout>

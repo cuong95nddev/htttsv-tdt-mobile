@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:mrl_rippleColor="@color/materialRipple"
-        android:id="@+id/layout">
+        app:mrl_rippleColor="@color/materialRipple">
+
         <LinearLayout
-        android:padding="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/tvTile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:text="10"/>
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="12/8"/>
-    </LinearLayout>
+            android:padding="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="10" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="12/8" />
+        </LinearLayout>
     </com.balysv.materialripple.MaterialRippleLayout>
 </LinearLayout>

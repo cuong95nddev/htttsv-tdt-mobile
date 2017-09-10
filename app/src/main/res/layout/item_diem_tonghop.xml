@@ -1,97 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+
     <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/thongbao_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mrl_rippleOverlay="true"
-        app:mrl_rippleColor="@color/materialRipple"
-        android:id="@+id/thongbao_layout">
+        app:mrl_rippleColor="@color/materialRipple">
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp">
+                        android:padding="8dp"
+                        android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/monhoc_text"
-                            android:layout_weight="2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:textSize="17dp"
                             android:textStyle="bold"
-                            android:text="Lưu Kim Chung"/>
+                            android:text="Lưu Kim Chung" />
                     </LinearLayout>
                 </LinearLayout>
-                <include layout="@layout/line_space"/>
+
+                <include layout="@layout/line_space" />
+
                 <LinearLayout
-                    android:padding="8dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/stt_text"
-                        android:padding="4dp"
-                        android:layout_weight="2.7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2.7"
+                        android:padding="4dp"
+                        android:gravity="center"
                         android:textSize="17dp"
                         android:textStyle="bold"
                         android:textColor="@color/colorAccent"
-                        android:text="1"/>
-                    <include layout="@layout/line_horizontal"/>
+                        android:text="1" />
+
+                    <include layout="@layout/line_horizontal" />
+
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/mamon_text"
-                        android:padding="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="17dp"
-                        android:text="001001"/>
-                    <include layout="@layout/line_horizontal"/>
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/tc_text"
                         android:padding="4dp"
-                        android:layout_weight="2.65"
+                        android:gravity="center"
+                        android:textSize="17dp"
+                        android:text="001001" />
+
+                    <include layout="@layout/line_horizontal" />
+
+                    <TextView
+                        android:id="@+id/tc_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2.65"
+                        android:padding="4dp"
+                        android:gravity="center"
                         android:textStyle="italic"
                         android:textSize="17dp"
-                        android:text="4"/>
-                    <include layout="@layout/line_horizontal"/>
+                        android:text="4" />
+
+                    <include layout="@layout/line_horizontal" />
+
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/dtb_text"
-                        android:padding="4dp"
-                        android:layout_weight="2.65"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2.65"
+                        android:padding="4dp"
+                        android:gravity="center"
                         android:textStyle="bold"
                         android:textSize="24dp"
-                        android:text="10"/>
+                        android:text="10" />
                 </LinearLayout>
-                <include layout="@layout/line_space"/>
+
+                <include layout="@layout/line_space" />
             </LinearLayout>
         </LinearLayout>
     </com.balysv.materialripple.MaterialRippleLayout>

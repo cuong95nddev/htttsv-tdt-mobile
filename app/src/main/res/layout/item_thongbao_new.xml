@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="@color/white">
-    <com.balysv.materialripple.MaterialRippleLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/thongbao_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mrl_rippleColor="@color/materialRipple"
-        android:id="@+id/thongbao_layout">
+        app:mrl_rippleColor="@color/materialRipple">
+
         <LinearLayout
-            android:padding="8dp"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="horizontal">
+
             <View
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="4dp"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_gravity="center"
-                android:background="@drawable/dot_new"/>
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/dot_new" />
+
             <TextView
-                android:layout_weight="1"
-                android:layout_marginLeft="8dp"
                 android:id="@+id/title_text"
                 android:layout_width="0dp"
-                android:textColor="#000000"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
                 android:textStyle="bold"
                 android:textSize="15dp"
-                android:layout_height="wrap_content"
-                android:text="Event Management (Kỹ năng Quản lý Tổ chức sự kiện) khoá thán"/>
+                android:textColor="#000000"
+                android:text="Event Management (Kỹ năng Quản lý Tổ chức sự kiện) khoá thán" />
         </LinearLayout>
     </com.balysv.materialripple.MaterialRippleLayout>
-    <include layout="@layout/line_space"/>
+
+    <include layout="@layout/line_space" />
 </LinearLayout>

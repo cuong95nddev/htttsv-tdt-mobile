@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/white">
+
     <TextView
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        android:id="@+id/tvDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:layout_weight="1"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:gravity="center"
-        android:id="@+id/tvDay"
         android:textSize="16dp"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
+        android:text="Thu 2" />
+
+    <TextView
+        android:id="@+id/tvDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Thu 2"/>
-    <TextView
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
+        android:layout_weight="3"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:layout_weight="3"
-        android:id="@+id/tvDate"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:textSize="16dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="11/03/2017"/>
+        android:text="11/03/2017" />
 </LinearLayout>

@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="@drawable/gradient_bg">
+
     <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/thongbao_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:mrl_rippleColor="@color/colorAccent"
-        android:id="@+id/thongbao_layout">
+        app:mrl_rippleColor="@color/colorAccent">
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
             <TextView
-                android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
+                android:layout_marginRight="8dp"
+                android:textSize="16dp"
                 android:textStyle="bold"
-                android:text="Tổng điểm:"
-                android:layout_marginRight="8dp"/>
+                android:textColor="#ffffff"
+                android:text="Tổng điểm:" />
+
             <TextView
-                android:textSize="20dp"
                 android:id="@+id/diem_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
+                android:layout_marginRight="8dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="68"
-                android:layout_marginRight="8dp"/>
+                android:textColor="#ffffff"
+                android:text="68" />
+
             <TextView
-                android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
+                android:textSize="16dp"
                 android:textStyle="bold"
-                android:text="điểm"/>
+                android:textColor="#ffffff"
+                android:text="điểm" />
         </LinearLayout>
     </com.balysv.materialripple.MaterialRippleLayout>
 </LinearLayout>
