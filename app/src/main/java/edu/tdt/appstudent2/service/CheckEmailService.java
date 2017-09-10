@@ -91,6 +91,14 @@ public class CheckEmailService extends IntentService {
                 }
             };
             thread.start();
+        }else{
+            realm = Realm.getDefaultInstance();
+            user = realm.where(User.class).findFirst();
+            realm.beginTransaction();
+            user.setCheckNetworkState(true);
+            realm.copyToRealmOrUpdate(user);
+            realm.commitTransaction();
+            realm.close();
         }
     }
 

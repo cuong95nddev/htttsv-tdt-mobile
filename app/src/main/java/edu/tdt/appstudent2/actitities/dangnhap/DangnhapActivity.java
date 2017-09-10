@@ -109,12 +109,14 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
         int start;
         int end;
         if(isShowPass){
+            ibtnHideShowPass.setImageResource(R.drawable.ic_eye);
             isShowPass = false;
             start = tvPassword.getSelectionStart();
             end = tvPassword.getSelectionEnd();
             tvPassword.setTransformationMethod(new PasswordTransformationMethod());;
             tvPassword.setSelection(start,end);
         }else {
+            ibtnHideShowPass.setImageResource(R.drawable.ic_eye_off);
             isShowPass = true;
             start = tvPassword.getSelectionStart();
             end = tvPassword.getSelectionEnd();
@@ -205,13 +207,15 @@ public class DangnhapActivity extends Activity implements View.OnClickListener{
                 user.setTbServiceConfig(tbServiceConfig);
 
                 ServiceConfig emailServiceConfig = new ServiceConfig();
-                emailServiceConfig.setId(1);
+                emailServiceConfig.setId(2);
                 emailServiceConfig.setOpen(false);
                 emailServiceConfig.setSound(false);
                 emailServiceConfig.setVibrate(false);
                 emailServiceConfig.setTimeReplay(0);
                 user.setEmailServiceConfig(emailServiceConfig);
                 user.setShowAvatar(false);
+
+                user.setCheckNetworkState(false);
 
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(user);

@@ -17,6 +17,7 @@ public class User extends RealmObject {
     private Config config;
     private boolean lock;
     private boolean showAvatar;
+    private boolean checkNetworkState;
 
     private ServiceConfig tbServiceConfig;
     private ServiceConfig emailServiceConfig;
@@ -107,6 +108,14 @@ public class User extends RealmObject {
 
     public void setShowAvatar(boolean showAvatar) {
         this.showAvatar = showAvatar;
+    }
+
+    public boolean isCheckNetworkState() {
+        return checkNetworkState;
+    }
+
+    public void setCheckNetworkState(boolean checkNetworkState) {
+        this.checkNetworkState = checkNetworkState;
     }
 }
 

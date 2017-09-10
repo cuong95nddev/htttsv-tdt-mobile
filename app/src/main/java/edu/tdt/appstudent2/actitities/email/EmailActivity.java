@@ -98,6 +98,7 @@ public class EmailActivity extends AppCompatActivity {
         userText = user.getUserName();
         passText = user.getPassWord();
         linkHostMail = user.getLinkHostMail();
+
         lists = new ArrayList<EmailItem>();
 
         properties = System.getProperties();
@@ -152,18 +153,18 @@ public class EmailActivity extends AppCompatActivity {
             }
         });
         btnNoti = (AppCompatImageButton) findViewById(R.id.btnNoti);
-        btnNoti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         btnNoti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(enableNoti)
-                    openOrCloseService();
+                if(enableNoti){
+                    if(user.getEmailServiceConfig().isOpen()){
+                        openOrCloseService();
+                    }else{
+                        openDialogConfigService();
+                    }
+                }
+
             }
         });
 
@@ -171,20 +172,22 @@ public class EmailActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
                 if(enableNoti){
-                    FragmentManager fm = getSupportFragmentManager();
-                    EditServiceDialogFragment alertDialog = EditServiceDialogFragment
-                            .newInstance(EditServiceDialogFragment.TYPE_EMAIL);
-                    alertDialog.show(fm, "fragment_alert");
-
-                    alertDialog.setOnDismissEvent(new EditServiceDialogFragment.OnDismissEvent() {
-                        @Override
-                        public void onDismiss() {
-                            setIconNoti();
-                        }
-                    });
-
+                    openDialogConfigService();
                 }
                 return true;
+            }
+        });
+    }
+
+    private void openDialogConfigService(){
+        FragmentManager fm = getSupportFragmentManager();
+        EditServiceDialogFragment alertDialog = EditServiceDialogFragment
+                .newInstance(EditServiceDialogFragment.TYPE_EMAIL);
+        alertDialog.show(fm, "fragment_alert");
+        alertDialog.setOnDismissEvent(new EditServiceDialogFragment.OnDismissEvent() {
+            @Override
+            public void onDismiss() {
+                setIconNoti();
             }
         });
     }
