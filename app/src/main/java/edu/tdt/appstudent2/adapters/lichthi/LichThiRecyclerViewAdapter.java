@@ -1,5 +1,6 @@
 package edu.tdt.appstudent2.adapters.lichthi;
 
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +17,7 @@ import java.util.List;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.models.lichthi.LichThiDateShowItem;
 import edu.tdt.appstudent2.models.lichthi.LichThiLichItem;
-import edu.tdt.appstudent2.utils.ColorGenerator;
+import edu.tdt.appstudent2.utils.GradientGenerator;
 
 /**
  * Created by cuong on 5/3/2017.
@@ -26,7 +27,7 @@ public class LichThiRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private static final int VIEW_DATE = 0;
     private static final int VIEW_LICHTHI = 1;
 
-    ColorGenerator generator = ColorGenerator.TKB;
+    GradientGenerator generator = GradientGenerator.COLOR;
     private List<Object> lists;
 
     public LichThiRecyclerViewAdapter(List<Object> lists){
@@ -72,9 +73,14 @@ public class LichThiRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
                 lichThiViewHolder.to.setText(lichThiLichItem.getTo());
                 lichThiViewHolder.phong.setText(lichThiLichItem.getPhong());
 
-                int color = generator.getColor(lichThiLichItem.getTenMH());
-                GradientDrawable backgroundGradient = (GradientDrawable)lichThiViewHolder.layout.getBackground();
-                backgroundGradient.setColor(color);
+                String[] colors = generator.getColor(lichThiLichItem.getTenMH());
+
+                GradientDrawable backgroundGradient = new GradientDrawable(
+                        GradientDrawable.Orientation.LEFT_RIGHT,
+                        new int[]{Color.parseColor(colors[0]), Color.parseColor(colors[1])});
+                backgroundGradient.setCornerRadius(10);
+                lichThiViewHolder.layout.setBackground(backgroundGradient);
+
 
                 lichThiViewHolder.layout.setOnClickListener(new View.OnClickListener() {
                     @Override

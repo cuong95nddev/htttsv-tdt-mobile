@@ -42,7 +42,7 @@
                 android:padding="8dp"
                 app:mrl_rippleColor="@color/materialRipple"
                 app:mrl_rippleOverlay="true"
-                android:background="@drawable/circle_tkb_title">
+                android:background="@drawable/gradient_bg">
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"

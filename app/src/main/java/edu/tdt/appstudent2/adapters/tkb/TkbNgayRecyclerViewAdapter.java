@@ -1,5 +1,6 @@
 package edu.tdt.appstudent2.adapters.tkb;
 
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import java.util.List;
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.models.tkb.TkbMonhocShowItem;
 import edu.tdt.appstudent2.utils.ColorGenerator;
+import edu.tdt.appstudent2.utils.GradientGenerator;
 
 /**
  * Created by Bichan on 7/19/2016.
@@ -22,6 +24,7 @@ public class TkbNgayRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<TkbMonhocShowItem> lists;
 
     ColorGenerator generator = ColorGenerator.TKB;
+    GradientGenerator generator2 = GradientGenerator.COLOR;
 
 
     public TkbNgayRecyclerViewAdapter(List<TkbMonhocShowItem> lists){
@@ -58,9 +61,13 @@ public class TkbNgayRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         //backgroundGradient.setStroke(5, color);
         backgroundGradient.setColor(color);
 
-        color = generator.getColor(tkbMonhocShowItem.getTenMH());
-        backgroundGradient = (GradientDrawable)monhocViewHolder.layout.getBackground();
-        backgroundGradient.setColor(color);
+        String[] colors = generator2.getColor(tkbMonhocShowItem.getTenMH());
+
+        GradientDrawable backgroundGradient2 = new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{Color.parseColor(colors[0]), Color.parseColor(colors[1])});
+        backgroundGradient2.setCornerRadius(10);
+        monhocViewHolder.layout.setBackground(backgroundGradient2);
     }
 
     @Override

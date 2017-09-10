@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/layout"
                 app:mrl_rippleOverlay="true"
-                android:background="@drawable/circle_tkb_title"
+                android:background="@drawable/gradient_bg"
                 app:mrl_rippleColor="@color/materialRipple">
                 <LinearLayout
                     android:orientation="vertical"
