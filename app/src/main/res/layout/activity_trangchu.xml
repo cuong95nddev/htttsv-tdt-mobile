@@ -40,6 +40,7 @@
                     app:contentInsetRight="0dp"
                     app:contentInsetStart="0dp">
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="48dp"
                         android:layout_height="wrap_content">
                         <android.support.v7.widget.AppCompatImageButton
@@ -74,16 +75,16 @@
                         android:visibility="gone"
                         app:civ_border_color="#000000" />
                     <LinearLayout
-                        android:layout_gravity="center"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="0dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
                         android:layout_height="wrap_content">
                         <TextView
                             android:id="@+id/name_text"
                             android:textStyle="bold"
                             android:gravity="center"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Luu kim chung"
@@ -91,7 +92,6 @@
                         <TextView
                             android:id="@+id/mssv_text"
                             android:gravity="center"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="51403238"

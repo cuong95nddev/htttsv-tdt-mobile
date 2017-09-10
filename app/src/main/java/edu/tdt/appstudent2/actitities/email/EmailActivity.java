@@ -172,7 +172,8 @@ public class EmailActivity extends AppCompatActivity {
             public boolean onLongClick(View view) {
                 if(enableNoti){
                     FragmentManager fm = getSupportFragmentManager();
-                    EditServiceDialogFragment alertDialog = EditServiceDialogFragment.newInstance(EditServiceDialogFragment.TYPE_EMAIL);
+                    EditServiceDialogFragment alertDialog = EditServiceDialogFragment
+                            .newInstance(EditServiceDialogFragment.TYPE_EMAIL);
                     alertDialog.show(fm, "fragment_alert");
 
                     alertDialog.setOnDismissEvent(new EditServiceDialogFragment.OnDismissEvent() {

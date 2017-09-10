@@ -174,7 +174,7 @@ public class CheckEmailService extends IntentService {
                 }
                 realm.commitTransaction();
                 realm.close();
-                createNotification();
+                createNotification(b.size());
             }
         }
     }
@@ -208,7 +208,7 @@ public class CheckEmailService extends IntentService {
         return result;
     }
 
-    private void createNotification(){
+    private void createNotification(int nNews){
         Intent notificationIntent = new Intent(this, EmailActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -224,7 +224,7 @@ public class CheckEmailService extends IntentService {
 
         mBuilder.setSmallIcon(R.drawable.ic_email_black_24dp)
                 .setLargeIcon(largeIcon)
-                .setContentTitle("CÓ EMAIL MỚI")
+                .setContentTitle("Có " + nNews + " email mới !!!")
                 .setContentText("Vui lòng nhấn vào đây để chuyển đến màn hình Email.")
                 .setContentIntent(intent)
                 .setAutoCancel(true);

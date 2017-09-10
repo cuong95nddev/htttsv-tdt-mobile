@@ -90,7 +90,7 @@
     <LinearLayout
         android:id="@+id/layout_chatbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:orientation="horizontal"
         android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"

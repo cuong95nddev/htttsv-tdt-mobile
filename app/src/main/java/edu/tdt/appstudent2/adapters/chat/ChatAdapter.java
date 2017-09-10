@@ -105,12 +105,12 @@ public class ChatAdapter extends RecyclerView.Adapter {
             chatDateViewHolder.tvDate.setText(StringUtil.getDate(chatDateShow.time, showTimeFull?"dd/MM - HH:mm":"HH:mm"));
         }
 
-        if(type == TYPE_IN || type == TYPE_OUT){
+        if(type == TYPE_IN || type == TYPE_OUT || type == TYPE_IN_ADMIN){
             ChatShow chatShow = (ChatShow) lists.get(position);
             ChatViewHolder chatViewHolder = (ChatViewHolder) holder;
             chatViewHolder.tvName.setText(chatShow.chatUser.name);
             chatViewHolder.tvBody.setText(chatShow.body);
-            if(type == TYPE_IN){
+            if(type == TYPE_IN || type == TYPE_IN_ADMIN){
                 chatViewHolder.tvName.setVisibility(hideName?View.GONE:View.VISIBLE);
                 chatViewHolder.imgAvatar.setVisibility(hideName?View.INVISIBLE:View.VISIBLE);
                 if(!chatShow.chatUser.showAvatar){
@@ -118,7 +118,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
                 }else{
                     Picasso.with(mContext).load(chatShow.chatUser.avatar).into(chatViewHolder.imgAvatar);
                 }
-                chatViewHolder.dotOnline.setVisibility(chatShow.online?View.VISIBLE:View.GONE);
+                chatViewHolder.dotOnline.setVisibility(!hideName&&chatShow.online?View.VISIBLE:View.GONE);
             }
         }
     }

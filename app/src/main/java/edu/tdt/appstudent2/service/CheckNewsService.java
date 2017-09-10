@@ -121,16 +121,14 @@ public class CheckNewsService extends IntentService {
             super.onPostExecute(thongbaoItems);
 
             if(thongbaoItems.size() > 0){
-                boolean iNew = false;
+                int nNews = 0;
                 realm = Realm.getDefaultInstance();
                 for (ThongbaoItem e: thongbaoItems){
                     try {
                         realm.beginTransaction();
-
-                        if(!iNew){
-                            iNew = realm.where(ThongbaoItem.class).equalTo("id", e.getId()).findFirst() == null;
+                        if(realm.where(ThongbaoItem.class).equalTo("id", e.getId()).findFirst() == null){
+                            nNews++;
                         }
-
                         realm.copyToRealmOrUpdate(e);
                         realm.commitTransaction();
                     }catch (java.lang.IllegalStateException a){
@@ -138,13 +136,13 @@ public class CheckNewsService extends IntentService {
                     }
                 }
                 realm.close();
-                if(iNew)
-                    createNotification();
+                if(nNews > 0)
+                    createNotification(nNews);
             }
         }
     }
 
-    private void createNotification(){
+    private void createNotification(int nNews){
         Intent notificationIntent = new Intent(this, ThongbaoActivity.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -160,7 +158,7 @@ public class CheckNewsService extends IntentService {
 
         mBuilder.setSmallIcon(R.drawable.ic_announcement_black_24dp)
                 .setLargeIcon(largeIcon)
-                .setContentTitle("CÓ THÔNG BÁO MỚI")
+                .setContentTitle("Có " + nNews + " thông báo mới !!!")
                 .setContentText("Vui lòng nhấn vào đây để chuyển đến màn hình thông báo.")
                 .setContentIntent(intent)
                 .setAutoCancel(true);

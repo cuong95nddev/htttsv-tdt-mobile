@@ -68,6 +68,7 @@ public class ChatActivity extends AppCompatActivity {
     private ArrayList<String> mssvOnline = new ArrayList<>();
 
     private Switch swAvatar;
+    private boolean showAvatar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class ChatActivity extends AppCompatActivity {
         username = user.getUserName();
         name = user.getName();
         avatar = user.getLinkAvatar();
+        showAvatar = user.isShowAvatar();
 
 
         swAvatar = (Switch) findViewById(R.id.swAvatar);
@@ -115,12 +117,19 @@ public class ChatActivity extends AppCompatActivity {
                     chat.chatUser.name = isAdmin?admin.nickname:name;
                     chat.chatUser.avatar = avatar;
                     chat.chatUser.isAdmin = isAdmin;
+                    chat.chatUser.showAvatar = showAvatar;
                     chatReference.push().setValue(chat, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             edtChat.setText("");
                             mMessageRecycler.scrollToPosition((int)mMessageAdapter.getItemCount() - 1);
                             autoScroll = true;
+
+                            UserOnline userOnline = new UserOnline();
+                            userOnline.mssv = username;
+                            userOnline.time = System.currentTimeMillis();
+                            userReference.child(userOnline.mssv).setValue(userOnline);
+
                         }
                     });
                     updateOnlineState();
@@ -246,6 +255,7 @@ public class ChatActivity extends AppCompatActivity {
     private void showOrHideAvatar(final boolean b) {
         realm.beginTransaction();
         user.setShowAvatar(b);
+        showAvatar = user.isShowAvatar();
         realm.commitTransaction();
         valueUpdateStatusAvatarEventListener = new ValueEventListener() {
             @Override
