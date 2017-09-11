@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.kennyc.view.MultiStateView;
@@ -35,6 +36,7 @@ import edu.tdt.appstudent2.models.thongbao.ThongbaoItem;
 import edu.tdt.appstudent2.service.CheckNewsService;
 import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.utils.Tag;
+import edu.tdt.appstudent2.utils.Util;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -181,7 +183,11 @@ public class ThongbaoActivity extends AppCompatActivity {
             donViArrayList.addAll(realmResults);
             addDonVi();
         }else {
-            getDonVi();
+            if(Util.isNetworkAvailable(this)){
+                getDonVi();
+            }else {
+                Toast.makeText(this, "Bạn đang ở chế độ Offline.", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

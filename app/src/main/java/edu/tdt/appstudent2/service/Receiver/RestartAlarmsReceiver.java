@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.email.EmailPageSave;
@@ -49,36 +50,33 @@ public class RestartAlarmsReceiver extends BroadcastReceiver {
         }
 
         if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)){
-            boolean check = false;
-
             ConnectivityManager cm = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
 
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            if (null != activeNetwork) {
-                check = true;
+            if (null == activeNetwork) {
+                return;
             }
 
-            if(user != null && check){
-                if(user.isCheckNetworkState()){
+            Log.d("ahihi", "network connected");
 
-                    // disable check when network change again
-                    realm.beginTransaction();
-                    user.setCheckNetworkState(false);
-                    realm.copyToRealmOrUpdate(user);
-                    realm.commitTransaction();
+            if(user != null){
+                // disable check when network change again
+                realm.beginTransaction();
+                user.setCheckNetworkState(false);
+                realm.copyToRealmOrUpdate(user);
+                realm.commitTransaction();
 
-                    if(user.getEmailServiceConfig().isOpen()
-                            && realm.where(EmailPageSave.class).findFirst() != null){
-                        ServiceUtils.startService(context
-                                , CheckEmailService.class);
-                    }
+                if(user.getEmailServiceConfig().isOpen()
+                        && realm.where(EmailPageSave.class).findFirst() != null){
+                    ServiceUtils.startService(context
+                            , CheckEmailService.class);
+                }
 
-                    if(user.getTbServiceConfig().isOpen()
-                            && realm.where(DonviItem.class).count() > 0){
-                        ServiceUtils.startService(context
-                                , CheckNewsService.class);
-                    }
+                if(user.getTbServiceConfig().isOpen()
+                        && realm.where(DonviItem.class).count() > 0){
+                    ServiceUtils.startService(context
+                            , CheckNewsService.class);
                 }
             }
         }

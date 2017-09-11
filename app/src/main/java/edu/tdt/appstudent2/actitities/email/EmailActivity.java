@@ -253,7 +253,11 @@ public class EmailActivity extends AppCompatActivity {
 
     private void checkLinkHostMail(){
         if (linkHostMail == null) {
-            getHostMail();
+            if(Util.isNetworkAvailable(this)){
+                getHostMail();
+            }else {
+                Toast.makeText(this, "Bạn đang ở chế độ Offline.", Toast.LENGTH_LONG).show();
+            }
         }else {
             checkOffline();
         }

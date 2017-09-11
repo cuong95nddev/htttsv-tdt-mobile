@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +50,7 @@ public class CheckNewsService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.d("ahihi", "open service");
         if(Util.isNetworkAvailable(getApplicationContext())){
             Thread thread = new Thread(){
                 @Override
@@ -68,6 +70,7 @@ public class CheckNewsService extends IntentService {
 
             thread.start();
         }else {
+            Log.d("ahihi", "no network");
             realm = Realm.getDefaultInstance();
             user = realm.where(User.class).findFirst();
             realm.beginTransaction();
@@ -115,10 +118,11 @@ public class CheckNewsService extends IntentService {
                     }
                 }
             } catch (IOException e) {
-                //
+                e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             }catch (java.lang.IllegalStateException e) {
+                e.printStackTrace();
                 realm.close();
             }
             return thongbaoItems;
