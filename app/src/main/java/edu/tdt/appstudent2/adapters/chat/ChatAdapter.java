@@ -2,12 +2,12 @@ package edu.tdt.appstudent2.adapters.chat;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.curioustechizen.ago.RelativeTimeTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.models.firebase.Chat;
 import edu.tdt.appstudent2.models.firebase.ChatDateShow;
 import edu.tdt.appstudent2.models.firebase.ChatShow;
-import edu.tdt.appstudent2.utils.StringUtil;
 import edu.tdt.appstudent2.views.widget.CircleImageView;
 
 /**
@@ -85,11 +84,6 @@ public class ChatAdapter extends RecyclerView.Adapter {
         Chat chat = (ChatShow) lists.get(position - (type == TYPE_DATE?1:0));
         boolean hideName = false;
         boolean hideTime = false;
-        boolean showTimeFull = false;
-
-        if(!DateUtils.isToday(chat.time)){
-            showTimeFull = true;
-        }
 
         if(preChat != null && preChat.chatUser.mssv.equals(chat.chatUser.mssv)){
             hideName = true;
@@ -102,7 +96,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
             ChatDateShow chatDateShow = (ChatDateShow) lists.get(position);
             ChatDateViewHolder chatDateViewHolder = (ChatDateViewHolder) holder;
             chatDateViewHolder.tvDate.setVisibility(hideTime?View.GONE:View.VISIBLE);
-            chatDateViewHolder.tvDate.setText(StringUtil.getDate(chatDateShow.time, showTimeFull?"dd/MM - HH:mm":"HH:mm"));
+            chatDateViewHolder.tvDate.setReferenceTime(chatDateShow.time);
         }
 
         if(type == TYPE_IN || type == TYPE_OUT || type == TYPE_IN_ADMIN){
@@ -110,16 +104,18 @@ public class ChatAdapter extends RecyclerView.Adapter {
             ChatViewHolder chatViewHolder = (ChatViewHolder) holder;
             chatViewHolder.tvName.setText(chatShow.chatUser.name);
             chatViewHolder.tvBody.setText(chatShow.body);
-            if(type == TYPE_IN || type == TYPE_IN_ADMIN){
+            //if(type == TYPE_IN || type == TYPE_IN_ADMIN){
+            chatViewHolder.imgAvatar.setVisibility(hideName?View.INVISIBLE:View.VISIBLE);
+            if(!chatShow.chatUser.showAvatar){
+                Picasso.with(mContext).load(R.drawable.user_empty).into(chatViewHolder.imgAvatar);
+            }else{
+                Picasso.with(mContext).load(chatShow.chatUser.avatar).into(chatViewHolder.imgAvatar);
+            }
+            if(type != TYPE_OUT){
                 chatViewHolder.tvName.setVisibility(hideName?View.GONE:View.VISIBLE);
-                chatViewHolder.imgAvatar.setVisibility(hideName?View.INVISIBLE:View.VISIBLE);
-                if(!chatShow.chatUser.showAvatar){
-                    Picasso.with(mContext).load(R.drawable.user_empty).into(chatViewHolder.imgAvatar);
-                }else{
-                    Picasso.with(mContext).load(chatShow.chatUser.avatar).into(chatViewHolder.imgAvatar);
-                }
                 chatViewHolder.dotOnline.setVisibility(!hideName&&chatShow.online?View.VISIBLE:View.GONE);
             }
+            //}
         }
     }
 
@@ -158,10 +154,10 @@ public class ChatAdapter extends RecyclerView.Adapter {
     }
 
     private class ChatDateViewHolder extends RecyclerView.ViewHolder{
-        public TextView tvDate;
+        public RelativeTimeTextView tvDate;
         public ChatDateViewHolder(View itemView) {
             super(itemView);
-            tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+            tvDate = (RelativeTimeTextView) itemView.findViewById(R.id.tvDate);
         }
     }
 }

@@ -488,7 +488,7 @@ public class EmailActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<EmailItem> b) {
             super.onPostExecute(b);
-            if(b != null){
+            if(b != null && b.size() > 0){
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(emailPageSave);
                 if(isRefresh){
@@ -505,6 +505,8 @@ public class EmailActivity extends AppCompatActivity {
                 }
                 realm.commitTransaction();
                 enableNoti = true;
+            }else{
+                endless.setLoadMoreAvailable(false);
             }
             endless.loadMoreComplete();
             swipeContainer.setRefreshing(false);

@@ -5,132 +5,132 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#000000"
     tools:context="edu.tdt.appstudent2.actitities.chat.ChatActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/chat_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:padding="0dp"
-            android:background="@color/colorPrimary"
-            app:contentInsetEnd="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetRight="0dp"
-            app:contentInsetStart="0dp"
-            android:theme="@style/Theme.AppCompat.Light"
-            app:popupTheme="@style/Theme.AppCompat.Light">
 
-            <LinearLayout
+            <android.support.v7.widget.Toolbar
+                android:background="@color/transparent"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="?attr/actionBarSize"
+                android:padding="0dp"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp"
+                android:elevation="0dp"
+                android:theme="@style/Theme.AppCompat.Light"
+                app:popupTheme="@style/Theme.AppCompat.Light">
 
-                <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="52dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector_light_theme"
-                    android:src="@drawable/ic_navigate_before_black_24dp" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:text="động chat :))" />
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/btnBack"
+                        android:layout_width="52dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/selector_light_theme"
+                        android:src="@drawable/ic_navigate_before_black_24dp" />
 
-                <android.support.v7.widget.AppCompatImageButton
-                    android:id="@+id/btnNoti"
-                    android:layout_width="52dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector_light_theme"
-                    android:clickable="false"
-                    android:src="@drawable/ic_face_black_24dp" />
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:text="động chat :))" />
 
-                <Switch
-                    android:id="@+id/swAvatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-            </LinearLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/btnNoti"
+                        android:layout_width="52dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/selector_light_theme"
+                        android:clickable="false"
+                        android:src="@drawable/ic_face_black_24dp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvUserOnline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"></android.support.v7.widget.RecyclerView>
+                    <Switch
+                        android:id="@+id/swAvatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/layout_bottom_shadow" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/reyclerview_message_list"
+            android:visibility="gone"
+            android:id="@+id/rvUserOnline"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/layout_top_shadow" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_chatbox"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal"
-        android:background="#ffffff">
-
-        <EditText
-            android:id="@+id/edittext_chatbox"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:background="@drawable/cricle_input_chat"
-            android:textSize="14dp"
-            android:maxLines="6"
-            android:hint="Aa" />
+            android:background="@color/white"></android.support.v7.widget.RecyclerView>
 
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/button_chatbox_send"
-            android:layout_width="52dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@drawable/selector_light_theme"
-            android:backgroundTint="@color/colorAccent"
-            android:tint="@color/colorAccent"
-            android:src="@drawable/ic_send_chat" />
+        <RelativeLayout
+            android:background="@color/colorBackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/layout_bottom_shadow" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reyclerview_message_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_chatbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edittext_chatbox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:background="@drawable/cricle_input_chat"
+                android:textSize="14dp"
+                android:maxLines="6"
+                android:hint="Aa" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/button_chatbox_send"
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_light_theme"
+                android:backgroundTint="@color/colorAccent"
+                android:tint="@color/colorAccent"
+                android:src="@drawable/ic_send_chat" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -56,6 +56,7 @@
         <activity android:name=".actitities.lichthi.LichThiActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".actitities.chat.ChatActivity"
+            android:theme="@style/AppThemeChat"
             android:screenOrientation="portrait" />
 
         <service

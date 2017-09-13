@@ -52,7 +52,7 @@ public class TrangchuActivity extends AppCompatActivity{
     private DatabaseReference mDatabase;
     private DatabaseReference updateReference;
     private DatabaseReference newsReference;
-    //private DatabaseReference userReference;
+    private DatabaseReference userReference;
 
     private static final String KEY_EVENT_UPDATE = "KEY_EVENT_UPDATE";
     private static final String KEY_EVENT_NEWS = "KEY_EVENT_NEWS";
@@ -126,30 +126,30 @@ public class TrangchuActivity extends AppCompatActivity{
         anhXa();
         addPaper();
 
-//        userReference = mDatabase.child("UserOnline");
-//        userReference.keepSynced(false);
-//        referenceHashMap.put(KEY_EVENT_USER, userReference);
-//        eventListenerHashMap.put(KEY_EVENT_USER, new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                int onlineNum = 0;
-//                UserOnline userOnline = null;
-//                long timeNow = System.currentTimeMillis();
-//                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-//                    userOnline = postSnapshot.getValue(UserOnline.class);
-//                    if((timeNow - userOnline.time) <= 2 * 60 * 1000)
-//                        onlineNum++;
-//
-//                }
-//                tvOnlineNum.setText(""+onlineNum);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//        userReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_USER));
+        userReference = mDatabase.child("UserOnline");
+        userReference.keepSynced(false);
+        referenceHashMap.put(KEY_EVENT_USER, userReference);
+        eventListenerHashMap.put(KEY_EVENT_USER, new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int onlineNum = 0;
+                UserOnline userOnline = null;
+                long timeNow = System.currentTimeMillis();
+                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+                    userOnline = postSnapshot.getValue(UserOnline.class);
+                    if((timeNow - userOnline.time) <= 2 * 60 * 1000)
+                        onlineNum++;
+
+                }
+                tvOnlineNum.setText(""+onlineNum);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        userReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_USER));
 
 
         updateReference = mDatabase.child("Update");
@@ -221,7 +221,7 @@ public class TrangchuActivity extends AppCompatActivity{
         UserOnline userOnline = new UserOnline();
         userOnline.mssv = userText;
         userOnline.time = System.currentTimeMillis();
-        //userReference.child(userOnline.mssv).setValue(userOnline);
+        userReference.child(userOnline.mssv).setValue(userOnline);
     }
 
     private void news(){

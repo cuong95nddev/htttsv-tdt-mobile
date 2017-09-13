@@ -29,6 +29,7 @@ public class EditServiceDialogFragment extends DialogFragment {
     RadioButton rbTime1;
     RadioButton rbTime2;
     RadioButton rbTime3;
+    RadioButton rbTime4;
     CheckBox chbSound;
     CheckBox chbVibrate;
     Button btnSave;
@@ -66,6 +67,7 @@ public class EditServiceDialogFragment extends DialogFragment {
         rbTime1 = (RadioButton) view.findViewById(R.id.rbTime1);
         rbTime2 = (RadioButton) view.findViewById(R.id.rbTime2);
         rbTime3 = (RadioButton) view.findViewById(R.id.rbTime3);
+        rbTime4 = (RadioButton) view.findViewById(R.id.rbTime4);
         chbSound = (CheckBox) view.findViewById(R.id.chbSound);
         chbVibrate = (CheckBox) view.findViewById(R.id.chbVibrate);
 
@@ -134,6 +136,8 @@ public class EditServiceDialogFragment extends DialogFragment {
                 return 2;
             case R.id.rbTime3:
                 return 3;
+            case R.id.rbTime4:
+                return 4;
         }
         return 0;
     }
@@ -151,6 +155,9 @@ public class EditServiceDialogFragment extends DialogFragment {
                 break;
             case 3:
                 rbTime3.setChecked(true);
+                break;
+            case 4:
+                rbTime4.setChecked(true);
                 break;
         }
     }

@@ -10,6 +10,7 @@
     <string name="dangnhap_edt_user">Tài khoản</string>
     <string name="dangnhap_edt_pass">Mật khẩu</string>
 
+    <string name="just_now">Vừa mới</string>
 
     <!--Thông báo-->
     <string name="mess_thongbao_error_network">Không thể tải thêm thông báo\nVui lòng kết nối mạng và thử lại</string>

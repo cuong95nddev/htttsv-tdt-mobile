@@ -1,123 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="edu.tdt.appstudent2.actitities.trangchu.TrangchuActivity">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/placeSnackBar"
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:padding="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:padding="0dp"
-                android:background="@color/colorPrimary"
-                android:theme="@style/ThemeOverlay.AppCompat.Light"
                 app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetRight="0dp"
-                app:contentInsetStart="0dp"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                app:contentInsetStart="0dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="0dp"
-                    android:orientation="horizontal"
-                    app:contentInsetEnd="0dp"
-                    app:contentInsetLeft="0dp"
-                    app:contentInsetRight="0dp"
-                    app:contentInsetStart="0dp">
-
-                    <RelativeLayout
-                        android:visibility="gone"
-                        android:layout_width="48dp"
-                        android:layout_height="wrap_content">
-
-                        <android.support.v7.widget.AppCompatImageButton
-                            android:id="@+id/btnMess"
-                            android:layout_width="52dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/selector_light_theme"
-                            android:src="@drawable/ic_chat_bubble_outline_black_24dp" />
-
-                        <TextView
-                            android:id="@+id/tvOnlineNum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="2dp"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center"
-                            android:minWidth="25dp"
-                            android:background="@drawable/cricle_user_online"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:text="0" />
-                    </RelativeLayout>
-
-                    <edu.tdt.appstudent2.views.widget.CircleImageView
-                        android:id="@+id/avatar_img"
-                        android:visibility="gone"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        app:civ_border_color="#000000"
-                        app:civ_border_width="0.5dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/name_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:text="Luu kim chung" />
-
-                        <TextView
-                            android:id="@+id/mssv_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="51403238" />
-                    </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content">
 
                     <android.support.v7.widget.AppCompatImageButton
-                        android:id="@+id/btnSetting"
+                        android:id="@+id/btnMess"
                         android:layout_width="52dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_light_theme"
-                        android:src="@drawable/ic_exit_to_app_black_24dp" />
+                        android:src="@drawable/ic_chat_bubble_outline_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/tvOnlineNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="2dp"
+                        android:background="@drawable/cricle_user_online"
+                        android:gravity="center"
+                        android:minWidth="25dp"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <edu.tdt.appstudent2.views.widget.CircleImageView
+                    android:id="@+id/avatar_img"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:civ_border_color="#000000"
+                    app:civ_border_width="0.5dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Luu kim chung"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/mssv_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="51403238" />
                 </LinearLayout>
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/btnSetting"
+                    android:layout_width="52dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/selector_light_theme"
+                    android:src="@drawable/ic_exit_to_app_black_24dp" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -132,19 +131,19 @@
 
                 <LinearLayout
                     android:id="@+id/layoutUpdate"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical"
-                    android:focusableInTouchMode="true">
+                    android:padding="8dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tvTitleUpdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="" />
+                        android:text=""
+                        android:textStyle="bold" />
 
                     <WebView
                         android:id="@+id/logUpdate"
@@ -158,28 +157,28 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginTop="8dp"
-                        android:padding="5dp"
                         android:background="@drawable/button_custom"
-                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:text="Cập nhập"
                         android:textColor="#ffffff"
-                        android:text="Cập nhập" />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layoutNews"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical"
-                    android:focusableInTouchMode="true">
+                    android:padding="8dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tvTitleNews"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="" />
+                        android:text=""
+                        android:textStyle="bold" />
 
                     <WebView
                         android:id="@+id/logNews"
@@ -194,5 +193,12 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </android.support.design.widget.CoordinatorLayout>
-</RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/header_bg" />
+    </RelativeLayout>
+
+</LinearLayout>

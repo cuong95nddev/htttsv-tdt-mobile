@@ -38,10 +38,16 @@
                 android:id="@+id/rbTime2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6 tiếng" />
+                android:text="2 tiếng" />
 
             <RadioButton
                 android:id="@+id/rbTime3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6 tiếng" />
+
+            <RadioButton
+                android:id="@+id/rbTime4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12 tiếng" />
