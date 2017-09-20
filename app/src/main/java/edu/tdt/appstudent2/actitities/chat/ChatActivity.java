@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.rm.rmswitch.RMSwitch;
 
 import java.util.ArrayList;
 
@@ -67,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<String> mssvOnline = new ArrayList<>();
 
-    private Switch swAvatar;
+    private RMSwitch swAvatar;
     private boolean showAvatar = false;
 
     @Override
@@ -84,7 +86,7 @@ public class ChatActivity extends AppCompatActivity {
         showAvatar = user.isShowAvatar();
 
 
-        swAvatar = (Switch) findViewById(R.id.swAvatar);
+        swAvatar = (RMSwitch) findViewById(R.id.swAvatar);
         swAvatar.setChecked(user.isShowAvatar());
 
         rvUserOnline = (RecyclerView) findViewById(R.id.rvUserOnline);
@@ -243,10 +245,10 @@ public class ChatActivity extends AppCompatActivity {
         updateStatusAvatarQuery = chatReference.orderByChild("chatUser/mssv").equalTo(username);
 
 
-        swAvatar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        swAvatar.addSwitchObserver(new RMSwitch.RMSwitchObserver() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                showOrHideAvatar(b);
+            public void onCheckStateChange(RMSwitch switchView, boolean isChecked) {
+                showOrHideAvatar(isChecked);
             }
         });
 

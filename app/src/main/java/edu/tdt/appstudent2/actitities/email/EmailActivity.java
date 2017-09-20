@@ -488,7 +488,7 @@ public class EmailActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<EmailItem> b) {
             super.onPostExecute(b);
-            if(b != null && b.size() > 0){
+            if(b != null && b.size() != 0){
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(emailPageSave);
                 if(isRefresh){

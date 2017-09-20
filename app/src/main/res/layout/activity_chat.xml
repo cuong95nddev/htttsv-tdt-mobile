@@ -53,21 +53,21 @@
                         android:textSize="18dp"
                         android:text="động chat :))" />
 
-                    <android.support.v7.widget.AppCompatImageButton
-                        android:id="@+id/btnNoti"
-                        android:layout_width="52dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/selector_light_theme"
-                        android:clickable="false"
-                        android:src="@drawable/ic_face_black_24dp" />
-
-                    <Switch
+                    <com.rm.rmswitch.RMSwitch
                         android:id="@+id/swAvatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        app:forceAspectRatio="false"
+                        app:enabled="true"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="8dp"
+                        app:switchDesign="large"
+                        app:switchBkgCheckedColor="@color/colorAccent"
+                        app:switchBkgNotCheckedColor="@color/colorDivider"
+                        app:switchToggleCheckedColor="@color/white"
+                        app:switchToggleCheckedImage="@drawable/ic_face_black_24dp"
+                        app:switchToggleNotCheckedColor="@color/white"
+                        app:switchToggleNotCheckedImage="@drawable/ic_face_black_24dp"/>
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
 
