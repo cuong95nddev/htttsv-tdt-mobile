@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -50,6 +51,11 @@ public class EmailRecyclerViewAdapter extends RecyclerView.Adapter<EmailRecycler
         holder.from.setText(get.getmFrom());
         holder.personal.setText(get.getmPersonal());
         holder.subject.setText(get.getmSubject());
+        if(get.getEmailAttachments().size() > 0){
+            holder.imgAttachment.setVisibility(View.VISIBLE);
+        }else {
+            holder.imgAttachment.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -68,12 +74,14 @@ public class EmailRecyclerViewAdapter extends RecyclerView.Adapter<EmailRecycler
     public class EmailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener , View.OnLongClickListener{
         public TextView from, personal, subject, date;
         public MaterialRippleLayout layout;
+        public ImageView imgAttachment;
         public EmailViewHolder(View itemView) {
             super(itemView);
             from = (TextView) itemView.findViewById(R.id.from_text);
             personal = (TextView) itemView.findViewById(R.id.personal_text);
             subject = (TextView) itemView.findViewById(R.id.subject_text);
             date = (TextView) itemView.findViewById(R.id.date_text);
+            imgAttachment = (ImageView) itemView.findViewById(R.id.imgAttachment);
             layout = (MaterialRippleLayout) itemView.findViewById(R.id.layout);
             layout.setOnLongClickListener(this);
             layout.setOnClickListener(this);

@@ -21,34 +21,91 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:padding="0dp"
                 android:background="@color/colorPrimary"
                 app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetRight="0dp"
                 app:contentInsetStart="0dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Light"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:theme="@style/Theme.AppCompat.Light"
+                app:popupTheme="@style/Theme.AppCompat.Light">
 
-                <LinearLayout
+
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatImageButton
                         android:id="@+id/btnBack"
-                        android:layout_width="48dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
                         android:background="@drawable/selector_light_theme"
-                        android:tint="@color/colorAccent"
                         android:src="@drawable/ic_navigate_before_black_24dp" />
 
-                    <include
+                    <LinearLayout
+                        android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        layout="@layout/item_email_webview_title" />
+                        android:orientation="vertical"
+                        android:background="@color/white">
+
+                        <com.balysv.materialripple.MaterialRippleLayout
+                            android:id="@+id/layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/colorAccent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:id="@+id/personal_text"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:textSize="18dp"
+                                                android:maxLines="1"
+                                                android:textStyle="bold"
+                                                android:textColor="#000000"
+                                                android:text="Luu kim chung" />
+
+                                            <TextView
+                                                android:id="@+id/from_text"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:paddingBottom="4dp"
+                                                android:textSize="12dp"
+                                                android:maxLines="1"
+                                                android:textStyle="bold"
+                                                android:textColor="#000000"
+                                                android:text="cpphung@it.tdt.edu.vn" />
+                                        </LinearLayout>
+
+                                    </RelativeLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </com.balysv.materialripple.MaterialRippleLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
@@ -60,15 +117,60 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/subject_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textSize="18dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Mời SV lên nhận thư khen loại giỏi HK1/2015-2016" />
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:text="Th7 13, 17:02" />
+
+            </LinearLayout>
+
+            <include layout="@layout/line_space" />
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+               <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:descendantFocusability="blocksDescendants">
+                   <WebView
+                       android:id="@+id/webview"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:minHeight="300dp">
 
-                <WebView
-                    android:id="@+id/webview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"></WebView>
-            </LinearLayout>
+                   </WebView>
+                   <android.support.v7.widget.RecyclerView
+                       android:id="@+id/rvAttachment"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+                   </android.support.v7.widget.RecyclerView>
+               </LinearLayout>
+            </ScrollView>
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

@@ -24,7 +24,7 @@ public class MyApplication extends Application {
         Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder()
-                .schemaVersion(4)
+                .schemaVersion(5)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration); // Make this Realm the default

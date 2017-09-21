@@ -1,17 +1,28 @@
 package edu.tdt.appstudent2.actitities.email;
 
+import android.app.DownloadManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.FileUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+
 import edu.tdt.appstudent2.R;
+import edu.tdt.appstudent2.adapters.email.EmailAttachmentAdapter;
 import edu.tdt.appstudent2.models.User;
+import edu.tdt.appstudent2.models.email.EmailAttachment;
 import edu.tdt.appstudent2.models.email.EmailItem;
 import edu.tdt.appstudent2.utils.Tag;
 import io.realm.Realm;
@@ -29,6 +40,9 @@ public class EmailViewActivity extends AppCompatActivity {
 
     private TextView from, personal, subject, date;
     AppCompatImageButton btnBack;
+
+    private RecyclerView attRv;
+    private EmailAttachmentAdapter attAdapter;
 
     private void khoiTao(){
         Bundle bundle = getIntent().getExtras();
@@ -71,6 +85,51 @@ public class EmailViewActivity extends AppCompatActivity {
             }
         });
 
+
+        attRv = (RecyclerView) findViewById(R.id.rvAttachment);
+        attAdapter = new EmailAttachmentAdapter();
+        attRv.setLayoutManager(new LinearLayoutManager(this));
+        attRv.setAdapter(attAdapter);
+        attRv.setNestedScrollingEnabled(false);
+
+        final ArrayList<EmailAttachment> emailAttachments = new ArrayList<>();
+        EmailAttachment attachment = null;
+        for(EmailAttachment emailAttachment : emailItem.getEmailAttachments()){
+            attachment = new EmailAttachment();
+            attachment.setId(emailAttachment.getId());
+            attachment.setName(emailAttachment.getName());
+            attachment.setType(emailAttachment.getType());
+            emailAttachments.add(attachment);
+        }
+
+        attAdapter.setLists(emailAttachments);
+
+        attAdapter.onItemClick = new EmailAttachmentAdapter.OnItemClick() {
+            @Override
+            public void onClick(EmailAttachment emailAttachment) {
+
+                File file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId(), emailAttachment.getName());
+
+                String destinationPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/" + emailAttachment.getName();
+                File destination = new File(destinationPath);
+
+                FileUtils.copyFile(file, destination);
+
+
+                DownloadManager downloadManager = (DownloadManager) getApplicationContext().getSystemService(getApplicationContext().DOWNLOAD_SERVICE);
+
+                downloadManager.addCompletedDownload(
+                        file.getName(),
+                        file.getName(),
+                        true,
+                        emailAttachment.getType(),
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(),
+                        file.length(),
+                        true);
+
+
+            }
+        };
     }
 
     @Override

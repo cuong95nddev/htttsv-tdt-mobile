@@ -1,5 +1,6 @@
 package edu.tdt.appstudent2.models.email;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -18,6 +19,17 @@ public class EmailItem extends RealmObject{
     private String mBody;
     private String mPersonal;
     private boolean isNew = true;
+    private RealmList<EmailAttachment>  emailAttachments;
+
+    public RealmList<EmailAttachment> getEmailAttachments() {
+        if(emailAttachments == null)
+            emailAttachments = new RealmList<EmailAttachment>();
+        return emailAttachments;
+    }
+
+    public void setEmailAttachments(RealmList<EmailAttachment> emailAttachments) {
+        this.emailAttachments = emailAttachments;
+    }
 
     public int getmId() {
         return mId;
