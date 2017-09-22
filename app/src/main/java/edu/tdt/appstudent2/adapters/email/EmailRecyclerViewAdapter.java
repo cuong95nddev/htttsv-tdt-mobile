@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.github.curioustechizen.ago.RelativeTimeTextView;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class EmailRecyclerViewAdapter extends RecyclerView.Adapter<EmailRecycler
     @Override
     public void onBindViewHolder(EmailViewHolder holder, int position) {
         EmailItem get = lists.get(position);
-        holder.date.setText(get.getmSentDateShort());
+        holder.tvDate.setReferenceTime(get.getmSentDate());
         holder.from.setText(get.getmFrom());
         holder.personal.setText(get.getmPersonal());
         holder.subject.setText(get.getmSubject());
@@ -72,15 +73,16 @@ public class EmailRecyclerViewAdapter extends RecyclerView.Adapter<EmailRecycler
     }
 
     public class EmailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener , View.OnLongClickListener{
-        public TextView from, personal, subject, date;
+        public TextView from, personal, subject;
         public MaterialRippleLayout layout;
         public ImageView imgAttachment;
+        public RelativeTimeTextView tvDate;
         public EmailViewHolder(View itemView) {
             super(itemView);
             from = (TextView) itemView.findViewById(R.id.from_text);
             personal = (TextView) itemView.findViewById(R.id.personal_text);
             subject = (TextView) itemView.findViewById(R.id.subject_text);
-            date = (TextView) itemView.findViewById(R.id.date_text);
+            tvDate = (RelativeTimeTextView) itemView.findViewById(R.id.tvDate);
             imgAttachment = (ImageView) itemView.findViewById(R.id.imgAttachment);
             layout = (MaterialRippleLayout) itemView.findViewById(R.id.layout);
             layout.setOnLongClickListener(this);

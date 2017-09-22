@@ -12,6 +12,7 @@ public class EmailAttachment extends RealmObject {
     private String id;
     private String name;
     private String type;
+    private int size;
 
     public String getId() {
         return id;
@@ -35,5 +36,13 @@ public class EmailAttachment extends RealmObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

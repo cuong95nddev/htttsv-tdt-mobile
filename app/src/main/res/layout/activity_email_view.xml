@@ -15,8 +15,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp">
+            android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -31,8 +30,7 @@
                 android:theme="@style/Theme.AppCompat.Light"
                 app:popupTheme="@style/Theme.AppCompat.Light">
 
-
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -40,137 +38,104 @@
                     <android.support.v7.widget.AppCompatImageButton
                         android:id="@+id/btnBack"
                         android:layout_width="52dp"
-                        android:layout_height="52dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:background="@drawable/selector_light_theme"
+                        android:tint="@color/colorAccent"
                         android:src="@drawable/ic_navigate_before_black_24dp" />
 
-                    <LinearLayout
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@color/white">
-
-                        <com.balysv.materialripple.MaterialRippleLayout
-                            android:id="@+id/layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:mrl_rippleColor="@color/colorAccent">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1">
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="vertical">
-
-                                            <TextView
-                                                android:id="@+id/personal_text"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:textSize="18dp"
-                                                android:maxLines="1"
-                                                android:textStyle="bold"
-                                                android:textColor="#000000"
-                                                android:text="Luu kim chung" />
-
-                                            <TextView
-                                                android:id="@+id/from_text"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:paddingBottom="4dp"
-                                                android:textSize="12dp"
-                                                android:maxLines="1"
-                                                android:textStyle="bold"
-                                                android:textColor="#000000"
-                                                android:text="cpphung@it.tdt.edu.vn" />
-                                        </LinearLayout>
-
-                                    </RelativeLayout>
-                                </LinearLayout>
-                            </LinearLayout>
-                        </com.balysv.materialripple.MaterialRippleLayout>
-
-                    </LinearLayout>
-
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textColor="@color/colorAccent"
+                        android:text="NỘI DUNG" />
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
-                android:paddingTop="14dp"
-                android:paddingBottom="14dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/subject_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textSize="18dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="Mời SV lên nhận thư khen loại giỏi HK1/2015-2016" />
-
-                <TextView
-                    android:id="@+id/date_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="10dp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:text="Th7 13, 17:02" />
-
-            </LinearLayout>
-
-            <include layout="@layout/line_space" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical">
                <LinearLayout
-                   android:orientation="vertical"
+                   android:paddingTop="14dp"
+                   android:paddingBottom="14dp"
+                   android:paddingLeft="8dp"
+                   android:paddingRight="8dp"
                    android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:descendantFocusability="blocksDescendants">
-                   <WebView
-                       android:id="@+id/webview"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical">
+                   <TextView
+                       android:id="@+id/subject_text"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:minHeight="300dp">
+                       android:textStyle="bold"
+                       android:textSize="18dp"
+                       android:layout_marginBottom="4dp"
+                       android:text="Mời SV lên nhận thư khen loại giỏi HK1/2015-2016" />
 
-                   </WebView>
-                   <android.support.v7.widget.RecyclerView
-                       android:id="@+id/rvAttachment"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
-
-                   </android.support.v7.widget.RecyclerView>
                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
+
+               <include layout="@layout/line_space" />
+
+               <LinearLayout
+                   android:layout_margin="8dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical">
+
+                   <TextView
+                       android:id="@+id/personal_text"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:textSize="18dp"
+                       android:maxLines="1"
+                       android:textColor="#000000"
+                       android:text="Luu kim chung" />
+
+                   <TextView
+                       android:id="@+id/from_text"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:paddingBottom="4dp"
+                       android:textSize="12dp"
+                       android:maxLines="1"
+                       android:textColor="#000000"
+                       android:text="cpphung@it.tdt.edu.vn" />
+
+                   <com.github.curioustechizen.ago.RelativeTimeTextView
+                       android:id="@+id/tvDate"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:relative_time_prefix=""/>
+
+               </LinearLayout>
+
+               <WebView
+                   android:id="@+id/webview"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:minHeight="300dp">
+
+               </WebView>
+               <android.support.v7.widget.RecyclerView
+                   android:id="@+id/rvAttachment"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"/>
+           </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

@@ -40,7 +40,7 @@ public class TrangchuMenuFragment extends Fragment{
         if(getActivity().getResources().getConfiguration().orientation == 2){
             column = 3;
         }else{
-            column = 2;
+            column = 3;
         }
 
         recyclerView = (RecyclerView) inflatedView.findViewById(R.id.recyclerview);

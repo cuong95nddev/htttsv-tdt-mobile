@@ -9,7 +9,7 @@
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorIcons">#FFFFFF</color>
-    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorDivider">#9f9f9f</color>
     <color name="colorText">#000000</color>
 
     <color name="materialRipple">#C7C7C7</color>

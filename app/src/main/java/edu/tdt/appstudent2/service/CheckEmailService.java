@@ -12,27 +12,28 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import org.jsoup.Jsoup;
+
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Address;
-import javax.mail.BodyPart;
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.NoSuchProviderException;
+import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeBodyPart;
 
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.actitities.email.EmailActivity;
 import edu.tdt.appstudent2.models.User;
+import edu.tdt.appstudent2.models.email.EmailAttachment;
 import edu.tdt.appstudent2.models.email.EmailItem;
 import edu.tdt.appstudent2.models.email.EmailPageSave;
 import edu.tdt.appstudent2.utils.Util;
@@ -129,10 +130,6 @@ public class CheckEmailService extends IntentService {
                     ArrayList<EmailItem> emailGetNew = new ArrayList<EmailItem>();
                     for (int i = loadFrom; i >= loadTo; i--) {
                         message = messages[i];
-                        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.getDefault());
-                        String mSentDate = dateFormat.format(message.getSentDate());
-                        dateFormat = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
-                        String mSentDateShort = dateFormat.format(message.getSentDate());
                         emailItem = new EmailItem();
                         emailItem.setmId(message.getMessageNumber());
                         Address[] froms = message.getFrom();
@@ -141,8 +138,7 @@ public class CheckEmailService extends IntentService {
                         emailItem.setmFrom(email);
                         emailItem.setmPersonal(personal);
                         emailItem.setmSubject(message.getSubject());
-                        emailItem.setmSentDate(mSentDate);
-                        emailItem.setmSentDateShort(mSentDateShort);
+                        emailItem.setmSentDate(message.getSentDate().getTime());
 
                         if(message.isSet(Flags.Flag.SEEN)){
                             emailItem.setNew(false);
@@ -150,9 +146,7 @@ public class CheckEmailService extends IntentService {
                             emailItem.setNew(true);
                         }
 
-                        emailItem.setmBody(getTextFromMessage(message));
-
-
+                        dumpPart(message, emailItem, 0, 1);
                         emailGetNew.add(emailItem);
                     }
                     return emailGetNew;
@@ -187,33 +181,57 @@ public class CheckEmailService extends IntentService {
         }
     }
 
-    private String getTextFromMessage(Message message) throws Exception {
-        String result = "";
-        if (message.isMimeType("text/plain")) {
-            result = message.getContent().toString();
-        } else if (message.isMimeType("multipart/*")) {
-            MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
-            result = getTextFromMimeMultipart(mimeMultipart);
+    public void dumpPart(Part p, EmailItem emailItem, int level, int attnum) throws Exception {
+
+        if (p.isMimeType("text/plain")) {
+            emailItem.setmBody(p.getContent().toString());
+        } else if(p.isMimeType("text/html")){
+            emailItem.setmBody(Jsoup.parse(p.getContent().toString()).toString());
+        } else if (p.isMimeType("multipart/*")) {
+            Multipart mp = (Multipart)p.getContent();
+            level++;
+            int count = mp.getCount();
+            for (int i = 0; i < count; i++)
+                dumpPart(mp.getBodyPart(i), emailItem, level, attnum);
+            level--;
+        } else if (p.isMimeType("message/rfc822")) {
+            level++;
+            dumpPart((Part)p.getContent(), emailItem, level, attnum);
+            level--;
         }
-        return result;
-    }
 
-    private String getTextFromMimeMultipart(
-            MimeMultipart mimeMultipart) throws Exception{
-        String result = "";
-        int count = mimeMultipart.getCount();
-        for (int i = 0; i < count; i++) {
-            BodyPart bodyPart = mimeMultipart.getBodyPart(i);
-            if (bodyPart.isMimeType("text/plain")) {
 
-            } else if (bodyPart.isMimeType("text/html")) {
-                String html = (String) bodyPart.getContent();
-                result = result + "\n" + org.jsoup.Jsoup.parse(html).toString();
-            } else if (bodyPart.getContent() instanceof MimeMultipart){
-                result = result + getTextFromMimeMultipart((MimeMultipart)bodyPart.getContent());
+        if (level != 0 && p instanceof MimeBodyPart && !p.isMimeType("multipart/*")) {
+            String disp = p.getDisposition();
+            if (disp == null || disp.equalsIgnoreCase(Part.ATTACHMENT)) {
+
+                String filename = p.getFileName();
+                if (filename != null) {
+
+                    EmailAttachment emailAttachment = new EmailAttachment();
+                    emailAttachment.setId(emailItem.getmId() + "-" + filename);
+                    emailAttachment.setName(filename);
+                    emailAttachment.setType(p.getContentType().split("; ")[0].toLowerCase());
+                    emailItem.getEmailAttachments().add(emailAttachment);
+
+//                    try {
+//
+//                        File file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId());
+//                        if(!file.exists()){
+//                            file.mkdirs();
+//                        }
+//
+//                        file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId(), filename);
+//                        if (file.exists())
+//                            throw new IOException("file exists");
+//                        ((MimeBodyPart)p).saveFile(file);
+//
+//                    } catch (IOException ex) {
+//                        Log.d("", "Failed to save attachment: " + ex);
+//                    }
+                }
             }
         }
-        return result;
     }
 
     private void createNotification(int nNews){

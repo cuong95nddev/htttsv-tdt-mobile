@@ -13,12 +13,11 @@ public class EmailItem extends RealmObject{
     private String mFrom;
     private String mTo;
     private String mCc;
-    private String mSentDate;
-    private String mSentDateShort;
     private String mSubject;
     private String mBody;
     private String mPersonal;
     private boolean isNew = true;
+    private long mSentDate;
     private RealmList<EmailAttachment>  emailAttachments;
 
     public RealmList<EmailAttachment> getEmailAttachments() {
@@ -63,22 +62,6 @@ public class EmailItem extends RealmObject{
         this.mCc = mCc;
     }
 
-    public String getmSentDate() {
-        return mSentDate;
-    }
-
-    public void setmSentDate(String mSentDate) {
-        this.mSentDate = mSentDate;
-    }
-
-    public String getmSentDateShort() {
-        return mSentDateShort;
-    }
-
-    public void setmSentDateShort(String mSentDateShort) {
-        this.mSentDateShort = mSentDateShort;
-    }
-
     public String getmSubject() {
         return mSubject;
     }
@@ -109,5 +92,13 @@ public class EmailItem extends RealmObject{
 
     public void setmPersonal(String mPersonal) {
         this.mPersonal = mPersonal;
+    }
+
+    public long getmSentDate() {
+        return mSentDate;
+    }
+
+    public void setmSentDate(long mSentDate) {
+        this.mSentDate = mSentDate;
     }
 }

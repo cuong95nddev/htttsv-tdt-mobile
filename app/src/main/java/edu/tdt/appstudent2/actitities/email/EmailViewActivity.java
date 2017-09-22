@@ -2,6 +2,7 @@ package edu.tdt.appstudent2.actitities.email;
 
 import android.app.DownloadManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +10,28 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.blankj.utilcode.util.FileUtils;
+import com.github.curioustechizen.ago.RelativeTimeTextView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
+
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.internet.MimeBodyPart;
 
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.adapters.email.EmailAttachmentAdapter;
@@ -38,11 +52,26 @@ public class EmailViewActivity extends AppCompatActivity {
 
     private String userText, passText;
 
-    private TextView from, personal, subject, date;
+    private TextView from, personal, subject;
+    public RelativeTimeTextView tvDate;
     AppCompatImageButton btnBack;
 
     private RecyclerView attRv;
     private EmailAttachmentAdapter attAdapter;
+
+
+    private Folder emailFolder;
+    private Store store;
+    private Properties properties;
+    private Session emailSession;
+    private String linkHostMail;
+
+    private int positionAttachment;
+    private String typeAttachment;
+    private File fileAttachment;
+    private String nameAttachment;
+    static int level = 0;
+    static int attnum = 1;
 
     private void khoiTao(){
         Bundle bundle = getIntent().getExtras();
@@ -55,6 +84,11 @@ public class EmailViewActivity extends AppCompatActivity {
                 .equalTo("mId", idEmail).findFirst();
         userText = user.getUserName();
         passText = user.getPassWord();
+        linkHostMail = user.getLinkHostMail();
+
+        properties = System.getProperties();
+        properties.setProperty("mail.store.protocol", "imaps");
+        emailSession = Session.getDefaultInstance(properties);
     }
     private void anhXa(){
         khoiTao();
@@ -75,7 +109,7 @@ public class EmailViewActivity extends AppCompatActivity {
         from = (TextView) findViewById(R.id.from_text);
         personal = (TextView) findViewById(R.id.personal_text);
         subject = (TextView) findViewById(R.id.subject_text);
-        date = (TextView) findViewById(R.id.date_text);
+        tvDate = (RelativeTimeTextView) findViewById(R.id.tvDate);
 
         btnBack = (AppCompatImageButton) findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -106,30 +140,140 @@ public class EmailViewActivity extends AppCompatActivity {
 
         attAdapter.onItemClick = new EmailAttachmentAdapter.OnItemClick() {
             @Override
-            public void onClick(EmailAttachment emailAttachment) {
-
-                File file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId(), emailAttachment.getName());
-
-                String destinationPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/" + emailAttachment.getName();
-                File destination = new File(destinationPath);
-
-                FileUtils.copyFile(file, destination);
-
-
-                DownloadManager downloadManager = (DownloadManager) getApplicationContext().getSystemService(getApplicationContext().DOWNLOAD_SERVICE);
-
-                downloadManager.addCompletedDownload(
-                        file.getName(),
-                        file.getName(),
-                        true,
-                        emailAttachment.getType(),
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(),
-                        file.length(),
-                        true);
-
-
+            public void onClick(EmailAttachment emailAttachment, int position) {
+                checkAttachment(emailAttachment, position);
             }
         };
+    }
+
+
+    private void checkAttachment(EmailAttachment emailAttachment, int position){
+        nameAttachment = emailAttachment.getName();
+        positionAttachment = position;
+        typeAttachment = emailAttachment.getType();
+        String fileUrl = Environment
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                .getAbsolutePath() + "/" + nameAttachment;
+        fileAttachment = new File(fileUrl);
+        // check attachment file is exist ?
+
+        Toast.makeText(this, "Tập tin sẽ được lưu tại: " + fileUrl, Toast.LENGTH_SHORT).show();
+
+        if(fileAttachment.exists()){
+            showAttachment();
+            return;
+        }
+        // get file
+        getAttachment();
+
+    }
+
+    private void getAttachment(){
+        attAdapter.setLoading();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new GetAttachment().execute();
+            }
+        });
+    }
+
+    private class GetAttachment extends AsyncTask<Void, Integer, File>{
+
+        @Override
+        protected File doInBackground(Void... voids) {
+
+            try {
+                store = emailSession.getStore("imaps");
+                store.connect(linkHostMail, userText + "@student.tdt.edu.vn", passText);
+                emailFolder = store.getFolder("INBOX");
+                emailFolder.open(Folder.READ_ONLY);
+                Message message = emailFolder.getMessage(idEmail);
+                if(message != null){
+                    level = 0;
+                    attnum = 1;
+                    dumpPart(message);
+                    showAttachment();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    emailFolder.close(true);
+                    store.close();
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(File file) {
+            super.onPostExecute(file);
+            attAdapter.setLoading();
+        }
+    }
+
+
+    public void dumpPart(Part p) throws Exception {
+        if (p.isMimeType("text/plain")) {
+
+        } else if(p.isMimeType("text/html")){
+
+        } else if (p.isMimeType("multipart/*")) {
+            Multipart mp = (Multipart)p.getContent();
+            level++;
+            int count = mp.getCount();
+            for (int i = 0; i < count; i++)
+                dumpPart(mp.getBodyPart(i));
+            level--;
+        } else if (p.isMimeType("message/rfc822")) {
+            level++;
+            dumpPart((Part)p.getContent());
+            level--;
+        }
+
+        if (level != 0 && p instanceof MimeBodyPart && !p.isMimeType("multipart/*")) {
+            String disp = p.getDisposition();
+            if (disp == null || disp.equalsIgnoreCase(Part.ATTACHMENT)) {
+                String filename = p.getFileName();
+                if (filename != null) {
+                    try {
+                        File file = new File(Environment
+                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                .getAbsolutePath());
+
+                        if (!file.exists()){
+                            file.mkdirs();
+                        }
+
+                        file = new File(Environment
+                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                            .getAbsolutePath() + "/" + filename);
+                        if (file.exists())
+                            throw new IOException("file exists");
+                        ((MimeBodyPart)p).saveFile(file);
+                    } catch (IOException ex) {
+                        Log.d("", "Failed to save attachment: " + ex);
+                    }
+                }
+            }
+        }
+    }
+
+    private void showAttachment(){
+        String fileUrl = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()+ "/" + nameAttachment;
+        DownloadManager downloadManager = (DownloadManager) getApplicationContext()
+                .getSystemService(getApplicationContext().DOWNLOAD_SERVICE);
+        downloadManager.addCompletedDownload(
+                fileAttachment.getName(),
+                fileAttachment.getName(),
+                true,
+                typeAttachment,
+                fileUrl,
+                fileAttachment.length(),
+                true);
     }
 
     @Override
@@ -150,7 +294,7 @@ public class EmailViewActivity extends AppCompatActivity {
             from.setText(emailItem.getmFrom());
             personal.setText(emailItem.getmPersonal());
             subject.setText(emailItem.getmSubject());
-            date.setText(emailItem.getmSentDate());
+            tvDate.setReferenceTime(emailItem.getmSentDate());
         }
     }
 

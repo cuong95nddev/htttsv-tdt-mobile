@@ -12,7 +12,6 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -24,12 +23,8 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -448,10 +443,6 @@ public class EmailActivity extends AppCompatActivity {
                     ArrayList<EmailItem> emailGetNew = new ArrayList<EmailItem>();
                     for (int i = loadFrom; i >= loadTo; i--) {
                         message = messages[i];
-                        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.getDefault());
-                        String mSentDate = dateFormat.format(message.getSentDate());
-                        dateFormat = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
-                        String mSentDateShort = dateFormat.format(message.getSentDate());
                         emailItem = new EmailItem();
                         emailItem.setmId(message.getMessageNumber());
                         Address[] froms = message.getFrom();
@@ -460,8 +451,7 @@ public class EmailActivity extends AppCompatActivity {
                         emailItem.setmFrom(email);
                         emailItem.setmPersonal(personal);
                         emailItem.setmSubject(message.getSubject());
-                        emailItem.setmSentDate(mSentDate);
-                        emailItem.setmSentDateShort(mSentDateShort);
+                        emailItem.setmSentDate(message.getSentDate().getTime());
 
                         if(message.isSet(Flags.Flag.SEEN)){
                             emailItem.setNew(false);
@@ -469,9 +459,7 @@ public class EmailActivity extends AppCompatActivity {
                             emailItem.setNew(true);
                         }
 
-
                         dumpPart(message, emailItem, 0, 1);
-
                         emailGetNew.add(emailItem);
                     }
 
@@ -526,23 +514,6 @@ public class EmailActivity extends AppCompatActivity {
 
 
     public void dumpPart(Part p, EmailItem emailItem, int level, int attnum) throws Exception {
-       ;
-//        String ct = p.getContentType();
-//        try {
-//            Log.d("", "CONTENT-TYPE: " + (new ContentType(ct)).toString());
-//        } catch (ParseException pex) {
-//            Log.d("", "BAD CONTENT-TYPE: " + ct);
-//        }
-//        String filename = p.getFileName();
-//        if (filename != null)
-//            Log.d("", "FILENAME: " + filename);
-
-	/*
-	 * Using isMimeType to determine the content type avoids
-	 * fetching the actual content data until we need it.
-	 */
-
-
 
         if (p.isMimeType("text/plain")) {
             emailItem.setmBody(p.getContent().toString());
@@ -561,31 +532,13 @@ public class EmailActivity extends AppCompatActivity {
             level--;
         }
 
-	/*
-	 * If we're saving attachments, write out anything that
-	 * looks like an attachment into an appropriately named
-	 * file.  Don't overwrite existing files to prevent
-	 * mistakes.
-	 */
 
         if (level != 0 && p instanceof MimeBodyPart && !p.isMimeType("multipart/*")) {
             String disp = p.getDisposition();
-            // many mailers don't include a Content-Disposition
             if (disp == null || disp.equalsIgnoreCase(Part.ATTACHMENT)) {
 
                 String filename = p.getFileName();
                 if (filename != null) {
-                    Log.d("", "Saving attachment to file " + filename);
-//                    try {
-//                        File f = new File(filename);
-//                        if (f.exists())
-//                            // XXX - could try a series of names
-//                            throw new IOException("file exists");
-//                        ((MimeBodyPart)p).saveFile(f);
-//                    } catch (IOException ex) {
-//                        Log.d("", "Failed to save attachment: " + ex);
-//                    }
-
 
                     EmailAttachment emailAttachment = new EmailAttachment();
                     emailAttachment.setId(emailItem.getmId() + "-" + filename);
@@ -593,21 +546,21 @@ public class EmailActivity extends AppCompatActivity {
                     emailAttachment.setType(p.getContentType().split("; ")[0].toLowerCase());
                     emailItem.getEmailAttachments().add(emailAttachment);
 
-                    try {
-
-                        File file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId());
-                        if(!file.exists()){
-                            file.mkdirs();
-                        }
-
-                        file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId(), filename);
-                        if (file.exists())
-                            throw new IOException("file exists");
-                        ((MimeBodyPart)p).saveFile(file);
-
-                    } catch (IOException ex) {
-                        Log.d("", "Failed to save attachment: " + ex);
-                    }
+//                    try {
+//
+//                        File file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId());
+//                        if(!file.exists()){
+//                            file.mkdirs();
+//                        }
+//
+//                        file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId(), filename);
+//                        if (file.exists())
+//                            throw new IOException("file exists");
+//                        ((MimeBodyPart)p).saveFile(file);
+//
+//                    } catch (IOException ex) {
+//                        Log.d("", "Failed to save attachment: " + ex);
+//                    }
                 }
             }
         }

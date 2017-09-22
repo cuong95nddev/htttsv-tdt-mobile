@@ -1,5 +1,6 @@
 package edu.tdt.appstudent2.actitities.trangchu;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import edu.tdt.appstudent2.models.firebase.UserOnline;
 import edu.tdt.appstudent2.utils.StringUtil;
 import edu.tdt.appstudent2.views.widget.CircleImageView;
 import io.realm.Realm;
+import ru.alexbykov.nopermission.PermissionHelper;
 
 public class TrangchuActivity extends AppCompatActivity{
     private Toolbar toolbar;
@@ -125,6 +127,30 @@ public class TrangchuActivity extends AppCompatActivity{
         setContentView(R.layout.activity_trangchu);
         anhXa();
         addPaper();
+
+
+        PermissionHelper permissionHelper = new PermissionHelper(this); //getActivity in fragments
+
+        permissionHelper.check(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .onSuccess(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                })
+                .onFailure(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                })
+                .onNeverAskAgain(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                })
+                .run();
 
         userReference = mDatabase.child("UserOnline");
         userReference.keepSynced(false);
