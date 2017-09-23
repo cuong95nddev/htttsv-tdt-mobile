@@ -12,10 +12,12 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.github.ybq.endless.Endless;
 
 import org.json.JSONException;
@@ -23,7 +25,9 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -88,6 +92,8 @@ public class EmailActivity extends AppCompatActivity {
     AppCompatImageButton btnWeb;
     AppCompatImageButton btnNoti;
 
+    FloatingActionButton fabNewMail;
+
     private boolean enableNoti = false;
 
     private void khoiTao(){
@@ -102,7 +108,7 @@ public class EmailActivity extends AppCompatActivity {
 
         properties = System.getProperties();
         properties.setProperty("mail.store.protocol", "imaps");
-        emailSession = Session.getDefaultInstance(properties);
+        emailSession = Session.getInstance(properties);
     }
     private void anhXa(){
         khoiTao();
@@ -174,6 +180,15 @@ public class EmailActivity extends AppCompatActivity {
                     openDialogConfigService();
                 }
                 return true;
+            }
+        });
+
+        fabNewMail = (FloatingActionButton) findViewById(R.id.fabNewMail);
+        fabNewMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendMailIntent = new Intent(EmailActivity.this, EmailNewActivity.class);
+                startActivity(sendMailIntent);
             }
         });
     }
@@ -382,6 +397,8 @@ public class EmailActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (MessagingException e) {
                 e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
             }
 
             return null;
@@ -453,6 +470,8 @@ public class EmailActivity extends AppCompatActivity {
                         emailItem.setmSubject(message.getSubject());
                         emailItem.setmSentDate(message.getSentDate().getTime());
 
+                        Log.d("ahihi", "  " + message.getMessageNumber());
+
                         if(message.isSet(Flags.Flag.SEEN)){
                             emailItem.setNew(false);
                         }else{
@@ -467,7 +486,6 @@ public class EmailActivity extends AppCompatActivity {
                     store.close();
                     return emailGetNew;
                 }
-
 
                 emailFolder.close(true);
                 store.close();
@@ -514,9 +532,16 @@ public class EmailActivity extends AppCompatActivity {
 
 
     public void dumpPart(Part p, EmailItem emailItem, int level, int attnum) throws Exception {
-
         if (p.isMimeType("text/plain")) {
-            emailItem.setmBody(p.getContent().toString());
+            StringBuilder sb = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append("</br>");
+            }
+            br.close();
+            emailItem.setmBody(sb.toString());
         } else if(p.isMimeType("text/html")){
             emailItem.setmBody(Jsoup.parse(p.getContent().toString()).toString());
         } else if (p.isMimeType("multipart/*")) {
@@ -532,35 +557,16 @@ public class EmailActivity extends AppCompatActivity {
             level--;
         }
 
-
         if (level != 0 && p instanceof MimeBodyPart && !p.isMimeType("multipart/*")) {
             String disp = p.getDisposition();
             if (disp == null || disp.equalsIgnoreCase(Part.ATTACHMENT)) {
-
                 String filename = p.getFileName();
                 if (filename != null) {
-
                     EmailAttachment emailAttachment = new EmailAttachment();
                     emailAttachment.setId(emailItem.getmId() + "-" + filename);
                     emailAttachment.setName(filename);
                     emailAttachment.setType(p.getContentType().split("; ")[0].toLowerCase());
                     emailItem.getEmailAttachments().add(emailAttachment);
-
-//                    try {
-//
-//                        File file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId());
-//                        if(!file.exists()){
-//                            file.mkdirs();
-//                        }
-//
-//                        file = new File(getApplicationContext().getFilesDir() + "/attachment/" + emailItem.getmId(), filename);
-//                        if (file.exists())
-//                            throw new IOException("file exists");
-//                        ((MimeBodyPart)p).saveFile(file);
-//
-//                    } catch (IOException ex) {
-//                        Log.d("", "Failed to save attachment: " + ex);
-//                    }
                 }
             }
         }

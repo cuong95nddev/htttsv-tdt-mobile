@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cricle_email_attchment"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_margin="8dp">
+    <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_insert_drive_file_black_24dp"/>
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="abc.png"/>
+            <TextView
+                android:id="@+id/tvSize"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:textSize="14dp"
+                android:text="abc.png"/>
+        </LinearLayout>
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/btnRemove"
+        android:layout_marginLeft="12dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_light_theme"
+        android:src="@drawable/ic_close_black_24dp" />
+</LinearLayout>

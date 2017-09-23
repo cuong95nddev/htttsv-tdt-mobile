@@ -31,4 +31,18 @@
     <string name="mess_logout_tile">Đăng xuất</string>
     <string name="mess_logout_info">Nếu bạn đăng xuất TẤT CẢ dữ liệu của bạn sẽ bị mất.\nBạn vẫn muốn thực hiện ?</string>
     <string name="bottom_sheet_title_hocky">Danh sách học kỳ</string>
+
+    <string name="dialog_title_text_color">Select a Text Color</string>
+    <string name="dialog_title_text_back_color">Select a Text Background Color</string>
+
+    <!-- Insert Table -->
+    <string name="title_insert_table">Insert Table</string>
+    <string name="hint_no_of_columns">Number of columns</string>
+    <string name="hint_no_of_rows">Number of rows</string>
+
+    <!-- Insert Link -->
+    <string name="title_insert_link">Insert Link</string>
+    <string name="hint_text_to_display">Text to display</string>
+    <string name="hint_link_to">Link to</string>
+    <string name="insert">Insert</string>
 </resources>

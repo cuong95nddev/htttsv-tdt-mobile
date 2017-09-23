@@ -37,7 +37,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/selector_light_theme"
-                    android:tint="@color/colorAccent"
                     android:src="@drawable/ic_navigate_before_black_24dp" />
 
                 <LinearLayout
@@ -69,7 +68,6 @@
                                 android:background="@drawable/circle"
                                 android:textStyle="bold"
                                 android:textSize="16dp"
-                                android:textColor="@color/colorAccent"
                                 android:text="Chọn học kỳ" />
                         </LinearLayout>
                     </com.balysv.materialripple.MaterialRippleLayout>
@@ -82,7 +80,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/selector_light_theme"
-                    android:tint="@color/colorAccent"
                     android:src="@drawable/ic_favorite_border_black_24dp" />
 
                 <android.support.v7.widget.AppCompatImageButton
@@ -92,7 +89,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/selector_light_theme"
-                    android:tint="@color/colorAccent"
                     android:src="@drawable/ic_autorenew_black_24dp" />
             </LinearLayout>
         </android.support.v7.widget.Toolbar>

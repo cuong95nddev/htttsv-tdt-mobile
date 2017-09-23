@@ -1,6 +1,8 @@
 package edu.tdt.appstudent2.actitities.email;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -55,10 +57,11 @@ public class EmailViewActivity extends AppCompatActivity {
     private TextView from, personal, subject;
     public RelativeTimeTextView tvDate;
     AppCompatImageButton btnBack;
+    AppCompatImageButton btnReply;
 
     private RecyclerView attRv;
     private EmailAttachmentAdapter attAdapter;
-
+    ProgressDialog progressDialog;
 
     private Folder emailFolder;
     private Store store;
@@ -89,6 +92,14 @@ public class EmailViewActivity extends AppCompatActivity {
         properties = System.getProperties();
         properties.setProperty("mail.store.protocol", "imaps");
         emailSession = Session.getDefaultInstance(properties);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Đang tải các tập tin đính kèm");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setProgressNumberFormat(null);
+        progressDialog.setProgressPercentFormat(null);
+        progressDialog.setCancelable(false);
     }
     private void anhXa(){
         khoiTao();
@@ -116,6 +127,19 @@ public class EmailViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        btnReply = (AppCompatImageButton) findViewById(R.id.btnReply);
+        btnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendMailIntent = new Intent(EmailViewActivity.this, EmailNewActivity.class);
+                sendMailIntent.putExtra(EmailNewActivity.EXTRA_TO, emailItem.getmFrom());
+                sendMailIntent.putExtra(EmailNewActivity.EXTRA_SUBJECT, "Re: " + emailItem.getmSubject());
+                sendMailIntent.putExtra(EmailNewActivity.EXTRA_ID_REPLY, emailItem.getmId());
+
+                startActivity(sendMailIntent);
             }
         });
 
@@ -169,7 +193,7 @@ public class EmailViewActivity extends AppCompatActivity {
     }
 
     private void getAttachment(){
-        attAdapter.setLoading();
+        progressDialog.show();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -211,7 +235,7 @@ public class EmailViewActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(File file) {
             super.onPostExecute(file);
-            attAdapter.setLoading();
+            progressDialog.dismiss();
         }
     }
 

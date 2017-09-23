@@ -41,7 +41,6 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_light_theme"
-                        android:tint="@color/colorAccent"
                         android:src="@drawable/ic_navigate_before_black_24dp" />
 
                     <TextView
@@ -52,7 +51,6 @@
                         android:layout_gravity="center"
                         android:textStyle="bold"
                         android:textSize="18dp"
-                        android:textColor="@color/colorAccent"
                         android:text="EMAIL" />
 
                     <android.support.v7.widget.AppCompatImageButton
@@ -62,7 +60,6 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_light_theme"
-                        android:tint="@color/colorAccent"
                         android:src="@drawable/ic_notifications_off_black_24dp" />
 
                     <android.support.v7.widget.AppCompatImageButton
@@ -72,7 +69,6 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/selector_light_theme"
-                        android:tint="@color/colorAccent"
                         android:src="@drawable/ic_launch_black_24dp" />
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
@@ -89,5 +85,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabNewMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_create_black_24dp"
+            app:fab_colorNormal="@color/white"
+            app:fab_colorPressed="@color/white"
+            app:fab_colorRipple="@color/colorDivider"/>
+
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>
