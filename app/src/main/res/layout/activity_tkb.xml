@@ -68,6 +68,7 @@
                                 android:background="@drawable/circle"
                                 android:textStyle="bold"
                                 android:textSize="16dp"
+                                android:textColor="@color/colorAccent"
                                 android:text="Chọn học kỳ" />
                         </LinearLayout>
                     </com.balysv.materialripple.MaterialRippleLayout>
@@ -79,6 +80,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:tint="@color/colorAccent"
                     android:background="@drawable/selector_light_theme"
                     android:src="@drawable/ic_favorite_border_black_24dp" />
 

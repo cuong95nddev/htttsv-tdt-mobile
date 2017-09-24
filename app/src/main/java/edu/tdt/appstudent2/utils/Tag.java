@@ -17,4 +17,8 @@ public class Tag {
     public static final int TAG_MENU_EMAIL = 5;
     public static final int TAG_MENU_LICHTHI = 6;
     public static final int TAG_MENU_HDPT = 7;
+    public static final int TAG_MENU_CNSV = 8;
+    public static final int TAG_MENU_NDTT = 9;
+    public static final int TAG_MENU_SAKAI = 10;
+
 }

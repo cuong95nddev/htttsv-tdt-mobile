@@ -1,5 +1,7 @@
 package edu.tdt.appstudent2.actitities.tkb;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -43,6 +45,7 @@ import edu.tdt.appstudent2.models.tkb.TkbItem;
 import edu.tdt.appstudent2.models.tkb.TkbLichItem;
 import edu.tdt.appstudent2.models.tkb.TkbMonhocItem;
 import edu.tdt.appstudent2.utils.Tag;
+import edu.tdt.appstudent2.widget.TkbWidget;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -181,7 +184,18 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
         user.getConfig().setIdHocKyMacDinh(idHocKy);
         idHocKyMacDinh = idHocKy;
         realm.commitTransaction();
+
+        updateWidget();
+
         setIconDefault();
+    }
+
+    private void updateWidget(){
+        Intent intent = new Intent(this, TkbWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), TkbWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 
     private void setIconDefault(){
@@ -274,19 +288,19 @@ public class TkbActivity extends AppCompatActivity implements OnChildSwipeRefres
                             for(int i = 0 ; i < tkbArray.length() ; i++){
                                 tkbObject = tkbArray.getJSONObject(i);
                                 tkbMonhocItem = new TkbMonhocItem();
-                                tkbMonhocItem.setMaMH(tkbObject.getString("MaMH"));
-                                tkbMonhocItem.setTenMH(tkbObject.getString("TenMH"));
-                                tkbMonhocItem.setNhom(tkbObject.getString("Nhom"));
-                                tkbMonhocItem.setTo(tkbObject.getString("To"));
+                                tkbMonhocItem.setMaMH(tkbObject.getString("MaMH").trim());
+                                tkbMonhocItem.setTenMH(tkbObject.getString("TenMH").trim());
+                                tkbMonhocItem.setNhom(tkbObject.getString("Nhom").trim());
+                                tkbMonhocItem.setTo(tkbObject.getString("To").trim());
 
                                 lichArray = tkbObject.getJSONArray("Lich");
                                 for(int j = 0 ; j < lichArray.length(); j++){
                                     lichObject = lichArray.getJSONObject(j);
                                     tkbLichItem = new TkbLichItem();
-                                    tkbLichItem.setPhong(lichObject.getString("phong"));
-                                    tkbLichItem.setThu(lichObject.getString("thu"));
-                                    tkbLichItem.setTiet(lichObject.getString("tiet"));
-                                    tkbLichItem.setTuan(lichObject.getString("tuan"));
+                                    tkbLichItem.setPhong(lichObject.getString("phong").trim());
+                                    tkbLichItem.setThu(lichObject.getString("thu").trim());
+                                    tkbLichItem.setTiet(lichObject.getString("tiet").trim());
+                                    tkbLichItem.setTuan(lichObject.getString("tuan").trim());
                                     if(tkbItem.getnTuan() == 0){
                                         tkbItem.setnTuan(tkbLichItem.getTuan().length());
                                     }

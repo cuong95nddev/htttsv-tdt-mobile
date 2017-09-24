@@ -120,6 +120,9 @@ public class TrangchuMenuFragment extends Fragment{
         lists.add(new TrangchuMenuItem(Tag.TAG_MENU_HOCPHI,"HỌC PHÍ","Thông tin học phí học kỳ", R.drawable.icon_menu_7, "#9C37CB"));
         //lists.add(new TrangchuMenuItem(Tag.TAG_MENU_THONGTIN,"THÔNG TIN SV","Thông tin hồ sơ Sinh viên của bạn", R.drawable.icon_menu_6, "#AA2E85"));
 
+        lists.add(new TrangchuMenuItem(Tag.TAG_MENU_CNSV,"CNSV","Thông tin học phí học kỳ", R.drawable.icon_menu_8, "#9C37CB"));
+        lists.add(new TrangchuMenuItem(Tag.TAG_MENU_NDTT,"NĐTT","Thông tin học phí học kỳ", R.drawable.icon_menu_9, "#9C37CB"));
+        lists.add(new TrangchuMenuItem(Tag.TAG_MENU_SAKAI,"SAKAI","Thông tin học phí học kỳ", R.drawable.icon_menu_11, "#9C37CB"));
 
         adapter.notifyDataSetChanged();
     }

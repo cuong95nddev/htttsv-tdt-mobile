@@ -79,6 +79,7 @@
             android:theme="@style/FilePickerTheme">
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -109,7 +110,22 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".actitities.email.EmailNewActivity"></activity>
+        <activity android:name=".actitities.email.EmailNewActivity" />
+
+        <receiver android:name=".widget.TkbWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/tkb_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>
