@@ -9,22 +9,22 @@ import io.realm.annotations.PrimaryKey;
 public class EmailPageSave extends RealmObject {
     @PrimaryKey
     private int id = 0;
-    private int idLoadedTop;
-    private int idLoadedBottom;
+    private long idLoadedTop;
+    private long idLoadedBottom;
 
-    public int getIdLoadedTop() {
+    public long getIdLoadedTop() {
         return idLoadedTop;
     }
 
-    public void setIdLoadedTop(int idLoadedTop) {
+    public void setIdLoadedTop(long idLoadedTop) {
         this.idLoadedTop = idLoadedTop;
     }
 
-    public int getIdLoadedBottom() {
+    public long getIdLoadedBottom() {
         return idLoadedBottom;
     }
 
-    public void setIdLoadedBottom(int idLoadedBottom) {
+    public void setIdLoadedBottom(long idLoadedBottom) {
         this.idLoadedBottom = idLoadedBottom;
     }
 }

@@ -53,7 +53,7 @@ public class ListProvider implements RemoteViewsFactory {
         calendarToDay = Calendar.getInstance();
         realm = Realm.getDefaultInstance();
         user = realm.where(User.class).findFirst();
-        if(user != null){
+        if(user != null && user.getConfig() != null){
             idHocky = user.getConfig().getIdHocKyMacDinh();
 
             if(!"".equals(idHocky)){

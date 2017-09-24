@@ -27,6 +27,7 @@ import com.jkcarino.rtexteditorview.RTextEditorToolbar;
 import com.jkcarino.rtexteditorview.RTextEditorView;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 import com.nononsenseapps.filepicker.Utils;
+import com.sun.mail.imap.IMAPFolder;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -94,7 +95,7 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
 
     ProgressDialog progressDialog;
 
-    private int idMailReply = -1;
+    private long idMailReply = -1;
 
     private String emailAddress [];
     private ArrayList<String> emailAddressList;
@@ -114,7 +115,7 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
         if(bundle != null){
             to = bundle.getString(EXTRA_TO);
             subject = bundle.getString(EXTRA_SUBJECT);
-            idMailReply = bundle.getInt(EXTRA_ID_REPLY);
+            idMailReply = bundle.getLong(EXTRA_ID_REPLY);
         }
 
         RealmResults<EmailItem> realmResults = realm.where(EmailItem.class)
@@ -349,10 +350,12 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
                     Store store = emailSession.getStore("imaps");
                     store.connect(linkHostMail, username + "@student.tdt.edu.vn", password);
                     Folder emailFolder = store.getFolder("INBOX");
-                    emailFolder.open(Folder.READ_ONLY);
-                    Message emailMessage = emailFolder.getMessage(idMailReply);
+                    emailFolder.open(Folder.READ_WRITE);
+                    IMAPFolder imapFolder = (IMAPFolder) emailFolder;
+
+                    Message emailMessage = imapFolder.getMessageByUID(idMailReply);
                     message = (MimeMessage) emailMessage.reply(false);
-                    emailFolder.close(true);
+                    emailFolder.close(false);
                     store.close();
                 }else{
                     message = new MimeMessage(emailSession);

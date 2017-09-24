@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.curioustechizen.ago.RelativeTimeTextView;
+import com.sun.mail.imap.IMAPFolder;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +48,7 @@ import io.realm.Realm;
 public class EmailViewActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private WebView webView;
-    private int idEmail;
+    private long idEmail;
 
     private Realm realm;
     private User user;
@@ -78,7 +80,7 @@ public class EmailViewActivity extends AppCompatActivity {
 
     private void khoiTao(){
         Bundle bundle = getIntent().getExtras();
-        idEmail = bundle.getInt(Tag.idEmail);
+        idEmail = bundle.getLong(Tag.idEmail);
 
         realm = Realm.getDefaultInstance();
 
@@ -206,13 +208,16 @@ public class EmailViewActivity extends AppCompatActivity {
 
         @Override
         protected File doInBackground(Void... voids) {
-
+            IMAPFolder imapFolder = null;
             try {
                 store = emailSession.getStore("imaps");
                 store.connect(linkHostMail, userText + "@student.tdt.edu.vn", passText);
                 emailFolder = store.getFolder("INBOX");
                 emailFolder.open(Folder.READ_ONLY);
-                Message message = emailFolder.getMessage(idEmail);
+
+                imapFolder = (IMAPFolder) emailFolder;
+
+                Message message = imapFolder.getMessageByUID(idEmail);
                 if(message != null){
                     level = 0;
                     attnum = 1;
@@ -298,6 +303,14 @@ public class EmailViewActivity extends AppCompatActivity {
                 fileUrl,
                 fileAttachment.length(),
                 true);
+
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), nameAttachment);
+        Uri uri = Uri.fromFile(file).normalizeScheme();
+
+        Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, typeAttachment);
+        startActivity(intent);
     }
 
     @Override

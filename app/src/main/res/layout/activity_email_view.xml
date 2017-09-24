@@ -130,6 +130,8 @@
 
                </LinearLayout>
 
+               <include layout="@layout/line_space" />
+
                <WebView
                    android:id="@+id/webview"
                    android:layout_width="match_parent"

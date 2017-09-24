@@ -4,10 +4,27 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.sun.mail.imap.IMAPFolder;
+
+import org.jsoup.Jsoup;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
+import javax.mail.Address;
+import javax.mail.Flags;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+
 import edu.tdt.appstudent2.models.TietHoc;
+import edu.tdt.appstudent2.models.email.EmailAttachment;
+import edu.tdt.appstudent2.models.email.EmailItem;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
@@ -179,5 +196,78 @@ public class Util {
         }
 
         return hrSize;
+    }
+
+    public static EmailItem createEmailItem(Message message, IMAPFolder imapFolder){
+        EmailItem emailItem = null;
+        try{
+            emailItem = new EmailItem();
+            emailItem = new EmailItem();
+            emailItem.setmId(imapFolder.getUID(message));
+            Address[] froms = message.getFrom();
+            String email = froms == null ? null : ((InternetAddress) froms[0]).getAddress();
+            String personal = froms == null ? null : ((InternetAddress) froms[0]).getPersonal();
+            emailItem.setmFrom(email);
+            emailItem.setmPersonal(personal);
+            emailItem.setmSubject(message.getSubject());
+            emailItem.setmSentDate(message.getSentDate().getTime());
+
+            if(message.isSet(Flags.Flag.SEEN)){
+                emailItem.setNew(false);
+            }else{
+                emailItem.setNew(true);
+            }
+
+            dumpPart(message, emailItem, 0);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return emailItem;
+    }
+
+
+    public static void dumpPart(Part p, EmailItem emailItem, int level) throws Exception {
+        if (p.isMimeType("text/plain")) {
+            StringBuilder sb = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                sb.append("</br>");
+            }
+            br.close();
+            emailItem.setmBody(sb.toString());
+        } else if(p.isMimeType("text/html")){
+            emailItem.setmBody(Jsoup.parse(p.getContent().toString()).toString());
+        } else if (p.isMimeType("multipart/*")) {
+            Multipart mp = (Multipart)p.getContent();
+            level++;
+            int count = mp.getCount();
+            for (int i = 0; i < count; i++)
+                dumpPart(mp.getBodyPart(i), emailItem, level);
+            level--;
+        } else if (p.isMimeType("message/rfc822")) {
+            level++;
+            dumpPart((Part)p.getContent(), emailItem, level);
+            level--;
+        }
+
+        if (level != 0 && p instanceof MimeBodyPart && !p.isMimeType("multipart/*")) {
+            String disp = p.getDisposition();
+            if (disp == null || disp.equalsIgnoreCase(Part.ATTACHMENT)) {
+                String filename = p.getFileName();
+                if (filename != null) {
+                    EmailAttachment emailAttachment = new EmailAttachment();
+                    emailAttachment.setId(emailItem.getmId() + "-" + filename);
+                    emailAttachment.setName(filename);
+                    emailAttachment.setType(p.getContentType().split("; ")[0].toLowerCase());
+                    emailItem.getEmailAttachments().add(emailAttachment);
+                }
+            }
+        }
     }
 }

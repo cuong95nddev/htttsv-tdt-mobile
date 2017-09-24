@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
  */
 public class EmailItem extends RealmObject{
     @PrimaryKey
-    private int mId;
+    private long mId;
     private String mFrom;
     private String mTo;
     private String mCc;
@@ -30,11 +30,11 @@ public class EmailItem extends RealmObject{
         this.emailAttachments = emailAttachments;
     }
 
-    public int getmId() {
+    public long getmId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setmId(long mId) {
         this.mId = mId;
     }
 
@@ -100,5 +100,10 @@ public class EmailItem extends RealmObject{
 
     public void setmSentDate(long mSentDate) {
         this.mSentDate = mSentDate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof EmailItem && ((EmailItem) obj).getmId() == mId;
     }
 }
