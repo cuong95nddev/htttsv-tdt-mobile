@@ -11,6 +11,7 @@ public class User extends RealmObject {
     private int id;
     private String userName;
     private String passWord;
+    private String passWordSakai;
     private String name;
     private String linkAvatar;
     private String linkHostMail;
@@ -116,6 +117,14 @@ public class User extends RealmObject {
 
     public void setCheckNetworkState(boolean checkNetworkState) {
         this.checkNetworkState = checkNetworkState;
+    }
+
+    public String getPassWordSakai() {
+        return passWordSakai;
+    }
+
+    public void setPassWordSakai(String passWordSakai) {
+        this.passWordSakai = passWordSakai;
     }
 }
 

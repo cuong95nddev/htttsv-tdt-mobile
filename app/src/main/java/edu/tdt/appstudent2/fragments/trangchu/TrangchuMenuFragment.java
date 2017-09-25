@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import edu.tdt.appstudent2.R;
+import edu.tdt.appstudent2.actitities.cnsv.CnsvActivity;
 import edu.tdt.appstudent2.actitities.diem.DiemActivity;
 import edu.tdt.appstudent2.actitities.email.EmailActivity;
 import edu.tdt.appstudent2.actitities.hdpt.HdptActivity;
 import edu.tdt.appstudent2.actitities.hocphi.HocphiActivity;
 import edu.tdt.appstudent2.actitities.lichthi.LichThiActivity;
+import edu.tdt.appstudent2.actitities.ndtt.NdttActivity;
+import edu.tdt.appstudent2.actitities.sakai.SakaiActivity;
 import edu.tdt.appstudent2.actitities.thongbao.ThongbaoActivity;
 import edu.tdt.appstudent2.actitities.tkb.TkbActivity;
 import edu.tdt.appstudent2.adapters.trangchu.TrangchuMenuRecyclerViewAdapter;
@@ -100,6 +103,18 @@ public class TrangchuMenuFragment extends Fragment{
                         Intent lichThi = new Intent(getActivity(), LichThiActivity.class);
                         startActivity(lichThi);
                         break;
+                    case Tag.TAG_MENU_NDTT:
+                        Intent ndtt = new Intent(getActivity(), NdttActivity.class);
+                        startActivity(ndtt);
+                        break;
+                    case Tag.TAG_MENU_CNSV:
+                        Intent cnsv = new Intent(getActivity(), CnsvActivity.class);
+                        startActivity(cnsv);
+                        break;
+                    case Tag.TAG_MENU_SAKAI:
+                        Intent sakai = new Intent(getActivity(), SakaiActivity.class);
+                        startActivity(sakai);
+                        break;
                 }
             }
         });
@@ -120,9 +135,11 @@ public class TrangchuMenuFragment extends Fragment{
         lists.add(new TrangchuMenuItem(Tag.TAG_MENU_HOCPHI,"HỌC PHÍ","Thông tin học phí học kỳ", R.drawable.icon_menu_7, "#9C37CB"));
         //lists.add(new TrangchuMenuItem(Tag.TAG_MENU_THONGTIN,"THÔNG TIN SV","Thông tin hồ sơ Sinh viên của bạn", R.drawable.icon_menu_6, "#AA2E85"));
 
+        lists.add(new TrangchuMenuItem(Tag.TAG_MENU_SAKAI,"SAKAI","Thông tin học phí học kỳ", R.drawable.icon_menu_11, "#9C37CB"));
+
+
         lists.add(new TrangchuMenuItem(Tag.TAG_MENU_CNSV,"CNSV","Thông tin học phí học kỳ", R.drawable.icon_menu_8, "#9C37CB"));
         lists.add(new TrangchuMenuItem(Tag.TAG_MENU_NDTT,"NĐTT","Thông tin học phí học kỳ", R.drawable.icon_menu_9, "#9C37CB"));
-        lists.add(new TrangchuMenuItem(Tag.TAG_MENU_SAKAI,"SAKAI","Thông tin học phí học kỳ", R.drawable.icon_menu_11, "#9C37CB"));
 
         adapter.notifyDataSetChanged();
     }

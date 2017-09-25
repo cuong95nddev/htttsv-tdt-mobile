@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_margin="8dp"
+        android:padding="12dp"
+        android:id="@+id/layout"
+        android:background="@drawable/cricle_bg_ndtt_item"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mrl_rippleOverlay="true"
+        app:mrl_rippleColor="@color/materialRipple">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/imgAttachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:src="@drawable/ic_attachment_black_24dp"/>
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/tvTile"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cập nhật đăng ký Case study"/>
+            </LinearLayout>
+            <com.github.curioustechizen.ago.RelativeTimeTextView
+                android:id="@+id/tvCreatedOn"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                app:relative_time_prefix=""
+                android:layout_marginBottom="4dp"
+                app:reference_time="1506329331639"/>
+            <TextView
+                android:id="@+id/tvCreatedByDisplayName"
+                android:textStyle="italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tran Thanh Phuoc"/>
+        </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+</LinearLayout>

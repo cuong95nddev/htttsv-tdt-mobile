@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:padding="12dp"
+        android:background="@drawable/cricle_bg_ndtt_item"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvType"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gia han hoc phi"/>
+        <TextView
+            android:id="@+id/tvHk"
+            android:layout_marginBottom="4dp"
+            android:textSize="12dp"
+            android:textColor="@color/colorDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HK 1/2017-2018"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ngày yêu cầu"/>
+            <TextView
+                android:id="@+id/tvDateRequest"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="HK 1/2017-2018"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ngày giải quyết"/>
+            <TextView
+                android:id="@+id/tvDateResponse"
+                android:textStyle="bold"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="HK 1/2017-2018"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/cricle_bg_ndtt_item_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="HK 1/2017-2018"/>
+        <TextView
+            android:id="@+id/tvNote"
+            android:textStyle="italic"
+            android:textSize="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đề nghị sinh viên theo dõi thông báo đóng học phí t"/>
+    </LinearLayout>
+</LinearLayout>

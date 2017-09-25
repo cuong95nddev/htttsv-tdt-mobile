@@ -138,7 +138,11 @@ public class EmailViewActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent sendMailIntent = new Intent(EmailViewActivity.this, EmailNewActivity.class);
                 sendMailIntent.putExtra(EmailNewActivity.EXTRA_TO, emailItem.getmFrom());
-                sendMailIntent.putExtra(EmailNewActivity.EXTRA_SUBJECT, "Re: " + emailItem.getmSubject());
+                if(emailItem.getmSubject().contains("Re:")){
+                    sendMailIntent.putExtra(EmailNewActivity.EXTRA_SUBJECT, emailItem.getmSubject());
+                }else{
+                    sendMailIntent.putExtra(EmailNewActivity.EXTRA_SUBJECT, "Re: " + emailItem.getmSubject());
+                }
                 sendMailIntent.putExtra(EmailNewActivity.EXTRA_ID_REPLY, emailItem.getmId());
 
                 startActivity(sendMailIntent);
