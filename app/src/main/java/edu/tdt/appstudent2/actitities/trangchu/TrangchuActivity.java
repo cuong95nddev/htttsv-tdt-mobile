@@ -38,6 +38,8 @@ import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.firebase.News;
 import edu.tdt.appstudent2.models.firebase.UpdateApp;
 import edu.tdt.appstudent2.models.firebase.UserOnline;
+import edu.tdt.appstudent2.service.CheckEmailService;
+import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.utils.StringUtil;
 import edu.tdt.appstudent2.views.widget.CircleImageView;
 import edu.tdt.appstudent2.views.widget.SnowingView;
@@ -48,6 +50,7 @@ public class TrangchuActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private Realm realm;
     private User user;
+
     private String userText, passText, avatarText, nameText;
     private TextView massv, name;
     private CircleImageView avatar;
@@ -132,7 +135,6 @@ public class TrangchuActivity extends AppCompatActivity{
         setContentView(R.layout.activity_trangchu);
         anhXa();
         addPaper();
-
 
         PermissionHelper permissionHelper = new PermissionHelper(this); //getActivity in fragments
 
@@ -246,6 +248,7 @@ public class TrangchuActivity extends AppCompatActivity{
             }
         });
     }
+
 
     private void changeSnowView(int calendar) {
         switch (calendar){

@@ -232,6 +232,11 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     private void setIconNoti(){
+
+        if(user.getEmailServiceConfig().isOpen()){
+            ServiceUtils.startService(this, CheckEmailService.class, user.getEmailServiceConfig().getTimeReplay());
+        }
+
         btnNoti.setImageResource(user.getEmailServiceConfig().isOpen()?
                 R.drawable.ic_notifications_active_black_24dp:R.drawable.ic_notifications_off_black_24dp);
     }
@@ -330,13 +335,14 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     private void checkOffline(){
-        enableNoti = true;
         emailPageSave = realm.where(EmailPageSave.class)
                 .findFirst();
         if(emailPageSave == null){
             swipeContainer.setRefreshing(true);
             readMailFirst(MAX_NUM_LOAD);
         }else {
+            enableNoti = true;
+            setIconNoti();
             showOffline();
             swipeContainer.setRefreshing(true);
             readNewMail(emailPageSave.getIdLoadedTop());
@@ -404,14 +410,16 @@ public class EmailActivity extends AppCompatActivity {
 
 
     private void readMoreMail(final long limit, final long idLoadedBottom){
-        tvLoadMore.setVisibility(View.GONE);
-        layoutLoadmore.setVisibility(View.VISIBLE);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                new ReadMoreMail().execute(limit, idLoadedBottom);
-            }
-        });
+        if (Util.isNetworkAvailable(this)) {
+            tvLoadMore.setVisibility(View.GONE);
+            layoutLoadmore.setVisibility(View.VISIBLE);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    new ReadMoreMail().execute(limit, idLoadedBottom);
+                }
+            });
+        }
     }
 
     private class ReadMoreMail extends AsyncTask<Long, Integer, List<EmailItem>>{
@@ -516,12 +524,16 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     private void readNewMail(final long idLoadedTop){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                new ReadNewMail().execute(idLoadedTop);
-            }
-        });
+        if(Util.isNetworkAvailable(this)){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    new ReadNewMail().execute(idLoadedTop);
+                }
+            });
+        }else{
+            swipeContainer.setRefreshing(false);
+        }
     }
 
     private class ReadNewMail extends AsyncTask<Long, Integer, List<EmailItem>>{
@@ -610,12 +622,16 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     private void readMailFirst(final int limit){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                new ReadMailFirst().execute(limit);
-            }
-        });
+        if(Util.isNetworkAvailable(this)){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    new ReadMailFirst().execute(limit);
+                }
+            });
+        }else{
+            swipeContainer.setRefreshing(false);
+        }
     }
 
     private class ReadMailFirst extends AsyncTask<Integer, Integer, List<EmailItem>>{
@@ -701,6 +717,8 @@ public class EmailActivity extends AppCompatActivity {
                 realm.commitTransaction();
 
                 adapter.notifyDataSetChanged();
+
+                enableNoti = true;
             }
 
             swipeContainer.setRefreshing(false);

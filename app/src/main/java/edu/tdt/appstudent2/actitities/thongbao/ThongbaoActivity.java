@@ -33,6 +33,7 @@ import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.thongbao.DonviItem;
 import edu.tdt.appstudent2.models.thongbao.ThongbaoCache;
 import edu.tdt.appstudent2.models.thongbao.ThongbaoItem;
+import edu.tdt.appstudent2.service.CheckEmailService;
 import edu.tdt.appstudent2.service.CheckNewsService;
 import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.utils.Tag;
@@ -161,6 +162,11 @@ public class ThongbaoActivity extends AppCompatActivity {
     }
 
     private void setIconNoti(){
+
+        if(user.getTbServiceConfig().isOpen()){
+            ServiceUtils.startService(this, CheckNewsService.class, user.getTbServiceConfig().getTimeReplay());
+        }
+
         btnNoti.setImageResource(user.getTbServiceConfig().isOpen()?
                 R.drawable.ic_notifications_active_black_24dp:R.drawable.ic_notifications_off_black_24dp);
     }

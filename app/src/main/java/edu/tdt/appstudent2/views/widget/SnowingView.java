@@ -39,7 +39,7 @@ public class SnowingView extends View implements SensorEventListener {
 
   private final static int DEFAULT_SNOWFLAKE_BITMAP_VALUE = -1;
 
-  private final static int DEFAULT_SNOWFLAKE_COUNT = 20;
+  private final static int DEFAULT_SNOWFLAKE_COUNT = 15;
 
   private final static int LOW_VELOCITY_Y = 150;
 
