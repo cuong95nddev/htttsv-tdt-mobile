@@ -8,8 +8,8 @@ android {
         applicationId "edu.tdt.appstudent2"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 6
-        versionName "6.170926"
+        versionCode 7
+        versionName "6.170926b"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
