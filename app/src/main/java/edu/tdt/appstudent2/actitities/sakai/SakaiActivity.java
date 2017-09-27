@@ -55,7 +55,7 @@ public class SakaiActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         user = realm.where(User.class).findFirst();
         userText = user.getUserName();
-        passText = user.getPassWord();
+        passText = user.getPassWordSakai();
     }
 
     private void anhXa(){
@@ -144,6 +144,7 @@ public class SakaiActivity extends AppCompatActivity {
                     return;
                 }
 
+                passText = pass;
 
                 realm.beginTransaction();
                 user.setPassWordSakai(pass);
@@ -164,8 +165,6 @@ public class SakaiActivity extends AppCompatActivity {
 
 
     private void getNewSakai(){
-
-        Log.d("ahihi", passText);
 
         if(passText == null){
             Toast.makeText(getApplicationContext(), "Vui lòng nhập mật khẩu cho Sakai", Toast.LENGTH_SHORT).show();
@@ -286,5 +285,11 @@ public class SakaiActivity extends AppCompatActivity {
 
             swipeContainer.setRefreshing(false);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }

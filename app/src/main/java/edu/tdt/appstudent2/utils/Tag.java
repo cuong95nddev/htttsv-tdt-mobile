@@ -20,5 +20,7 @@ public class Tag {
     public static final int TAG_MENU_CNSV = 8;
     public static final int TAG_MENU_NDTT = 9;
     public static final int TAG_MENU_SAKAI = 10;
+    public static final int TAG_MENU_BUG = 11;
+    public static final int TAG_MENU_ABOUT = 12;
 
 }

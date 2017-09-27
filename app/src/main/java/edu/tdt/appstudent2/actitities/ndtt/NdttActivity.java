@@ -176,4 +176,10 @@ public class NdttActivity extends AppCompatActivity {
             swipeContainer.setRefreshing(false);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 }

@@ -146,10 +146,14 @@ public class HocphiFragment extends Fragment {
             }
             list.add(new HocphiHeaderItem(hocphiItem.getHocPhiPhaiNop(), hocphiItem.getNgayCapNhap()));
             RealmList<HocphiChitiet> hocphiChitiets = hocphiItem.getHocphiChitiets();
-            if(hocphiItem.getNgayThanhToan() != null){
+
+            if(hocphiItem.getHocphiThanhtoanItems().size() > 0)
                 list.add(new HocphiTitleItem("THANH TOÁN"));
-                list.add(new HocphiThanhtoanItem(hocphiItem.getNgayThanhToan(), hocphiItem.getHinhThucThanhToan(), hocphiItem.getSoTienThanhToan()));
+
+            for(HocphiThanhtoanItem hocphiThanhtoanItem : hocphiItem.getHocphiThanhtoanItems()){
+                list.add(hocphiThanhtoanItem);
             }
+
             list.add(new HocphiTitleItem("THÔNG TIN"));
             list.add(new HocphiMucItem("Nợ kỳ trước", hocphiItem.getNoHocKyTruoc()));
             list.add(new HocphiMucItem("Học phí học kỳ", hocphiItem.getHocPhiHocKy()));
@@ -241,11 +245,13 @@ public class HocphiFragment extends Fragment {
                                 }
 
                                 JSONArray chitietttArray = data.getJSONArray("chitiettt");
-                                if (chitietttArray.length() > 0) {
-                                    JSONObject chitiettt = chitietttArray.getJSONObject(0);
-                                    hocphiItem.setNgayThanhToan(chitiettt.getString("StrPaidDate"));
-                                    hocphiItem.setHinhThucThanhToan(chitiettt.getString("HinhThucThanhToanID"));
-                                    hocphiItem.setSoTienThanhToan(chitiettt.getString("StrTotalCost"));
+                                for(int i = 0 ; i < chitietttArray.length(); i++){
+                                    JSONObject chitiettt = chitietttArray.getJSONObject(i);
+                                    HocphiThanhtoanItem hocphiThanhtoanItem = new HocphiThanhtoanItem();
+                                    hocphiThanhtoanItem.setHinhThucThanhToan(chitiettt.getString("HinhThucThanhToanID"));
+                                    hocphiThanhtoanItem.setNgayThanhToan(chitiettt.getString("StrPaidDate"));
+                                    hocphiThanhtoanItem.setSoTienThanhToan(chitiettt.getString("StrTotalCost"));
+                                    hocphiItem.getHocphiThanhtoanItems().add(hocphiThanhtoanItem);
                                 }
                                 realm.copyToRealmOrUpdate(hocphiItem);
                             }

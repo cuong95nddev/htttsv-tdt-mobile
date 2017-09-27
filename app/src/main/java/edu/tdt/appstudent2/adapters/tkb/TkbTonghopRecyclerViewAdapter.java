@@ -2,7 +2,6 @@ package edu.tdt.appstudent2.adapters.tkb;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,11 +131,9 @@ public class TkbTonghopRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
 
     public class ThuViewHolder extends RecyclerView.ViewHolder{
         public TextView thu;
-        public CardView bg;
         public ThuViewHolder(View itemView) {
             super(itemView);
             thu = (TextView) itemView.findViewById(R.id.thu_text);
-            bg = (CardView) itemView.findViewById(R.id.bg_cardview);
         }
     }
 

@@ -54,6 +54,7 @@ public class NdttResultAdapter extends RecyclerView.Adapter {
         ndttResultViewHolder.tvDateResponse.setText(item.getDateResponse());
         ndttResultViewHolder.tvStatus.setText(item.getStatus());
         ndttResultViewHolder.tvNote.setText(item.getNote());
+        ndttResultViewHolder.tvId.setText(item.getId());
     }
 
     @Override
@@ -62,10 +63,11 @@ public class NdttResultAdapter extends RecyclerView.Adapter {
     }
 
     private class NdttResultViewHolder extends RecyclerView.ViewHolder{
-        public TextView tvType, tvHk, tvDateRequest, tvDateResponse, tvStatus, tvNote;
+        public TextView tvType, tvId, tvHk, tvDateRequest, tvDateResponse, tvStatus, tvNote;
 
         public NdttResultViewHolder(View itemView) {
             super(itemView);
+            tvId = (TextView) itemView.findViewById(R.id.tvId);
             tvType = (TextView) itemView.findViewById(R.id.tvType);
             tvHk = (TextView) itemView.findViewById(R.id.tvHk);
             tvDateRequest = (TextView) itemView.findViewById(R.id.tvDateRequest);

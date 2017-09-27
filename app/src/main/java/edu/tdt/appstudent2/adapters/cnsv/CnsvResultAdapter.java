@@ -54,6 +54,7 @@ public class CnsvResultAdapter extends RecyclerView.Adapter{
         CnsvResultViewHolder.tvDateResponse.setText(item.getDateResponse());
         CnsvResultViewHolder.tvStatus.setText(item.getStatus());
         CnsvResultViewHolder.tvNote.setText(item.getNote());
+        CnsvResultViewHolder.tvId.setText(item.getId());
     }
 
     @Override
@@ -62,7 +63,7 @@ public class CnsvResultAdapter extends RecyclerView.Adapter{
     }
 
     private class CnsvResultViewHolder extends RecyclerView.ViewHolder{
-        public TextView tvType, tvHk, tvDateRequest, tvDateResponse, tvStatus, tvNote;
+        public TextView tvType, tvId, tvHk, tvDateRequest, tvDateResponse, tvStatus, tvNote;
 
         public CnsvResultViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +73,7 @@ public class CnsvResultAdapter extends RecyclerView.Adapter{
             tvDateResponse = (TextView) itemView.findViewById(R.id.tvDateResponse);
             tvStatus = (TextView) itemView.findViewById(R.id.tvStatus);
             tvNote = (TextView) itemView.findViewById(R.id.tvNote);
+            tvId = (TextView) itemView.findViewById(R.id.tvId);
         }
     }
 }

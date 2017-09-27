@@ -61,6 +61,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
+                        android:tint="@color/colorAccent"
                         android:background="@drawable/selector_light_theme"
                         android:src="@drawable/ic_notifications_off_black_24dp" />
 

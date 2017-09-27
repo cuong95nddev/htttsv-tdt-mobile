@@ -39,7 +39,7 @@ public class SnowingView extends View implements SensorEventListener {
 
   private final static int DEFAULT_SNOWFLAKE_BITMAP_VALUE = -1;
 
-  private final static int DEFAULT_SNOWFLAKE_COUNT = 25;
+  private final static int DEFAULT_SNOWFLAKE_COUNT = 20;
 
   private final static int LOW_VELOCITY_Y = 150;
 
@@ -200,6 +200,11 @@ public class SnowingView extends View implements SensorEventListener {
     mSnowFlakeBitmapPivotX = mSnowFlakeBitmap.getWidth() / 2.0F;
     mSnowFlakeBitmapPivotY = mSnowFlakeBitmap.getHeight() / 2.0F;
   }
+
+  public void setIcon(int id){
+    mSnowFlakeBitmap = BitmapFactory.decodeResource(getResources(), id);
+  }
+
 
   /**
    * 初始化传感器

@@ -1,18 +1,15 @@
 package edu.tdt.appstudent2.models.hocphi;
 
+import io.realm.RealmObject;
+
 /**
  * Created by Bichan on 7/16/2016.
  */
-public class HocphiThanhtoanItem {
+public class HocphiThanhtoanItem extends RealmObject{
     private String ngayThanhToan;
     private String hinhThucThanhToan;
     private String soTienThanhToan;
 
-    public HocphiThanhtoanItem(String ngayThanhToan, String hinhThucThanhToan, String soTienThanhToan) {
-        this.ngayThanhToan = ngayThanhToan;
-        this.hinhThucThanhToan = hinhThucThanhToan;
-        this.soTienThanhToan = soTienThanhToan;
-    }
 
     public String getNgayThanhToan() {
         return ngayThanhToan;

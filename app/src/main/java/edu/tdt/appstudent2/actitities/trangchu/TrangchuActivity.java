@@ -40,6 +40,7 @@ import edu.tdt.appstudent2.models.firebase.UpdateApp;
 import edu.tdt.appstudent2.models.firebase.UserOnline;
 import edu.tdt.appstudent2.utils.StringUtil;
 import edu.tdt.appstudent2.views.widget.CircleImageView;
+import edu.tdt.appstudent2.views.widget.SnowingView;
 import io.realm.Realm;
 import ru.alexbykov.nopermission.PermissionHelper;
 
@@ -76,6 +77,8 @@ public class TrangchuActivity extends AppCompatActivity{
 
     private UpdateApp updateApp;
     private News news;
+
+    private SnowingView snowingView;
 
     private AppCompatImageButton btnOpenChat;
     private AppCompatImageButton btnSetting;
@@ -120,6 +123,8 @@ public class TrangchuActivity extends AppCompatActivity{
         name.setText(nameText);
         massv.setText(userText);
         Picasso.with(getApplicationContext()).load(avatarText).into(avatar);
+
+        snowingView = (SnowingView) findViewById(R.id.snowing_view);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +190,7 @@ public class TrangchuActivity extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 updateApp = dataSnapshot.getValue(UpdateApp.class);
                 checkUpdate();
+                changeSnowView(updateApp.calendar);
             }
 
             @Override
@@ -239,6 +245,29 @@ public class TrangchuActivity extends AppCompatActivity{
                 logOut();
             }
         });
+    }
+
+    private void changeSnowView(int calendar) {
+        switch (calendar){
+            case 1:
+                snowingView.setIcon(R.drawable.snowflake);
+                break;
+            case 2:
+                snowingView.setIcon(R.drawable.ic_moon_festival);
+                break;
+            case 3:
+                snowingView.setIcon(R.drawable.ic_halloween);
+                break;
+            case 4:
+                snowingView.setIcon(R.drawable.ic_hoamai);
+                break;
+            case 5:
+                snowingView.setIcon(R.drawable.ic_heart_icon);
+                break;
+            default:
+                snowingView.setVisibility(View.GONE);
+                snowingView.stopFall();
+        }
     }
 
     @Override

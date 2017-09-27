@@ -8,8 +8,8 @@ android {
         applicationId "edu.tdt.appstudent2"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 5
-        versionName "5.170914"
+        versionCode 6
+        versionName "6.170926"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -60,6 +60,7 @@ dependencies {
     compile 'com.jaredrummler:colorpicker:1.0.1'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.nononsenseapps:filepicker:4.1.0'
+    compile 'com.github.jrvansuita:MaterialAbout:+'
     testCompile 'junit:junit:4.12'
 }
 

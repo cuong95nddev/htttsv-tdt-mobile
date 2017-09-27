@@ -53,7 +53,7 @@
                         app:mrl_rippleColor="@color/materialRipple">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
 
@@ -65,10 +65,10 @@
                                 android:paddingRight="12dp"
                                 android:paddingTop="4dp"
                                 android:paddingBottom="4dp"
-                                android:background="@drawable/circle"
+                                android:background="@drawable/cricle_bg_select"
                                 android:textStyle="bold"
                                 android:textSize="16dp"
-                                android:textColor="@color/colorAccent"
+                                android:textColor="@color/black"
                                 android:text="Chọn học kỳ" />
                         </LinearLayout>
                     </com.balysv.materialripple.MaterialRippleLayout>

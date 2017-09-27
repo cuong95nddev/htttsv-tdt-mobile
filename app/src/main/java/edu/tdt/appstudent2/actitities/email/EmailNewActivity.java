@@ -67,6 +67,7 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
     public static final String EXTRA_TO = "EXTRA_TO";
     public static final String EXTRA_SUBJECT = "EXTRA_SUBJECT";
     public static final String EXTRA_ID_REPLY = "EXTRA_ID_REPLY";
+    public static final String EXTRA_BUG = "EXTRA_BUG";
 
 
     private static final int DIALOG_TEXT_FORE_COLOR_ID = 0;
@@ -95,10 +96,12 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
 
     ProgressDialog progressDialog;
 
-    private long idMailReply = -1;
+    private long idMailReply = 0;
 
     private String emailAddress [];
     private ArrayList<String> emailAddressList;
+
+    private boolean bug;
 
 
     private void khoiTao(){
@@ -116,7 +119,9 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
             to = bundle.getString(EXTRA_TO);
             subject = bundle.getString(EXTRA_SUBJECT);
             idMailReply = bundle.getLong(EXTRA_ID_REPLY);
+            bug = bundle.getBoolean(EXTRA_BUG);
         }
+
 
         RealmResults<EmailItem> realmResults = realm.where(EmailItem.class)
                 .findAllSorted("mId", Sort.DESCENDING);
@@ -137,6 +142,7 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
         properties.setProperty("mail.host", mailhost);
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.socketFactory.port", "465");
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.socketFactory.fallback", "false");
@@ -167,6 +173,9 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
                 android.R.layout.simple_list_item_1,
                 emailAddress));
 
+        if(bug){
+            edtTo.setVisibility(View.GONE);
+        }
 
         edtSubject = (EditText) findViewById(R.id.edtSubject);
 
@@ -346,7 +355,7 @@ public class EmailNewActivity extends AppCompatActivity implements ColorPickerDi
 
                 MimeMessage message = null;
 
-                if(idMailReply != -1){
+                if(idMailReply != 0){
                     Store store = emailSession.getStore("imaps");
                     store.connect(linkHostMail, username + "@student.tdt.edu.vn", password);
                     Folder emailFolder = store.getFolder("INBOX");

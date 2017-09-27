@@ -19,9 +19,7 @@ public class HocphiItem extends RealmObject {
     private String hocPhiConPhaiNop;
     private String ngayCapNhap;
 
-    private String ngayThanhToan;
-    private String hinhThucThanhToan;
-    private String soTienThanhToan;
+    private RealmList<HocphiThanhtoanItem> hocphiThanhtoanItems;
 
     private RealmList<HocphiChitiet> hocphiChitiets = new RealmList<HocphiChitiet>();
 
@@ -97,28 +95,14 @@ public class HocphiItem extends RealmObject {
         this.ngayCapNhap = ngayCapNhap;
     }
 
-    public String getNgayThanhToan() {
-        return ngayThanhToan;
+    public RealmList<HocphiThanhtoanItem> getHocphiThanhtoanItems() {
+        if(hocphiThanhtoanItems == null)
+            hocphiThanhtoanItems = new RealmList<>();
+        return hocphiThanhtoanItems;
     }
 
-    public void setNgayThanhToan(String ngayThanhToan) {
-        this.ngayThanhToan = ngayThanhToan;
-    }
-
-    public String getHinhThucThanhToan() {
-        return hinhThucThanhToan;
-    }
-
-    public void setHinhThucThanhToan(String hinhThucThanhToan) {
-        this.hinhThucThanhToan = hinhThucThanhToan;
-    }
-
-    public String getSoTienThanhToan() {
-        return soTienThanhToan;
-    }
-
-    public void setSoTienThanhToan(String soTienThanhToan) {
-        this.soTienThanhToan = soTienThanhToan;
+    public void setHocphiThanhtoanItems(RealmList<HocphiThanhtoanItem> hocphiThanhtoanItems) {
+        this.hocphiThanhtoanItems = hocphiThanhtoanItems;
     }
 
     public RealmList<HocphiChitiet> getHocphiChitiets() {

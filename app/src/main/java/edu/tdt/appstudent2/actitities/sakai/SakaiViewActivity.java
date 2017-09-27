@@ -183,4 +183,10 @@ public class SakaiViewActivity extends AppCompatActivity {
         }
         return mimeType.toLowerCase();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 }

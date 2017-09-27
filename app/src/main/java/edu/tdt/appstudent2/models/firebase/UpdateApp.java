@@ -5,6 +5,7 @@ package edu.tdt.appstudent2.models.firebase;
  */
 
 public class UpdateApp {
+    public int calendar;
     public long time;
     public String ver;
     public String changelog;

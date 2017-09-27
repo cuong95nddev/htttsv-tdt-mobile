@@ -199,7 +199,7 @@
             android:id="@+id/snowing_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:src="@drawable/snowflake" />
+            app:src="@drawable/snowflake"/>
 
         <ImageView
             android:layout_marginTop="-5dp"
