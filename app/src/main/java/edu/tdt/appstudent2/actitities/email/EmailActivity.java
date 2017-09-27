@@ -330,7 +330,8 @@ public class EmailActivity extends AppCompatActivity {
     }
 
     private void checkOffline(){
-       emailPageSave = realm.where(EmailPageSave.class)
+        enableNoti = true;
+        emailPageSave = realm.where(EmailPageSave.class)
                 .findFirst();
         if(emailPageSave == null){
             swipeContainer.setRefreshing(true);
