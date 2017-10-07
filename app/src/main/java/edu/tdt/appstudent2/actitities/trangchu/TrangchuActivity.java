@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -24,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,28 +29,22 @@ import java.util.Map;
 import edu.tdt.appstudent2.BuildConfig;
 import edu.tdt.appstudent2.MainActivity;
 import edu.tdt.appstudent2.R;
-import edu.tdt.appstudent2.actitities.chat.ChatActivity;
 import edu.tdt.appstudent2.fragments.trangchu.TrangchuMenuFragment;
 import edu.tdt.appstudent2.models.User;
 import edu.tdt.appstudent2.models.firebase.News;
 import edu.tdt.appstudent2.models.firebase.UpdateApp;
 import edu.tdt.appstudent2.models.firebase.UserOnline;
-import edu.tdt.appstudent2.service.CheckEmailService;
-import edu.tdt.appstudent2.service.ServiceUtils;
 import edu.tdt.appstudent2.utils.StringUtil;
-import edu.tdt.appstudent2.views.widget.CircleImageView;
 import edu.tdt.appstudent2.views.widget.SnowingView;
 import io.realm.Realm;
 import ru.alexbykov.nopermission.PermissionHelper;
 
 public class TrangchuActivity extends AppCompatActivity{
-    private Toolbar toolbar;
     private Realm realm;
     private User user;
 
     private String userText, passText, avatarText, nameText;
     private TextView massv, name;
-    private CircleImageView avatar;
 
     private DatabaseReference mDatabase;
     private DatabaseReference updateReference;
@@ -62,7 +53,7 @@ public class TrangchuActivity extends AppCompatActivity{
 
     private static final String KEY_EVENT_UPDATE = "KEY_EVENT_UPDATE";
     private static final String KEY_EVENT_NEWS = "KEY_EVENT_NEWS";
-    private static final String KEY_EVENT_USER = "KEY_EVENT_USER";
+    //private static final String KEY_EVENT_USER = "KEY_EVENT_USER";
 
     private HashMap<String, ValueEventListener> eventListenerHashMap;
     private HashMap<String, DatabaseReference> referenceHashMap;
@@ -76,15 +67,13 @@ public class TrangchuActivity extends AppCompatActivity{
     private TextView tvTileNews;
     private WebView logNews;
 
-    private TextView tvOnlineNum;
+    private Button btnLogout;
 
     private UpdateApp updateApp;
     private News news;
 
     private SnowingView snowingView;
 
-    private AppCompatImageButton btnOpenChat;
-    private AppCompatImageButton btnSetting;
 
     private void khoiTao(){
         realm = Realm.getDefaultInstance();
@@ -103,10 +92,6 @@ public class TrangchuActivity extends AppCompatActivity{
         tvTileNews = (TextView) findViewById(R.id.tvTitleNews);
         logNews = (WebView) findViewById(R.id.logNews);
 
-        tvOnlineNum = (TextView) findViewById(R.id.tvOnlineNum);
-
-        btnOpenChat = (AppCompatImageButton) findViewById(R.id.btnMess);
-        btnSetting = (AppCompatImageButton) findViewById(R.id.btnSetting);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         eventListenerHashMap = new HashMap<>();
@@ -115,19 +100,24 @@ public class TrangchuActivity extends AppCompatActivity{
     private void anhXa(){
         khoiTao();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Hệ thống thông tin Sinh viên");
 
         name = (TextView) findViewById(R.id.name_text);
         massv = (TextView) findViewById(R.id.mssv_text);
-        avatar = (CircleImageView) findViewById(R.id.avatar_img);
+
 
         name.setText(nameText);
         massv.setText(userText);
-        Picasso.with(getApplicationContext()).load(avatarText).into(avatar);
+
 
         snowingView = (SnowingView) findViewById(R.id.snowing_view);
+
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logOut();
+            }
+        });
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,29 +150,29 @@ public class TrangchuActivity extends AppCompatActivity{
                 .run();
 
         userReference = mDatabase.child("UserOnline");
-        userReference.keepSynced(false);
-        referenceHashMap.put(KEY_EVENT_USER, userReference);
-        eventListenerHashMap.put(KEY_EVENT_USER, new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int onlineNum = 0;
-                UserOnline userOnline = null;
-                long timeNow = System.currentTimeMillis();
-                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-                    userOnline = postSnapshot.getValue(UserOnline.class);
-                    if((timeNow - userOnline.time) <= 2 * 60 * 1000)
-                        onlineNum++;
-
-                }
-                tvOnlineNum.setText(""+onlineNum);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        userReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_USER));
+//        userReference.keepSynced(false);
+//        referenceHashMap.put(KEY_EVENT_USER, userReference);
+//        eventListenerHashMap.put(KEY_EVENT_USER, new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                int onlineNum = 0;
+//                UserOnline userOnline = null;
+//                long timeNow = System.currentTimeMillis();
+//                for(DataSnapshot postSnapshot: dataSnapshot.getChildren()){
+//                    userOnline = postSnapshot.getValue(UserOnline.class);
+//                    if((timeNow - userOnline.time) <= 2 * 60 * 1000)
+//                        onlineNum++;
+//
+//                }
+//                tvOnlineNum.setText(""+onlineNum);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//        userReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_USER));
 
 
         updateReference = mDatabase.child("Update");
@@ -232,21 +222,6 @@ public class TrangchuActivity extends AppCompatActivity{
         });
         newsReference.addValueEventListener(eventListenerHashMap.get(KEY_EVENT_NEWS));
 
-
-        btnOpenChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TrangchuActivity.this, ChatActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logOut();
-            }
-        });
     }
 
 

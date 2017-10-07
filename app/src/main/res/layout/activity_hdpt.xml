@@ -10,7 +10,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -117,11 +118,6 @@
                 android:layout_height="match_parent"></android.support.v4.view.ViewPager>
         </com.kennyc.view.MultiStateView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/layout_top_shadow" />
     </RelativeLayout>
 
     <com.astuetz.PagerSlidingTabStrip

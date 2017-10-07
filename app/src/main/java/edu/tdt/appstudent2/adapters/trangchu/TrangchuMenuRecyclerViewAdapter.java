@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import edu.tdt.appstudent2.R;
 import edu.tdt.appstudent2.models.trangchu.TrangchuMenuItem;
+import edu.tdt.appstudent2.utils.ColorGenerator;
 
 /**
  * Created by Bichan on 7/18/2016.
@@ -23,6 +25,7 @@ public class TrangchuMenuRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
     private ArrayList<TrangchuMenuItem> lists;
     OnItemClickListener mItemClickListener;
     OnItemLongClickListener mItemLongClickListener;
+    ColorGenerator generator = ColorGenerator.TKB;
     public TrangchuMenuRecyclerViewAdapter(Context mContext,ArrayList<TrangchuMenuItem> lists){
         this.lists = lists;
         this.mContext = mContext;
@@ -41,6 +44,11 @@ public class TrangchuMenuRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         TrangchuMenuViewHolder trangchuMenuViewHolder = (TrangchuMenuViewHolder) holder;
         trangchuMenuViewHolder.title.setText(get.getTitle());
         trangchuMenuViewHolder.icon.setImageDrawable(mContext.getResources().getDrawable(get.getIdImage()));
+
+//        int color = generator.getColor(get.getTitle());
+//        GradientDrawable backgroundGradient = (GradientDrawable)trangchuMenuViewHolder.bg.getBackground();
+//        backgroundGradient.setStroke(4, color);
+        //backgroundGradient.setColor(color);
     }
 
     @Override
@@ -53,10 +61,12 @@ public class TrangchuMenuRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         //public View bg;
         public ImageView icon;
         private MaterialRippleLayout layout;
+        private LinearLayout bg;
         public TrangchuMenuViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title_text);
             icon = (ImageView) itemView.findViewById(R.id.icon_img);
+            bg = (LinearLayout) itemView.findViewById(R.id.bg);
             layout = (MaterialRippleLayout) itemView.findViewById(R.id.layout);
             layout.setOnClickListener(this);
             layout.setOnLongClickListener(this);

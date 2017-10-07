@@ -14,7 +14,8 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -137,8 +138,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            app:fab_elevationCompat="0dp"
             android:src="@drawable/ic_create_black_24dp"
             app:fab_colorNormal="@color/white"
             app:fab_colorPressed="@color/white"

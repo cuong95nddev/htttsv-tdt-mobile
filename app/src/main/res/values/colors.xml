@@ -14,7 +14,7 @@
 
     <color name="materialRipple">#C7C7C7</color>
 
-    <color name="colorBackground">#F4F5F7</color>
+    <color name="colorBackground">#F8F8F8</color>
 
     <!--Day picker-->
     <color name="mdtp_accent_color">#F0606F</color>

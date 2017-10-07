@@ -130,7 +130,6 @@
         <activity android:name=".actitities.cnsv.CnsvActivity" />
         <activity android:name=".actitities.sakai.SakaiActivity" />
         <activity android:name=".actitities.sakai.SakaiViewActivity" />
-        <activity android:name=".actitities.about.AboutActivity"></activity>
     </application>
 
 </manifest>
